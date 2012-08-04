@@ -21,7 +21,17 @@ namespace BaconGameJam.Win7.Models.Atoms
         public Vector2 Position { get; private set; }
         public int Shell { get; set; }
 
-        private float Radius
+        public Atom Atom
+        {
+            get { return this.atom; }
+        }
+
+        public float Theta
+        {
+            get { return this.theta; }
+        }
+
+        public float Radius
         {
             get { return Atom.Radius + (Electron.ShellRadius * this.Shell); }
         }
