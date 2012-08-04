@@ -12,7 +12,7 @@ namespace BaconGameJam.Win7.ViewModels.States
         public PlayingViewModel()
         {
             this.atoms = new List<Atom>();
-            this.atoms.Add(new Atom(new Vector2(400, 240), 4));
+            this.atoms.Add(new Atom(new Vector2(400, 240), 4, 1));
         }
 
         public IEnumerable<Atom> Atoms

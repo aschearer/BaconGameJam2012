@@ -35,6 +35,7 @@ namespace BaconGameJam.Win7
             SimpleIoc.Default.Register<ConductorView>();
             SimpleIoc.Default.Register<PlayingView>();
             SimpleIoc.Default.Register<AtomView>();
+            SimpleIoc.Default.Register<ElectronView>();
 
             List<IScreenView> screenViews = new List<IScreenView>();
             screenViews.Add(this.GetInstance<PlayingView>());

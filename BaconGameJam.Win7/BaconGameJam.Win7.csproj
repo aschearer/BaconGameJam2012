@@ -87,6 +87,7 @@
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Models\Atoms\Atom.cs" />
+    <Compile Include="Models\Atoms\Electron.cs" />
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="ViewModels\ConductorViewModel.cs" />
     <Compile Include="ViewModels\IConductorViewModel.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="ViewModels\States\PlayingViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\Atoms\AtomView.cs" />
+    <Compile Include="Views\Atoms\ElectronView.cs" />
     <Compile Include="Views\ConductorView.cs" />
     <Compile Include="Views\IControl.cs" />
     <Compile Include="Views\Input\IInputManager.cs" />

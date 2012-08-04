@@ -7,11 +7,18 @@ namespace BaconGameJam.Win7.Views.Atoms
 {
     public class AtomView : IControl<Atom>
     {
+        private ElectronView electronView;
         private Texture2D texture;
         private Vector2 origin;
 
+        public AtomView(ElectronView electronView)
+        {
+            this.electronView = electronView;
+        }
+
         public void LoadContent(ContentManager content)
         {
+            this.electronView.LoadContent(content);
             this.texture = content.Load<Texture2D>("Images/InGame/Atom");
             this.origin = new Vector2(this.texture.Width / 2f, this.texture.Height / 2f);
         }
@@ -28,6 +35,11 @@ namespace BaconGameJam.Win7.Views.Atoms
                 1,
                 SpriteEffects.None,
                 0);
+
+            foreach (Electron electron in dataContext.Electrons)
+            {
+                this.electronView.Draw(gameTime, spriteBatch, electron);
+            }
         }
     }
 }
