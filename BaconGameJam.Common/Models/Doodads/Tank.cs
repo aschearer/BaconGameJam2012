@@ -21,7 +21,9 @@ namespace BaconGameJam.Common.Models.Doodads
 
             var shape = new PolygonShape(0);
             shape.SetAsBox(15 / Constants.PixelsPerMeter, 15 / Constants.PixelsPerMeter);
-            this.body.CreateFixture(shape);
+            var fixture = this.body.CreateFixture(shape);
+            fixture.CollisionCategories = this.CollisionCategory;
+            fixture.CollidesWith = Constants.EnemyCategory | Constants.ObstacleCategory | Constants.MissileCategory;
         }
 
         public bool IsMoving { get; private set; }
@@ -38,6 +40,11 @@ namespace BaconGameJam.Common.Models.Doodads
 
         public Team Team { get; set; }
         public float Heading { get; protected set; }
+
+        protected virtual Category CollisionCategory
+        {
+            get { return Constants.EnemyCategory; }
+        }
 
         public void Update(GameTime gameTime)
         {

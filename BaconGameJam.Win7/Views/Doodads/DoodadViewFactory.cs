@@ -1,3 +1,4 @@
+using System;
 using BaconGameJam.Common.Models.Doodads;
 using BaconGameJam.Common.Models.Levels;
 using BaconGameJam.Win7.Views.Input;
@@ -23,10 +24,16 @@ namespace BaconGameJam.Win7.Views.Doodads
             {
                 return new PlayerControlledTankView((PlayerControlledTank)doodad, this.input);
             }
-            else
+            else if (doodad is Tank)
             {
                 return new TankView((Tank)doodad);
             }
+            else if (doodad is Missile)
+            {
+                return new MissileView((Missile)doodad);
+            }
+
+            throw new ArgumentException("No view found for doodad");
         }
     }
 }

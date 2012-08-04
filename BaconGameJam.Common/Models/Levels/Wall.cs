@@ -20,7 +20,8 @@ namespace BaconGameJam.Common.Models.Levels
 
             var shape = new PolygonShape(0);
             shape.SetAsBox(20 / Constants.PixelsPerMeter, 20 / Constants.PixelsPerMeter);
-            this.body.CreateFixture(shape);
+            var fixture = this.body.CreateFixture(shape);
+            fixture.CollisionCategories = Constants.ObstacleCategory;
 
             this.source = source;
         }

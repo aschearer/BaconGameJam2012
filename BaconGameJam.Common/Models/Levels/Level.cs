@@ -5,7 +5,7 @@ namespace BaconGameJam.Common.Models.Levels
 {
     public class Level
     {
-        private const float WorldStep = 1 / 60f;
+        private const float WorldStep = 1f / 60f;
 
         private readonly World world;
 

@@ -104,6 +104,7 @@
     <Compile Include="Views\Atoms\ElectronView.cs" />
     <Compile Include="Views\ConductorView.cs" />
     <Compile Include="Views\Doodads\DoodadViewFactory.cs" />
+    <Compile Include="Views\Doodads\MissileView.cs" />
     <Compile Include="Views\Doodads\PlayerControlledTankView.cs" />
     <Compile Include="Views\Doodads\WallView.cs" />
     <Compile Include="Views\Farseer\DebugView.cs" />

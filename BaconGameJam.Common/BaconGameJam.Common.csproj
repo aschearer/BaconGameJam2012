@@ -81,6 +81,7 @@
     <Compile Include="Models\Doodads\DoodadPlacement.cs" />
     <Compile Include="Models\Doodads\DoodadType.cs" />
     <Compile Include="Models\Doodads\IDoodad.cs" />
+    <Compile Include="Models\Doodads\Missile.cs" />
     <Compile Include="Models\Doodads\PlayerControlledTank.cs" />
     <Compile Include="Models\Doodads\Tank.cs" />
     <Compile Include="Models\Doodads\TankFactory.cs" />

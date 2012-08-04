@@ -4,5 +4,6 @@ namespace BaconGameJam.Common.Models.Doodads
     {
         Tank,
         Wall,
+        Missile
     }
 }
