@@ -19,7 +19,7 @@ namespace BaconGameJam.Common.Models.Doodads
             : base(world, team, position, rotation)
         {
             this.doodadFactory = doodadFactory;
-            this.FireMissileCommand = new RelayCommand<Vector2>(this.FireMissile);
+            this.FireMissileCommand = new RelayCommand<Vector2>(this.FireMissile, this.CanFireMissile);
         }
 
         public ICommand FireMissileCommand { get; private set; }
@@ -44,5 +44,10 @@ namespace BaconGameJam.Common.Models.Doodads
                         Team = this.Team
                     });
         }
+
+        private bool CanFireMissile(Vector2 target)
+        {
+            return !this.ContainsPoint(target);
         }
+    }
 }

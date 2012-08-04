@@ -16,12 +16,16 @@ namespace BaconGameJam.Win7.Views.Doodads
         {
             this.tank = tank;
             this.input = input;
-            this.input.Click += this.OnClick;
+            this.input.MouseDown += this.OnMouseDown;
         }
 
-        private void OnClick(object sender, InputEventArgs e)
+        private void OnMouseDown(object sender, InputEventArgs e)
         {
-            this.tank.FireMissileCommand.Execute(new Vector2(e.X, e.Y) / Constants.PixelsPerMeter);
+            Vector2 physicalPosition = new Vector2(e.X, e.Y) / Constants.PixelsPerMeter;
+            if (this.tank.FireMissileCommand.CanExecute(physicalPosition))
+            {
+                this.tank.FireMissileCommand.Execute(physicalPosition);
+            }
         }
     }
 }

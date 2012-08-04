@@ -1,3 +1,4 @@
+using System.Linq;
 using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Factories;
@@ -39,6 +40,7 @@ namespace BaconGameJam.Common.Models.Doodads
         }
 
         public Team Team { get; set; }
+
         public float Heading { get; protected set; }
 
         protected virtual Category CollisionCategory
@@ -53,6 +55,11 @@ namespace BaconGameJam.Common.Models.Doodads
         public void RemoveFromGame()
         {
             this.world.RemoveBody(this.body);
+        }
+
+        protected bool ContainsPoint(Vector2 point)
+        {
+            return this.world.TestPointAll(point).Any(fixture => this.Equals(fixture.Body.UserData));
         }
     }
 }
