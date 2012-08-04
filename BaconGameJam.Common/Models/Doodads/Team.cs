@@ -1,4 +1,4 @@
-namespace BaconGameJam.Win7.Models.Tanks
+namespace BaconGameJam.Common.Models.Doodads
 {
     public enum Team
     {

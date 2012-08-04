@@ -1,7 +1,7 @@
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 
-namespace BaconGameJam.Win7.Models.Tanks
+namespace BaconGameJam.Common.Models.Doodads
 {
     public class TankFactory
     {

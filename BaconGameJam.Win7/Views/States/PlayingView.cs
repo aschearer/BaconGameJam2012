@@ -2,9 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
-using BaconGameJam.Win7.Models.Tanks;
+using BaconGameJam.Common;
+using BaconGameJam.Common.Models.Doodads;
 using BaconGameJam.Win7.ViewModels.States;
-using BaconGameJam.Win7.Views.Tanks;
+using BaconGameJam.Win7.Views.Doodads;
+using BaconGameJam.Win7.Views.Farseer;
+using BaconGameJam.Win7.Views.Levels;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -16,19 +19,29 @@ namespace BaconGameJam.Win7.Views.States
         private readonly ContentManager content;
         private readonly SpriteBatch spriteBatch;
         private readonly PlayingViewModel viewModel;
-        private readonly List<TankView> tankViews;
+        private readonly DoodadViewFactory doodadViewFactory;
+        private readonly LevelView levelView;
+        private readonly DebugViewXNA debugView;
+        private readonly List<IRetainedControl> doodadViews;
         private bool isContentLoaded;
 
         public PlayingView(
             ContentManager content, 
             SpriteBatch spriteBatch, 
-            PlayingViewModel viewModel)
+            PlayingViewModel viewModel,
+            DoodadViewFactory doodadViewFactory,
+            LevelView levelView,
+            DebugViewXNA debugView)
         {
             this.content = content;
-            this.tankViews = new List<TankView>();
+            this.doodadViews = new List<IRetainedControl>();
             this.spriteBatch = spriteBatch;
             this.viewModel = viewModel;
+            this.doodadViewFactory = doodadViewFactory;
+            this.levelView = levelView;
             this.viewModel.Tanks.CollectionChanged += this.OnTanksChanged;
+
+            this.debugView = debugView;
         }
 
         public void NavigateTo()
@@ -49,12 +62,25 @@ namespace BaconGameJam.Win7.Views.States
         public void Draw(GameTime gameTime)
         {
             this.spriteBatch.Begin();
-            foreach (TankView tankView in this.tankViews)
+            this.levelView.Draw(gameTime, spriteBatch);
+            foreach (IRetainedControl doodadView in this.doodadViews)
             {
-                tankView.Draw(gameTime, this.spriteBatch);
+                doodadView.Draw(gameTime, this.spriteBatch);
             }
 
             this.spriteBatch.End();
+
+            if (Constants.Debug)
+            {
+                var matrix = Matrix.CreateOrthographicOffCenter(0f,
+                                            800 / Constants.PixelsPerMeter,
+                                            480 / Constants.PixelsPerMeter,
+                                            0f,
+                                            0f,
+                                            1f);
+
+                this.debugView.RenderDebugData(ref matrix);
+            }
         }
 
         private void LoadContent()
@@ -65,10 +91,13 @@ namespace BaconGameJam.Win7.Views.States
             }
 
             this.isContentLoaded = true;
-            foreach (TankView tankView in this.tankViews)
+            foreach (IRetainedControl doodadView in this.doodadViews)
             {
-                tankView.LoadContent(this.content);
+                doodadView.LoadContent(this.content);
             }
+
+            this.levelView.LoadContent(this.content);
+            this.debugView.LoadContent(this.spriteBatch.GraphicsDevice, this.content);
         }
 
         private void OnTanksChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -76,12 +105,12 @@ namespace BaconGameJam.Win7.Views.States
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    foreach (Tank tank in e.NewItems)
+                    foreach (IDoodad doodad in e.NewItems)
                     {
-                        this.tankViews.Add(new TankView(tank));
+                        this.doodadViews.Add(this.doodadViewFactory.CreateViewFor(doodad));
                         if (this.isContentLoaded)
                         {
-                            this.tankViews.Last().LoadContent(this.content);
+                            this.doodadViews.Last().LoadContent(this.content);
                         }
                     }
 
@@ -89,12 +118,12 @@ namespace BaconGameJam.Win7.Views.States
                 case NotifyCollectionChangedAction.Remove:
                     for (int i = e.OldStartingIndex + e.OldItems.Count - 1; i >= e.OldStartingIndex; i--)
                     {
-                        this.tankViews.RemoveAt(i);
+                        this.doodadViews.RemoveAt(i);
                     }
 
                     break;
                 case NotifyCollectionChangedAction.Reset:
-                    this.tankViews.Clear();
+                    this.doodadViews.Clear();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

@@ -1,21 +1,27 @@
-using System;
+using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
 
-namespace BaconGameJam.Win7.Models.Tanks
+namespace BaconGameJam.Common.Models.Doodads
 {
-    public class Tank
+    public class Tank : IDoodad
     {
+        private readonly World world;
         private readonly Body body;
 
         public Tank(World world, Team team, Vector2 position, float rotation)
         {
+            this.world = world;
             this.body = BodyFactory.CreateBody(world, position, this);
             this.body.Rotation = rotation;
+            this.body.BodyType = BodyType.Kinematic;
             this.Team = team;
             this.Heading = rotation;
-            this.IsMoving = true;
+
+            var shape = new PolygonShape(0);
+            shape.SetAsBox(15 / Constants.PixelsPerMeter, 15 / Constants.PixelsPerMeter);
+            this.body.CreateFixture(shape);
         }
 
         public bool IsMoving { get; private set; }
@@ -35,6 +41,11 @@ namespace BaconGameJam.Win7.Models.Tanks
 
         public void Update(GameTime gameTime)
         {
+        }
+
+        public void RemoveFromGame()
+        {
+            this.world.RemoveBody(this.body);
         }
     }
 }

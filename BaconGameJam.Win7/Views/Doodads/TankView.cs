@@ -1,12 +1,13 @@
 using System;
-using BaconGameJam.Win7.Models.Tanks;
+using BaconGameJam.Common;
+using BaconGameJam.Common.Models.Doodads;
 using BaconGameJam.Win7.Views.Tweens;
 using BaconGameJam.Win7.Views.Tweens.Easings;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace BaconGameJam.Win7.Views.Tanks
+namespace BaconGameJam.Win7.Views.Doodads
 {
     public class TankView : IRetainedControl
     {
@@ -43,7 +44,7 @@ namespace BaconGameJam.Win7.Views.Tanks
 
             spriteBatch.Draw(
                 this.texture,
-                this.tank.Position,
+                this.tank.Position * Constants.PixelsPerMeter,
                 this.source,
                 Color.White,
                 this.tank.Rotation,

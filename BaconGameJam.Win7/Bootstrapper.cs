@@ -1,13 +1,17 @@
 using System;
 using System.Collections.Generic;
-using BaconGameJam.Win7.Models.Tanks;
+using System.Collections.ObjectModel;
+using BaconGameJam.Common.Models.Doodads;
+using BaconGameJam.Common.Models.Levels;
 using BaconGameJam.Win7.ViewModels;
 using BaconGameJam.Win7.ViewModels.States;
 using BaconGameJam.Win7.Views;
+using BaconGameJam.Win7.Views.Doodads;
+using BaconGameJam.Win7.Views.Farseer;
 using BaconGameJam.Win7.Views.Garden;
 using BaconGameJam.Win7.Views.Input;
+using BaconGameJam.Win7.Views.Levels;
 using BaconGameJam.Win7.Views.States;
-using BaconGameJam.Win7.Views.Tanks;
 using FarseerPhysics.Dynamics;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
@@ -29,8 +33,13 @@ namespace BaconGameJam.Win7
             SimpleIoc.Default.Register(() => new Random());
 
             // Models
+            ObservableCollection<IDoodad> doodads = new ObservableCollection<IDoodad>();
+            SimpleIoc.Default.Register(() => doodads);
+            SimpleIoc.Default.Register<Collection<IDoodad>>(() => doodads);
             SimpleIoc.Default.Register(() => new World(Vector2.Zero));
-            SimpleIoc.Default.Register<TankFactory>();
+            SimpleIoc.Default.Register<DoodadFactory>();
+            SimpleIoc.Default.Register<Level>();
+            SimpleIoc.Default.Register<LevelFactory>();
 
             // View Models
             SimpleIoc.Default.Register<IConductorViewModel, ConductorViewModel>();
@@ -42,7 +51,9 @@ namespace BaconGameJam.Win7
             SimpleIoc.Default.Register<ConductorView>();
             SimpleIoc.Default.Register<PlayingView>();
             SimpleIoc.Default.Register<FlowerView>();
-            SimpleIoc.Default.Register<TankView>();
+            SimpleIoc.Default.Register<LevelView>();
+            SimpleIoc.Default.Register<DoodadViewFactory>();
+            SimpleIoc.Default.Register<DebugViewXNA>();
 
             List<IScreenView> screenViews = new List<IScreenView>();
             screenViews.Add(this.GetInstance<PlayingView>());
