@@ -1,3 +1,6 @@
+using BaconGameJam.Win7.ViewModels;
+using BaconGameJam.Win7.ViewModels.States;
+using BaconGameJam.Win7.Views;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -11,6 +14,7 @@ namespace BaconGameJam.Win7
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
+        private ConductorView conductorView;
 
         public BaconGame()
         {
@@ -27,9 +31,13 @@ namespace BaconGameJam.Win7
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
             base.Initialize();
+            Bootstrapper bootstrapper = new Bootstrapper(this.Content, this.spriteBatch);
+
+            this.conductorView = bootstrapper.GetInstance<ConductorView>();
+
+            IConductorViewModel conductorViewModel = bootstrapper.GetInstance<IConductorViewModel>();
+            conductorViewModel.Push(typeof(PlayingViewModel));
         }
 
         /// <summary>
@@ -64,7 +72,7 @@ namespace BaconGameJam.Win7
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            // TODO: Add your update logic here
+            this.conductorView.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -77,7 +85,7 @@ namespace BaconGameJam.Win7
         {
             this.GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            this.conductorView.Draw(gameTime);
 
             base.Draw(gameTime);
         }
