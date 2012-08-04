@@ -10,6 +10,7 @@ namespace BaconGameJam.Common.Models.Doodads
     public class PlayerControlledTank : Tank
     {
         private readonly DoodadFactory doodadFactory;
+        private readonly World world;
         private bool isMoving;
 
         public PlayerControlledTank(
@@ -22,8 +23,8 @@ namespace BaconGameJam.Common.Models.Doodads
             : base(world, doodads, team, position, rotation)
         {
             this.doodadFactory = doodadFactory;
+            this.world = world;
             this.FireMissileCommand = new RelayCommand<Vector2>(this.FireMissile, this.CanFireMissile);
-            this.MoveCommand = new RelayCommand<Vector2>(this.Move);
         }
 
         public override bool IsMoving
@@ -33,11 +34,39 @@ namespace BaconGameJam.Common.Models.Doodads
 
         public ICommand FireMissileCommand { get; private set; }
 
-        public ICommand MoveCommand { get; private set; }
-
         protected override void OnUpdate(GameTime gameTime)
         {
-            
+            // up/down raycast
+            Vector2 rayStart = new Vector2(Position.X, Position.Y);
+            Vector2 rayEnd = rayStart + new Vector2(0, (MovingUp ? -1 : (MovingDown ? 1 : 0)));
+
+            this.world.RayCast((fixture, point, normal, fraction) =>
+            {
+                if ((fixture != null) & (fixture.CollisionCategories == PhysicsConstants.ObstacleCategory))
+                {
+                    if (MovingUp) MovingUp = false;
+                    else if (MovingDown) MovingDown = false;
+                    return 1;
+                }
+                return fraction;
+            }, rayStart, rayEnd);
+
+            // left/right raycast
+            rayStart = new Vector2(Position.X, Position.Y);
+            rayEnd = rayStart + new Vector2((MovingLeft ? -1 : (MovingRight ? 1 : 0)), 0);
+
+            this.world.RayCast((fixture, point, normal, fraction) =>
+            {
+                if ((fixture != null) & (fixture.CollisionCategories == PhysicsConstants.ObstacleCategory))
+                {
+                    if (MovingLeft) MovingLeft = false;
+                    else if (MovingRight) MovingRight = false;
+                    return 1;
+                }
+                return fraction;
+            }, rayStart, rayEnd);
+
+            this.Body.SetTransform(new Vector2(this.Body.Position.X + (MovingLeft ? -0.05f : (MovingRight ? 0.05f : 0)), this.Body.Position.Y + (MovingUp ? -0.05f : (MovingDown ? 0.05f : 0))), this.Heading);
         }
 
         protected override Category CollisionCategory
