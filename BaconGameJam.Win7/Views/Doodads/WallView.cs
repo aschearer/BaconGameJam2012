@@ -20,7 +20,7 @@ namespace BaconGameJam.Win7.Views.Doodads
 
         public void LoadContent(ContentManager content)
         {
-            this.texture = content.Load<Texture2D>("Levels/CompoundTileSet");
+            this.texture = content.Load<Texture2D>("TileSets/CompoundTileSet");
             this.origin = new Vector2(20, 20);
         }
 

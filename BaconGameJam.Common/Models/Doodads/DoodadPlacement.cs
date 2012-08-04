@@ -18,5 +18,8 @@ namespace BaconGameJam.Common.Models.Doodads
 
         [DataMember]
         public Rectangle Source { get; set; }
+
+        [DataMember]
+        public Team Team { get; set; }
     }
 }

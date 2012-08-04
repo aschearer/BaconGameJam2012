@@ -11,7 +11,7 @@ namespace BaconGameJam.Win7.Views.Levels
 
         public void LoadContent(ContentManager content)
         {
-            this.texture = content.Load<Texture2D>("Levels/CompoundTileSet");
+            this.texture = content.Load<Texture2D>("TileSets/CompoundTileSet");
             this.source = new Rectangle(40, 0, 40, 40);
         }
 

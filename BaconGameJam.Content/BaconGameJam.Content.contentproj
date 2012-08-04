@@ -79,13 +79,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Levels\CompoundTileSet.png">
-      <Name>CompoundTileSet</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\BaconGameJam.ContentPipeline\BaconGameJam.ContentPipeline.csproj">
       <Project>{6A458027-0FB6-4BA6-AB7E-42D9578C8FFA}</Project>
       <Name>BaconGameJam.ContentPipeline</Name>
@@ -96,6 +89,13 @@
       <Name>Level1</Name>
       <Importer>TmxImporter</Importer>
       <Processor>LevelProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="TileSets\CompoundTileSet.png">
+      <Name>CompoundTileSet</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
