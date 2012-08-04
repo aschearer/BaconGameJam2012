@@ -1,28 +1,29 @@
 using System;
 using System.Collections.Generic;
 using BaconGameJam.Win7.Models.Atoms;
+using BaconGameJam.Win7.Models.Garden;
 using Microsoft.Xna.Framework;
 
 namespace BaconGameJam.Win7.ViewModels.States
 {
     public class PlayingViewModel : ViewModelBase
     {
-        private readonly List<Atom> atoms;
+        private readonly List<Flower> flowers;
 
         public PlayingViewModel()
         {
-            this.atoms = new List<Atom>();
-            this.atoms.Add(new Atom(new Vector2(400, 240), 4, 12));
+            this.flowers = new List<Flower>();
+            this.flowers.Add(new Flower(new Vector2(400, 240)));
         }
 
-        public IEnumerable<Atom> Atoms
+        public IEnumerable<Flower> Flowers
         {
-            get { return this.atoms; }
+            get { return this.flowers; }
         }
 
         public void Update(GameTime gameTime)
         {
-            foreach (Atom atom in this.atoms)
+            foreach (Flower atom in this.flowers)
             {
                 atom.Update(gameTime);
             }

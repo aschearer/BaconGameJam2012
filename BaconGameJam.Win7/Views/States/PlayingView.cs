@@ -1,6 +1,6 @@
-using BaconGameJam.Win7.Models.Atoms;
+using BaconGameJam.Win7.Models.Garden;
 using BaconGameJam.Win7.ViewModels.States;
-using BaconGameJam.Win7.Views.Atoms;
+using BaconGameJam.Win7.Views.Garden;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -12,17 +12,17 @@ namespace BaconGameJam.Win7.Views.States
         private readonly ContentManager content;
         private readonly SpriteBatch spriteBatch;
         private readonly PlayingViewModel viewModel;
-        private readonly AtomView atomView;
+        private readonly FlowerView flowerView;
         private bool isContentLoaded;
 
         public PlayingView(
             ContentManager content, 
             SpriteBatch spriteBatch, 
             PlayingViewModel viewModel,
-            AtomView atomView)
+            FlowerView flowerView)
         {
             this.content = content;
-            this.atomView = atomView;
+            this.flowerView = flowerView;
             this.spriteBatch = spriteBatch;
             this.viewModel = viewModel;
         }
@@ -44,9 +44,9 @@ namespace BaconGameJam.Win7.Views.States
         public void Draw(GameTime gameTime)
         {
             this.spriteBatch.Begin();
-            foreach (Atom atom in this.viewModel.Atoms)
+            foreach (Flower flower in this.viewModel.Flowers)
             {
-                this.atomView.Draw(gameTime, this.spriteBatch, atom);
+                this.flowerView.Draw(gameTime, this.spriteBatch, flower);
             }
 
             this.spriteBatch.End();
@@ -60,7 +60,7 @@ namespace BaconGameJam.Win7.Views.States
             }
 
             this.isContentLoaded = true;
-            this.atomView.LoadContent(this.content);
+            this.flowerView.LoadContent(this.content);
         }
     }
 }

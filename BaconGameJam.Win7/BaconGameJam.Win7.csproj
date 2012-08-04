@@ -88,6 +88,8 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Models\Atoms\Atom.cs" />
     <Compile Include="Models\Atoms\Electron.cs" />
+    <Compile Include="Models\Garden\Flower.cs" />
+    <Compile Include="Models\Garden\FlowerState.cs" />
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="ViewModels\ConductorViewModel.cs" />
     <Compile Include="ViewModels\IConductorViewModel.cs" />
@@ -97,6 +99,7 @@
     <Compile Include="Views\Atoms\AtomView.cs" />
     <Compile Include="Views\Atoms\ElectronView.cs" />
     <Compile Include="Views\ConductorView.cs" />
+    <Compile Include="Views\Garden\FlowerView.cs" />
     <Compile Include="Views\IControl.cs" />
     <Compile Include="Views\Input\IInputManager.cs" />
     <Compile Include="Views\Input\InputEventArgs.cs" />

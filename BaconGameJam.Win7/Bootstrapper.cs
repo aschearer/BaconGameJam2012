@@ -1,9 +1,9 @@
+using System;
 using System.Collections.Generic;
-using BaconGameJam.Win7.Models.Atoms;
 using BaconGameJam.Win7.ViewModels;
 using BaconGameJam.Win7.ViewModels.States;
 using BaconGameJam.Win7.Views;
-using BaconGameJam.Win7.Views.Atoms;
+using BaconGameJam.Win7.Views.Garden;
 using BaconGameJam.Win7.Views.Input;
 using BaconGameJam.Win7.Views.States;
 using GalaSoft.MvvmLight.Ioc;
@@ -22,6 +22,7 @@ namespace BaconGameJam.Win7
             // Framework
             SimpleIoc.Default.Register(() => content);
             SimpleIoc.Default.Register(() => spriteBatch);
+            SimpleIoc.Default.Register(() => new Random());
 
             // Models
 
@@ -34,8 +35,7 @@ namespace BaconGameJam.Win7
             SimpleIoc.Default.Register(() => (MouseInputManager)this.GetInstance<IInputManager>());
             SimpleIoc.Default.Register<ConductorView>();
             SimpleIoc.Default.Register<PlayingView>();
-            SimpleIoc.Default.Register<AtomView>();
-            SimpleIoc.Default.Register<ElectronView>();
+            SimpleIoc.Default.Register<FlowerView>();
 
             List<IScreenView> screenViews = new List<IScreenView>();
             screenViews.Add(this.GetInstance<PlayingView>());
