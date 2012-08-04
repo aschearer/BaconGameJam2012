@@ -11,11 +11,11 @@ namespace BaconGameJam.Win7.Models.Atoms
         private readonly Atom atom;
         private float theta;
 
-        public Electron(Atom atom, int shell)
+        public Electron(Atom atom, int shell, float startingTheta)
         {
             this.atom = atom;
             this.Shell = shell;
-            this.Position = Vector2.Add(this.atom.Position, new Vector2(0, -this.Radius));
+            this.theta = startingTheta;
         }
 
         public Vector2 Position { get; private set; }
@@ -28,7 +28,7 @@ namespace BaconGameJam.Win7.Models.Atoms
 
         public void Update(GameTime gameTime)
         {
-            this.theta += (float)gameTime.ElapsedGameTime.TotalSeconds * Electron.ThetaPerSecond;
+            this.theta += (float)gameTime.ElapsedGameTime.TotalSeconds * Electron.ThetaPerSecond / this.Shell;
             Vector2 adjustedPosition = new Vector2((float)Math.Cos(this.theta), (float)Math.Sin(this.theta));
             this.Position = Vector2.Add(this.atom.Position, adjustedPosition * this.Radius);
         }

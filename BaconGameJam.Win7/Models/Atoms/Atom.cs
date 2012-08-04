@@ -16,9 +16,20 @@ namespace BaconGameJam.Win7.Models.Atoms
             this.Position = position;
             this.positiveCharge = positiveCharge;
             this.electrons = new List<Electron>();
+            float startingTheta = 0;
+            int shell = 1;
+            int electronsInShell = 0;
             for (int i = 0; i < negativeCharge; i++)
             {
-                this.electrons.Add(new Electron(this, 1));
+                electronsInShell++;
+                this.electrons.Add(new Electron(this, shell, startingTheta));
+                startingTheta += MathHelper.TwoPi / this.MaxElectronsForShell(shell);
+                if (electronsInShell == this.MaxElectronsForShell(shell))
+                {
+                    electronsInShell = 0;
+                    shell++;
+                    startingTheta += MathHelper.PiOver2;
+                }
             }
         }
 
@@ -35,6 +46,11 @@ namespace BaconGameJam.Win7.Models.Atoms
             {
                 electron.Update(gameTime);
             }
+        }
+
+        private int MaxElectronsForShell(int shell)
+        {
+            return shell + 1;
         }
     }
 }
