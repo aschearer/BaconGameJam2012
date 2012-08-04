@@ -43,10 +43,13 @@ namespace BaconGameJam.Win7.Views.States
 
         public void Draw(GameTime gameTime)
         {
+            this.spriteBatch.Begin();
             foreach (Atom atom in this.viewModel.Atoms)
             {
                 this.atomView.Draw(gameTime, this.spriteBatch, atom);
             }
+
+            this.spriteBatch.End();
         }
 
         private void LoadContent()

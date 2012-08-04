@@ -24,7 +24,6 @@ namespace BaconGameJam.Win7
             SimpleIoc.Default.Register(() => spriteBatch);
 
             // Models
-            SimpleIoc.Default.Register<Atom>();
 
             // View Models
             SimpleIoc.Default.Register<IConductorViewModel, ConductorViewModel>();
