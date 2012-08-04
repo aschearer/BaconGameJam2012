@@ -8,10 +8,12 @@ namespace BaconGameJam.Win7.Views.Doodads
     public class DoodadViewFactory
     {
         private readonly IInputManager input;
+        private readonly IKeyboardInputManager keyInput;
 
-        public DoodadViewFactory(IInputManager input)
+        public DoodadViewFactory(IInputManager input, IKeyboardInputManager keyInput)
         {
             this.input = input;
+            this.keyInput = keyInput;
         }
 
         public IRetainedControl CreateViewFor(IDoodad doodad)
@@ -22,7 +24,7 @@ namespace BaconGameJam.Win7.Views.Doodads
             }
             else if (doodad is PlayerControlledTank)
             {
-                return new PlayerControlledTankView((PlayerControlledTank)doodad, this.input);
+                return new PlayerControlledTankView((PlayerControlledTank)doodad, this.input, this.keyInput);
             }
             else if (doodad is Tank)
             {

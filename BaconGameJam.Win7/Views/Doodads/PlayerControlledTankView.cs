@@ -14,19 +14,24 @@ namespace BaconGameJam.Win7.Views.Doodads
     {
         private readonly PlayerControlledTank tank;
         private readonly IInputManager input;
-        private readonly List<Vector2> points;
+        //private readonly List<Vector2> points;
         private Texture2D pixel;
+        private readonly IKeyboardInputManager keyInput;
 
-        public PlayerControlledTankView(PlayerControlledTank tank, IInputManager input)
+        public PlayerControlledTankView(PlayerControlledTank tank, IInputManager input, IKeyboardInputManager keyInput)
             : base(tank)
         {
             this.tank = tank;
             this.input = input;
+
             this.input.MouseDown += this.OnMouseDown;
-            this.input.DragStarted += this.OnDragStarted;
-            this.input.Dragged += this.OnDragged;
-            this.input.DragEnded += this.OnDragEnded;
-            this.points = new List<Vector2>();
+            //this.input.DragStarted += this.OnDragStarted;
+            //this.input.Dragged += this.OnDragged;
+            //this.input.DragEnded += this.OnDragEnded;
+            //this.points = new List<Vector2>();
+
+            this.keyInput = keyInput;
+            this.keyInput.KeyDown += this.OnKeyDown;
         }
 
         protected override void OnLoad(ContentManager content)
@@ -34,6 +39,7 @@ namespace BaconGameJam.Win7.Views.Doodads
             this.pixel = content.Load<Texture2D>("Images/InGame/Pixel");
         }
 
+        /*
         protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             if (this.points.Count < 4)
@@ -85,6 +91,7 @@ namespace BaconGameJam.Win7.Views.Doodads
             //        0);
             //}
         }
+        */
 
        private Vector2 GetPoint(float t, Vector2 p0, Vector2 p1, Vector2 p2, Vector2 p3)
         {
@@ -118,6 +125,7 @@ namespace BaconGameJam.Win7.Views.Doodads
             }
         }
 
+        /*
         private void OnDragStarted(object sender, InputEventArgs e)
         {
             this.points.Add(new Vector2(e.X, e.Y));
@@ -133,6 +141,14 @@ namespace BaconGameJam.Win7.Views.Doodads
             this.points.Clear();
             Vector2 physicalPosition = new Vector2(e.X, e.Y) / Constants.PixelsPerMeter;
             //this.tank.MoveCommand.Execute(physicalPosition);
+        }*/
+
+        private void OnKeyDown(object send, KeyboardEventArgs e)
+        {
+            this.tank.MovingUp = e.IsUp;
+            this.tank.MovingDown = e.IsDown;
+            this.tank.MovingLeft = e.IsLeft;
+            this.tank.MovingRight = e.IsRight;
         }
     }
 }

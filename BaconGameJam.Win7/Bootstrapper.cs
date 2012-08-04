@@ -47,6 +47,8 @@ namespace BaconGameJam.Win7
             // Views
             SimpleIoc.Default.Register<IInputManager, MouseInputManager>();
             SimpleIoc.Default.Register(() => (MouseInputManager)this.GetInstance<IInputManager>());
+            SimpleIoc.Default.Register<IKeyboardInputManager, KeyboardInputManager>();
+            SimpleIoc.Default.Register(() => (KeyboardInputManager)this.GetInstance<IKeyboardInputManager>());
             SimpleIoc.Default.Register<ConductorView>();
             SimpleIoc.Default.Register<PlayingView>();
             SimpleIoc.Default.Register<LevelView>();

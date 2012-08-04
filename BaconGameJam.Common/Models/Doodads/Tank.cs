@@ -54,6 +54,11 @@ namespace BaconGameJam.Common.Models.Doodads
 
         public float Heading { get; set; }
 
+        public bool MovingUp { get; set; }
+        public bool MovingDown { get; set; }
+        public bool MovingLeft { get; set; }
+        public bool MovingRight { get; set; }
+
         protected Body Body
         {
             get { return this.body; }
@@ -67,7 +72,72 @@ namespace BaconGameJam.Common.Models.Doodads
         public void Update(GameTime gameTime)
         {
             this.OnUpdate(gameTime);
+
+            if (this.Team == Doodads.Team.Red)
+            {
+                Vector2 rayStart = new Vector2(Position.X, Position.Y);
+                Vector2 rayEnd = rayStart + new Vector2(0, (MovingUp ? -1 : 1));
+
+                this.world.RayCast((fixture, point, normal, fraction) =>
+                {
+                    if (fixture != null)
+                    {
+                        MovingUp = !MovingUp;
+                        return 1;
+                    }
+                    return fraction;
+                }, rayStart, rayEnd);
+
+                this.body.SetTransform(new Vector2(this.body.Position.X, this.body.Position.Y + (this.MovingUp ? -0.01f : 0.01f)), this.Heading);
+            }
+            else
+            {
+                // up/down raycast
+                Vector2 rayStart = new Vector2(Position.X, Position.Y);
+                Vector2 rayEnd = rayStart + new Vector2(0, (MovingUp ? -1 : (MovingDown ? 1 : 0)));
+
+                this.world.RayCast((fixture, point, normal, fraction) =>
+                {
+                    if ((fixture != null) & (fixture.CollisionCategories == Constants.ObstacleCategory))
+                    {
+                        if (MovingUp) MovingUp = false;
+                        else if (MovingDown) MovingDown = false;
+                        return 1;
+                    }
+                    return fraction;
+                }, rayStart, rayEnd);
+
+                // left/right raycast
+                rayStart = new Vector2(Position.X, Position.Y);
+                rayEnd = rayStart + new Vector2((MovingLeft ? -1 : (MovingRight ? 1 : 0)), 0);
+
+                this.world.RayCast((fixture, point, normal, fraction) =>
+                {
+                    if ((fixture != null) & (fixture.CollisionCategories == Constants.ObstacleCategory))
+                    {
+                        if (MovingLeft) MovingLeft = false;
+                        else if (MovingRight) MovingRight = false;
+                        return 1;
+                    }
+                    return fraction;
+                }, rayStart, rayEnd);
+
+                this.body.SetTransform(new Vector2(this.body.Position.X + (MovingLeft ? -0.05f : (MovingRight ? 0.05f : 0)), this.body.Position.Y + (MovingUp ? -0.05f : (MovingDown ? 0.05f : 0))), this.Heading);
+            }
         }
+
+        //bool Body_OnCollision(Fixture fixtureA, Fixture fixtureB, FarseerPhysics.Dynamics.Contacts.Contact contact)
+        //{
+        //    if (fixtureB.CollisionCategories == Constants.ObstacleCategory)
+        //    {
+        //        if ((this.Heading >= 0) && (this.Heading <= 180))
+        //            this.Heading += 180;
+        //        else if ((this.Heading > 180) && (this.Heading <= 360))
+        //            this.Heading -= 180;
+        //    }
+
+        //    return true;
+        //}
 
         public void RemoveFromGame()
         {
@@ -87,6 +157,7 @@ namespace BaconGameJam.Common.Models.Doodads
 
         protected virtual void OnUpdate(GameTime gameTime)
         {
+            //TODO: this isn't getting called from the Update() function
             this.startPoint = this.Position;
         }
     }

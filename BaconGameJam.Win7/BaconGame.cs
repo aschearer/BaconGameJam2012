@@ -17,6 +17,7 @@ namespace BaconGameJam.Win7
         private SpriteBatch spriteBatch;
         private ConductorView conductorView;
         private MouseInputManager inputManager;
+        private KeyboardInputManager keyInputManager;
 
         public BaconGame()
         {
@@ -40,6 +41,7 @@ namespace BaconGameJam.Win7
 
             this.conductorView = bootstrapper.GetInstance<ConductorView>();
             this.inputManager = bootstrapper.GetInstance<MouseInputManager>();
+            this.keyInputManager = bootstrapper.GetInstance<KeyboardInputManager>();
 
             IConductorViewModel conductorViewModel = bootstrapper.GetInstance<IConductorViewModel>();
             conductorViewModel.Push(typeof(PlayingViewModel));
@@ -79,6 +81,9 @@ namespace BaconGameJam.Win7
 
             MouseState state = Mouse.GetState();
             this.inputManager.Update(state.LeftButton, new Point(state.X, state.Y));
+
+            KeyboardState keyboardState = Keyboard.GetState();
+            this.keyInputManager.Update(keyboardState);
 
             this.conductorView.Update(gameTime);
 
