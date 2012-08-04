@@ -86,12 +86,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Models\Atoms\Atom.cs" />
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="ViewModels\ConductorViewModel.cs" />
     <Compile Include="ViewModels\IConductorViewModel.cs" />
     <Compile Include="ViewModels\NavigationEventArgs.cs" />
     <Compile Include="ViewModels\States\PlayingViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\Atoms\AtomView.cs" />
     <Compile Include="Views\ConductorView.cs" />
     <Compile Include="Views\IControl.cs" />
     <Compile Include="Views\Input\IInputManager.cs" />
@@ -116,12 +118,6 @@
     <Content Include="GameThumbnail.png">
       <XnaPlatformSpecific>true</XnaPlatformSpecific>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BaconGameJam.Content\BaconGameJamContent.contentproj">
-      <Name>BaconGameJam.Content</Name>
-      <XnaReferenceType>Content</XnaReferenceType>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
@@ -152,6 +148,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BaconGameJam.Content\BaconGameJam.Content.contentproj">
+      <Project>{E7AE5A08-F7BC-403F-AE6A-7D0AF6711795}</Project>
+      <Name>BaconGameJam.Content %28Content%29</Name>
+      <XnaReferenceType>Content</XnaReferenceType>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />

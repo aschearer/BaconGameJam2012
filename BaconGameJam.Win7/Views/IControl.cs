@@ -7,9 +7,9 @@ namespace BaconGameJam.Win7.Views
     /// <summary>
     /// Uses given SpriteBatch to draw itself
     /// </summary>
-    public interface IControl
+    public interface IControl<in T>
     {
         void LoadContent(ContentManager content);
-        void Draw(GameTime gameTime, SpriteBatch spriteBatch);
+        void Draw(GameTime gameTime, SpriteBatch spriteBatch, T dataContext);
     }
 }

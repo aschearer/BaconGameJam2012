@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using BaconGameJam.Win7.ViewModels;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace BaconGameJam.Win7.Views
 {

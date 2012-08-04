@@ -85,7 +85,7 @@ namespace BaconGameJam.Win7
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            this.GraphicsDevice.Clear(Color.CornflowerBlue);
+            this.GraphicsDevice.Clear(Color.White);
 
             this.conductorView.Draw(gameTime);
 
