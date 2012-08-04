@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Collections.ObjectModel;
 using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Factories;
@@ -10,10 +11,12 @@ namespace BaconGameJam.Common.Models.Doodads
     {
         private readonly World world;
         private readonly Body body;
+        private Collection<IDoodad> doodads;
 
-        public Tank(World world, Team team, Vector2 position, float rotation)
+        public Tank(World world, Collection<IDoodad> doodads, Team team, Vector2 position, float rotation)
         {
             this.world = world;
+            this.doodads = doodads;
             this.body = BodyFactory.CreateBody(world, position, this);
             this.body.Rotation = rotation;
             this.body.BodyType = BodyType.Kinematic;
@@ -55,6 +58,7 @@ namespace BaconGameJam.Common.Models.Doodads
         public void RemoveFromGame()
         {
             this.world.RemoveBody(this.body);
+            this.doodads.Remove(this);
         }
 
         protected bool ContainsPoint(Vector2 point)

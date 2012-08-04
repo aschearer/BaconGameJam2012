@@ -24,11 +24,11 @@ namespace BaconGameJam.Common.Models.Doodads
                 case DoodadType.Tank:
                     if (doodadPlacement.Team == Team.Green)
                     {
-                        doodad = new PlayerControlledTank(this, this.world, doodadPlacement.Team, doodadPlacement.Position, doodadPlacement.Rotation);
+                        doodad = new PlayerControlledTank(this, this.world, this.doodads, doodadPlacement.Team, doodadPlacement.Position, doodadPlacement.Rotation);
                     }
                     else
                     {
-                        doodad = new Tank(this.world, doodadPlacement.Team, doodadPlacement.Position, doodadPlacement.Rotation);
+                        doodad = new Tank(this.world, this.doodads, doodadPlacement.Team, doodadPlacement.Position, doodadPlacement.Rotation);
                     }
 
                     break;
@@ -36,7 +36,7 @@ namespace BaconGameJam.Common.Models.Doodads
                     doodad = new Wall(this.world, doodadPlacement.Position, doodadPlacement.Rotation, doodadPlacement.Source);
                     break;
                 case DoodadType.Missile:
-                    doodad = new Missile(this.world, doodadPlacement.Team, doodadPlacement.Position, doodadPlacement.Rotation);
+                    doodad = new Missile(this.world, this.doodads, doodadPlacement.Team, doodadPlacement.Position, doodadPlacement.Rotation);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

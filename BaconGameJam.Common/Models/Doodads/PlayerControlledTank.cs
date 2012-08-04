@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
+using System.Collections.ObjectModel;
 using FarseerPhysics.Dynamics;
 using GalaSoft.MvvmLight.Command;
 using Microsoft.Xna.Framework;
@@ -12,11 +13,12 @@ namespace BaconGameJam.Common.Models.Doodads
 
         public PlayerControlledTank(
             DoodadFactory doodadFactory,
-            World world, 
+            World world,
+            Collection<IDoodad> doodads,
             Team team, 
             Vector2 position, 
             float rotation)
-            : base(world, team, position, rotation)
+            : base(world, doodads, team, position, rotation)
         {
             this.doodadFactory = doodadFactory;
             this.FireMissileCommand = new RelayCommand<Vector2>(this.FireMissile, this.CanFireMissile);
