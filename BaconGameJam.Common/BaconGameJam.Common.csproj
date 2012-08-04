@@ -93,6 +93,7 @@
     <Compile Include="Models\Levels\Level.cs" />
     <Compile Include="Models\Levels\LevelFactory.cs" />
     <Compile Include="Models\Levels\Wall.cs" />
+    <Compile Include="PhysicsConstants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using BaconGameJam.Common;
 using BaconGameJam.Common.Models.Doodads;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content.Pipeline;
@@ -59,8 +60,8 @@ namespace BaconGameJam.ContentPipeline
                     placement.DoodadType = tileType;
 
                     placement.Position = new Vector2(
-                        mapObject.Bounds.Center.X + 25,
-                        mapObject.Bounds.Center.Y - 25) / 30f;
+                        mapObject.Bounds.Center.X + tile.Source.Width / 2f,
+                        mapObject.Bounds.Center.Y - tile.Source.Height / 2f) / Constants.PixelsPerMeter;
                     Team team;
                     if (!Enum.TryParse(tile.Properties["Team"], true, out team))
                     {

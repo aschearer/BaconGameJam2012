@@ -34,7 +34,7 @@ namespace BaconGameJam.Common.Models.Doodads
             shape.SetAsBox(15 / Constants.PixelsPerMeter, 15 / Constants.PixelsPerMeter);
             var fixture = this.body.CreateFixture(shape);
             fixture.CollisionCategories = this.CollisionCategory;
-            fixture.CollidesWith = Constants.EnemyCategory | Constants.ObstacleCategory | Constants.MissileCategory;
+            fixture.CollidesWith = PhysicsConstants.EnemyCategory | PhysicsConstants.ObstacleCategory | PhysicsConstants.MissileCategory;
 
         }
 
@@ -66,7 +66,7 @@ namespace BaconGameJam.Common.Models.Doodads
 
         protected virtual Category CollisionCategory
         {
-            get { return Constants.EnemyCategory; }
+            get { return PhysicsConstants.EnemyCategory; }
         }
 
         public void Update(GameTime gameTime)

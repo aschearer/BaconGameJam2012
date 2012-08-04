@@ -42,7 +42,7 @@ namespace BaconGameJam.Common.Models.Doodads
 
         protected override Category CollisionCategory
         {
-            get { return Constants.PlayerCategory; }
+            get { return PhysicsConstants.PlayerCategory; }
         }
 
         private void FireMissile(Vector2 target)

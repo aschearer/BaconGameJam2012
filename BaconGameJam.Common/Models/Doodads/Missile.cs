@@ -26,8 +26,8 @@ namespace BaconGameJam.Common.Models.Doodads
             Fixture fixture = body.CreateFixture(shape);
             fixture.Restitution = 1;
             fixture.Friction = 0;
-            fixture.CollisionCategories = Constants.MissileCategory;
-            fixture.CollidesWith = Constants.EnemyCategory | Constants.ObstacleCategory;
+            fixture.CollisionCategories = PhysicsConstants.MissileCategory;
+            fixture.CollidesWith = PhysicsConstants.EnemyCategory | PhysicsConstants.ObstacleCategory;
             fixture.OnCollision += Body_OnCollision;
             obstacleCollisionCtr = 0;
 
@@ -39,14 +39,14 @@ namespace BaconGameJam.Common.Models.Doodads
         {
             switch (fixtureB.CollisionCategories)
             {
-                case Constants.ObstacleCategory:
+                case PhysicsConstants.ObstacleCategory:
                     obstacleCollisionCtr++;
                     if (obstacleCollisionCtr >= 2)
                     {
                         RemoveFromGame();
                     }
                     break;
-                case Constants.EnemyCategory:
+                case PhysicsConstants.EnemyCategory:
                     RemoveFromGame();
                     (fixtureB.Body.UserData as Tank).RemoveFromGame();
                     break;
