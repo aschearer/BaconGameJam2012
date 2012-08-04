@@ -23,6 +23,8 @@ namespace BaconGameJam.Win7.Views.Tweens
                     return new LinearEasing();
                 case EasingFunction.Quadratic:
                     return new QuadraticEasing();
+                case EasingFunction.Discrete:
+                    return new DiscreteEasing();
                 default:
                     throw new ArgumentOutOfRangeException("easingFunction");
             }

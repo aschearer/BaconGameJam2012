@@ -7,6 +7,7 @@ namespace BaconGameJam.Win7.Views.Tweens
         float Value { get; }
         Repeat Repeats { get; set; }
         bool YoYos { get; set; }
+        bool IsPaused { get; set; }
 
         void Update(GameTime gameTime);
     }

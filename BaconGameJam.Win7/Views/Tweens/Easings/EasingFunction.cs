@@ -4,5 +4,6 @@
     {
         Linear,
         Quadratic,
+        Discrete
     }
 }

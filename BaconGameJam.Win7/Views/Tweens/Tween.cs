@@ -28,8 +28,15 @@ namespace BaconGameJam.Win7.Views.Tweens
 
         public bool YoYos { get; set; }
 
+        public bool IsPaused { get; set; }
+
         public void Update(GameTime gameTime)
         {
+            if (this.IsPaused)
+            {
+                return;
+            }
+
             this.elapsedTime = this.elapsedTime.Add(gameTime.ElapsedGameTime);
             if (this.elapsedTime.CompareTo(this.targetRunTime) < 0)
             {

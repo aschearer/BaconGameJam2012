@@ -1,31 +1,41 @@
-using System;
-using System.Collections.Generic;
-using BaconGameJam.Win7.Models.Atoms;
-using BaconGameJam.Win7.Models.Garden;
+using System.Collections.ObjectModel;
+using BaconGameJam.Win7.Models.Tanks;
 using Microsoft.Xna.Framework;
 
 namespace BaconGameJam.Win7.ViewModels.States
 {
     public class PlayingViewModel : ViewModelBase
     {
-        private readonly List<Flower> flowers;
+        private readonly TankFactory tankFactory;
+        private readonly ObservableCollection<Tank> tanks;
 
-        public PlayingViewModel()
+        public PlayingViewModel(TankFactory tankFactory)
         {
-            this.flowers = new List<Flower>();
-            this.flowers.Add(new Flower(new Vector2(400, 240)));
+            this.tankFactory = tankFactory;
+            this.tanks = new ObservableCollection<Tank>();
         }
 
-        public IEnumerable<Flower> Flowers
+        public ObservableCollection<Tank> Tanks
         {
-            get { return this.flowers; }
+            get { return this.tanks; }
+        }
+
+        public void NavigateTo()
+        {
+            int x = 200;
+            for (int i = 0; i < 5; i++)
+            {
+                this.tanks.Add(this.tankFactory.CreateTank(Team.Red, new Vector2(x, 180), MathHelper.Pi));
+                this.tanks.Add(this.tankFactory.CreateTank(Team.Green, new Vector2(x, 300), 0));
+                x += 100;
+            }
         }
 
         public void Update(GameTime gameTime)
         {
-            foreach (Flower atom in this.flowers)
+            foreach (Tank tank in this.tanks)
             {
-                atom.Update(gameTime);
+                tank.Update(gameTime);
             }
         }
     }

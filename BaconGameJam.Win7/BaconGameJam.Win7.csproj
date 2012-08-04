@@ -60,6 +60,9 @@
     <XnaCompressContent>true</XnaCompressContent>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FarseerPhysicsXNA">
+      <HintPath>..\..\..\..\Downloads\Farseer Physics Engine 3.3.1 XNA\Farseer Physics Engine 3.3.1 XNA\bin\x86\Release\FarseerPhysicsXNA.dll</HintPath>
+    </Reference>
     <Reference Include="GalaSoft.MvvmLight.Extras.WPF4">
       <HintPath>..\packages\MvvmLightLibs.4.1.23.0\lib\net40\GalaSoft.MvvmLight.Extras.WPF4.dll</HintPath>
     </Reference>
@@ -91,6 +94,8 @@
     <Compile Include="Models\Garden\Flower.cs" />
     <Compile Include="Models\Garden\FlowerState.cs" />
     <Compile Include="Models\ModelBase.cs" />
+    <Compile Include="Models\Tanks\Tank.cs" />
+    <Compile Include="Models\Tanks\Team.cs" />
     <Compile Include="ViewModels\ConductorViewModel.cs" />
     <Compile Include="ViewModels\IConductorViewModel.cs" />
     <Compile Include="ViewModels\NavigationEventArgs.cs" />
@@ -104,11 +109,16 @@
     <Compile Include="Views\Input\IInputManager.cs" />
     <Compile Include="Views\Input\InputEventArgs.cs" />
     <Compile Include="Views\Input\MouseInputManager.cs" />
+    <Compile Include="Views\IRetainedControl.cs" />
     <Compile Include="Views\IScreenView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="BaconGame.cs" />
     <Compile Include="Views\States\PlayingView.cs" />
+    <Compile Include="Models\Tanks\TankFactory.cs" />
+    <Compile Include="Views\Tanks\TankView.cs" />
+    <Compile Include="Views\Tanks\TurretView.cs" />
+    <Compile Include="Views\Tweens\Easings\DiscreteEasing.cs" />
     <Compile Include="Views\Tweens\Easings\EasingFunction.cs" />
     <Compile Include="Views\Tweens\Easings\IEasing.cs" />
     <Compile Include="Views\Tweens\Easings\LinearEasing.cs" />
