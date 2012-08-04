@@ -28,5 +28,13 @@ namespace BaconGameJam.Win7.Models.Atoms
         {
             get { return this.electrons; }
         }
+
+        public void Update(GameTime gameTime)
+        {
+            foreach (Electron electron in this.electrons)
+            {
+                electron.Update(gameTime);
+            }
+        }
     }
 }

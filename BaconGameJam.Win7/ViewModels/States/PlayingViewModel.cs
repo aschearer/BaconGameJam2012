@@ -22,6 +22,10 @@ namespace BaconGameJam.Win7.ViewModels.States
 
         public void Update(GameTime gameTime)
         {
+            foreach (Atom atom in this.atoms)
+            {
+                atom.Update(gameTime);
+            }
         }
     }
 }
