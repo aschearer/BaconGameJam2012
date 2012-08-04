@@ -77,6 +77,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="Models\Doodads\ComputerControlledTank.cs" />
     <Compile Include="Models\Doodads\DoodadFactory.cs" />
     <Compile Include="Models\Doodads\DoodadPlacement.cs" />
     <Compile Include="Models\Doodads\DoodadType.cs" />
@@ -84,7 +85,10 @@
     <Compile Include="Models\Doodads\Missile.cs" />
     <Compile Include="Models\Doodads\PlayerControlledTank.cs" />
     <Compile Include="Models\Doodads\Tank.cs" />
-    <Compile Include="Models\Doodads\TankFactory.cs" />
+    <Compile Include="Models\Doodads\Tanks\ITankState.cs" />
+    <Compile Include="Models\Doodads\Tanks\MovingState.cs" />
+    <Compile Include="Models\Doodads\Tanks\StateChangeEventArgs.cs" />
+    <Compile Include="Models\Doodads\Tanks\TurningState.cs" />
     <Compile Include="Models\Doodads\Team.cs" />
     <Compile Include="Models\Levels\Level.cs" />
     <Compile Include="Models\Levels\LevelFactory.cs" />

@@ -8,7 +8,6 @@ using BaconGameJam.Win7.ViewModels.States;
 using BaconGameJam.Win7.Views;
 using BaconGameJam.Win7.Views.Doodads;
 using BaconGameJam.Win7.Views.Farseer;
-using BaconGameJam.Win7.Views.Garden;
 using BaconGameJam.Win7.Views.Input;
 using BaconGameJam.Win7.Views.Levels;
 using BaconGameJam.Win7.Views.States;
@@ -50,7 +49,6 @@ namespace BaconGameJam.Win7
             SimpleIoc.Default.Register(() => (MouseInputManager)this.GetInstance<IInputManager>());
             SimpleIoc.Default.Register<ConductorView>();
             SimpleIoc.Default.Register<PlayingView>();
-            SimpleIoc.Default.Register<FlowerView>();
             SimpleIoc.Default.Register<LevelView>();
             SimpleIoc.Default.Register<DoodadViewFactory>();
             SimpleIoc.Default.Register<DebugViewXNA>();

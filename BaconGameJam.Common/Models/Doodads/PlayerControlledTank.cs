@@ -10,6 +10,7 @@ namespace BaconGameJam.Common.Models.Doodads
     public class PlayerControlledTank : Tank
     {
         private readonly DoodadFactory doodadFactory;
+        private bool isMoving;
 
         public PlayerControlledTank(
             DoodadFactory doodadFactory,
@@ -22,9 +23,22 @@ namespace BaconGameJam.Common.Models.Doodads
         {
             this.doodadFactory = doodadFactory;
             this.FireMissileCommand = new RelayCommand<Vector2>(this.FireMissile, this.CanFireMissile);
+            this.MoveCommand = new RelayCommand<Vector2>(this.Move);
+        }
+
+        public override bool IsMoving
+        {
+            get { return this.isMoving; }
         }
 
         public ICommand FireMissileCommand { get; private set; }
+
+        public ICommand MoveCommand { get; private set; }
+
+        protected override void OnUpdate(GameTime gameTime)
+        {
+            
+        }
 
         protected override Category CollisionCategory
         {

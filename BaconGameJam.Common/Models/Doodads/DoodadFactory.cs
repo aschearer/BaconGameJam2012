@@ -9,10 +9,12 @@ namespace BaconGameJam.Common.Models.Doodads
     {
         private readonly World world;
         private readonly Collection<IDoodad> doodads;
+        private readonly Random random;
 
-        public DoodadFactory(World world, Collection<IDoodad> doodads)
+        public DoodadFactory(World world, Collection<IDoodad> doodads, Random random)
         {
             this.world = world;
+            this.random = random;
             this.doodads = doodads;
         }
 
@@ -28,7 +30,7 @@ namespace BaconGameJam.Common.Models.Doodads
                     }
                     else
                     {
-                        doodad = new Tank(this.world, this.doodads, doodadPlacement.Team, doodadPlacement.Position, doodadPlacement.Rotation);
+                        doodad = new ComputerControlledTank(this.world, this.doodads, doodadPlacement.Team, doodadPlacement.Position, doodadPlacement.Rotation, this.random);
                     }
 
                     break;

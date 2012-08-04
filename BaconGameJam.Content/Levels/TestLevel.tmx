@@ -1,0 +1,27 @@
+
+<!-- saved from url=(0062)https://dl.dropbox.com/u/10224384/Project_folder/testlevel.tmx -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=US-ASCII"></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;map version="1.0" orientation="orthogonal" width="16" height="12" tilewidth="32" tileheight="32"&gt;
+ &lt;tileset firstgid="1" name="Tankasfdsafadsg" tilewidth="32" tileheight="32"&gt;
+  &lt;image source="TanksTiled.png" width="512" height="512"/&gt;
+ &lt;/tileset&gt;
+ &lt;tileset firstgid="257" name="TanksTileSet" tilewidth="32" tileheight="32"&gt;
+  &lt;image source="TanksTileSet.png" width="128" height="32"/&gt;
+ &lt;/tileset&gt;
+ &lt;layer name="main" width="16" height="12"&gt;
+  &lt;data encoding="base64" compression="zlib"&gt;
+   eJyd0MsKgzAQBdBAH7htKd2noh8gpfu+ste27vUP9P8XvcIELsNowMUhwcwwc306564rvaCHd0IgR7p3MBo1Lfzk1G8V3QcoqOYOD/CwhyyxV676a2gS86PY3xs1rQjGm6fvnH+Jl2xbyRf7Y35rv6DmX+AgJ+/P/dPOZ9jATvXXMr8x8nPmciY//1Odn99vRt2cKf8HTit94Q/BGy+I
+  &lt;/data&gt;
+ &lt;/layer&gt;
+ &lt;layer name="shadows" width="16" height="12"&gt;
+  &lt;data encoding="base64" compression="zlib"&gt;
+   eJxjYKAcJANxCpEYWT0MFJNoH7p6bPqbcehNBeISAvqTsaghxj0gs1OI0IvuNlr4HxmkkqkfVxgS0o8tHGBi2MKHVP9TEwAAzc0Sow==
+  &lt;/data&gt;
+ &lt;/layer&gt;
+ &lt;objectgroup name="tanks" width="16" height="12"&gt;
+  &lt;object gid="257" x="321" y="144"/&gt;
+  &lt;object gid="258" x="65" y="289"/&gt;
+  &lt;object gid="257" x="432" y="337"/&gt;
+ &lt;/objectgroup&gt;
+&lt;/map&gt;
+</pre></body></html>

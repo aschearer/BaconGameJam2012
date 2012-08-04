@@ -34,10 +34,13 @@ namespace BaconGameJam.Win7.Views.Doodads
             this.origin = new Vector2(25, 25);
             this.source = new Rectangle(0, 0, 50, 50);
             this.turretView.LoadContent(content);
+            this.OnLoad(content);
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            this.OnDraw(gameTime, spriteBatch);
+
             this.movementTween.IsPaused = !this.tank.IsMoving;
             this.movementTween.Update(gameTime);
             this.source.X = (int)(50 * this.movementTween.Value);
@@ -54,6 +57,14 @@ namespace BaconGameJam.Win7.Views.Doodads
                 0);
 
             this.turretView.Draw(gameTime, spriteBatch);
+        }
+
+        protected virtual void OnLoad(ContentManager content)
+        {
+        }
+
+        protected virtual void OnDraw(GameTime gameTime, SpriteBatch spriteBatch)
+        {
         }
     }
 }
