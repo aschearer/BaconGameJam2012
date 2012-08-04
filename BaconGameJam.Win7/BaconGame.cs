@@ -19,6 +19,8 @@ namespace BaconGameJam.Win7
         public BaconGame()
         {
             this.graphics = new GraphicsDeviceManager(this);
+            this.graphics.PreferredBackBufferWidth = 800;
+            this.graphics.PreferredBackBufferHeight = 480;
             this.Content.RootDirectory = "Content";
             this.IsMouseVisible = true;
         }
