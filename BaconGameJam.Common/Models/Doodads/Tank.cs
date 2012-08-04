@@ -37,7 +37,7 @@ namespace BaconGameJam.Common.Models.Doodads
         }
 
         public Team Team { get; set; }
-        public float Heading { get; private set; }
+        public float Heading { get; protected set; }
 
         public void Update(GameTime gameTime)
         {

@@ -18,6 +18,11 @@ namespace BaconGameJam.Common.Models.Doodads
             switch (doodadPlacement.DoodadType)
             {
                 case DoodadType.Tank:
+                    if (doodadPlacement.Team == Team.Green)
+                    {
+                        return new PlayerControlledTank(this.world, doodadPlacement.Team, doodadPlacement.Position, doodadPlacement.Rotation);
+                    }
+
                     return new Tank(this.world, doodadPlacement.Team, doodadPlacement.Position, doodadPlacement.Rotation);
                 case DoodadType.Wall:
                     return new Wall(this.world, doodadPlacement.Position, doodadPlacement.Rotation, doodadPlacement.Source);

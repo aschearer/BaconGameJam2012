@@ -1,6 +1,7 @@
 using BaconGameJam.Win7.ViewModels;
 using BaconGameJam.Win7.ViewModels.States;
 using BaconGameJam.Win7.Views;
+using BaconGameJam.Win7.Views.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -15,6 +16,7 @@ namespace BaconGameJam.Win7
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private ConductorView conductorView;
+        private MouseInputManager inputManager;
 
         public BaconGame()
         {
@@ -37,6 +39,7 @@ namespace BaconGameJam.Win7
             Bootstrapper bootstrapper = new Bootstrapper(this.Content, this.spriteBatch);
 
             this.conductorView = bootstrapper.GetInstance<ConductorView>();
+            this.inputManager = bootstrapper.GetInstance<MouseInputManager>();
 
             IConductorViewModel conductorViewModel = bootstrapper.GetInstance<IConductorViewModel>();
             conductorViewModel.Push(typeof(PlayingViewModel));
@@ -73,6 +76,9 @@ namespace BaconGameJam.Win7
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
+
+            MouseState state = Mouse.GetState();
+            this.inputManager.Update(state.LeftButton, new Point(state.X, state.Y));
 
             this.conductorView.Update(gameTime);
 

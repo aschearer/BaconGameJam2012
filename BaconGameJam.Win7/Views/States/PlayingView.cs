@@ -27,7 +27,7 @@ namespace BaconGameJam.Win7.Views.States
 
         public PlayingView(
             ContentManager content, 
-            SpriteBatch spriteBatch, 
+            SpriteBatch spriteBatch,
             PlayingViewModel viewModel,
             DoodadViewFactory doodadViewFactory,
             LevelView levelView,
