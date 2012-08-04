@@ -59,6 +59,10 @@ namespace BaconGameJam.Common.Models.Doodads
             get { return this.body.Position; }
         }
 
+        public void Update(GameTime gameTime)
+        {
+        }
+
         public void RemoveFromGame()
         {
             this.world.RemoveBody(this.body);

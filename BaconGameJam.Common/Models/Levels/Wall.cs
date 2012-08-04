@@ -41,6 +41,10 @@ namespace BaconGameJam.Common.Models.Levels
             get { return this.body.Rotation; }
         }
 
+        public void Update(GameTime gameTime)
+        {
+        }
+
         public void RemoveFromGame()
         {
             this.world.RemoveBody(this.body);
