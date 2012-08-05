@@ -20,9 +20,10 @@ namespace BaconGameJam.Win7.Views.Doodads
 
         public void LoadContent(ContentManager content)
         {
-            this.texture = content.Load<Texture2D>("Images/InGame/Tanks");
-            this.origin = new Vector2(16, 16);
-            this.source = new Rectangle(0, 0, 32, 32);
+            string textureName = string.Format("Images/InGame/{0}Tank", this.tank.Team);
+            this.texture = content.Load<Texture2D>(textureName);
+            this.origin = new Vector2(25, 25);
+            this.source = new Rectangle(2 * 50, 0, 50, 50);
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -34,7 +35,7 @@ namespace BaconGameJam.Win7.Views.Doodads
                 Color.White,
                 this.tank.Heading,
                 this.origin,
-                2,
+                1,
                 SpriteEffects.None,
                 0);
         }

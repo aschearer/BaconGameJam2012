@@ -34,7 +34,7 @@ namespace BaconGameJam.Win7.Views.Doodads
                 Color.White,
                 this.doodad.Rotation,
                 this.origin,
-                2,
+                1,
                 SpriteEffects.None,
                 0);
         }

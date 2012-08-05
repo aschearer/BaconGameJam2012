@@ -63,8 +63,8 @@ namespace BaconGameJam.ContentPipeline
                     placement.DoodadType = tileType;
 
                     placement.Position = new Vector2(
-                        2 * mapObject.Bounds.Center.X + tile.Source.Width,
-                        2 * mapObject.Bounds.Center.Y - tile.Source.Height) / Constants.PixelsPerMeter;
+                        mapObject.Bounds.Center.X + tile.Source.Width / 2f,
+                        mapObject.Bounds.Center.Y - tile.Source.Height / 2f) / Constants.PixelsPerMeter;
                     Team team;
                     if (!Enum.TryParse(tile.Properties["Team"], true, out team))
                     {
@@ -104,8 +104,8 @@ namespace BaconGameJam.ContentPipeline
                     DoodadPlacement placement = new DoodadPlacement();
                     placement.DoodadType = doodadType;
                     placement.Position = new Vector2(
-                                                column * tileDef.Source.Width * 2 + (tileDef.Source.Width),
-                                                row * tileDef.Source.Height * 2 + (tileDef.Source.Height)) / 30f;
+                                                column * tileDef.Source.Width + (tileDef.Source.Width / 2f),
+                                                row * tileDef.Source.Height + (tileDef.Source.Height / 2f)) / 30f;
                     placement.Source = tileDef.Source;
 
                     doodadPlacements.Add(placement);
@@ -139,8 +139,8 @@ namespace BaconGameJam.ContentPipeline
                     DoodadPlacement placement = new DoodadPlacement();
                     placement.DoodadType = doodadType;
                     placement.Position = new Vector2(
-                                                column * tileDef.Source.Width * 2 + (tileDef.Source.Width),
-                                                row * tileDef.Source.Height * 2 + (tileDef.Source.Height)) / 30f;
+                                                column * tileDef.Source.Width + (tileDef.Source.Width / 2f),
+                                                row * tileDef.Source.Height + (tileDef.Source.Height / 2f)) / 30f;
                     placement.Source = tileDef.Source;
 
                     doodadPlacements.Add(placement);

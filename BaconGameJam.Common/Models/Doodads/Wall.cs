@@ -18,7 +18,7 @@ namespace BaconGameJam.Common.Models.Doodads
             this.body.Rotation = rotation;
 
             var shape = new PolygonShape(0);
-            shape.SetAsBox(32 / Constants.PixelsPerMeter, 32 / Constants.PixelsPerMeter);
+            shape.SetAsBox(16 / Constants.PixelsPerMeter, 16 / Constants.PixelsPerMeter);
             var fixture = this.body.CreateFixture(shape);
             fixture.CollisionCategories = PhysicsConstants.ObstacleCategory;
 
