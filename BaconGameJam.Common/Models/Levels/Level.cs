@@ -32,7 +32,7 @@ namespace BaconGameJam.Common.Models.Levels
                 else if (!enemiesAlive) this.GameOver = true;
 
                 var doodads = this.doodads.ToArray();
-                foreach (IDoodad doodad in this.doodads)
+                foreach (IDoodad doodad in doodads)
                 {
                     doodad.Update(gameTime);
                 }
