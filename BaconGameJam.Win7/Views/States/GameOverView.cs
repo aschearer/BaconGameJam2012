@@ -16,10 +16,9 @@ namespace BaconGameJam.Win7.Views.States
         private readonly LevelView levelView;
         private readonly IInputManager input;
         private bool isContentLoaded;
-
-        Texture2D dummyTexture;
-        Rectangle dummyRectangle;
-        SpriteFont font1;
+        private readonly ButtonView restartLevelButton;
+        private Texture2D overlayTexture;
+        private Rectangle overlayBounds;
 
         public GameOverView(
             ContentManager content, 
@@ -33,17 +32,19 @@ namespace BaconGameJam.Win7.Views.States
             this.spriteBatch = spriteBatch;
             this.levelView = levelView;
             this.input = input;
+            this.restartLevelButton = new ButtonView(input, "Images/GameOver/RestartLevelButton", new Vector2(328, 342));
+            this.restartLevelButton.Command = this.viewModel.NewGameCommand;
         }
 
         public void NavigateTo()
         {
             this.LoadContent();
-            this.input.Click += this.OnClick;
+            this.restartLevelButton.Activate();
         }
 
         public void NavigateFrom()
         {
-            this.input.Click -= this.OnClick;
+            this.restartLevelButton.Deactivate();
         }
 
         public void Update(GameTime gameTime)
@@ -55,8 +56,8 @@ namespace BaconGameJam.Win7.Views.States
         {
             spriteBatch.Begin();
             this.levelView.Draw(gameTime, spriteBatch);
-            spriteBatch.Draw(dummyTexture, dummyRectangle, Color.Black * 0.5f);
-            spriteBatch.DrawString(this.font1, "Game Over", new Vector2(150, 100), Color.White);
+            spriteBatch.Draw(this.overlayTexture, this.overlayBounds, Color.Black * 0.5f);
+            this.restartLevelButton.Draw(gameTime, this.spriteBatch);
             spriteBatch.End();
         }
 
@@ -69,16 +70,11 @@ namespace BaconGameJam.Win7.Views.States
 
             this.isContentLoaded = true;
 
-            this.font1 = content.Load<SpriteFont>("SpriteFont1");
             this.levelView.LoadContent(content);
 
-            this.dummyRectangle = new Rectangle(0, 0, 800, 600);
-            this.dummyTexture = content.Load<Texture2D>("Images/InGame/Pixel");
-        }
-
-        private void OnClick(object sender, InputEventArgs e)
-        {
-            this.viewModel.NewGameCommand.Execute(null);
+            this.overlayBounds = new Rectangle(0, 0, 512, 384);
+            this.overlayTexture = content.Load<Texture2D>("Images/InGame/Pixel");
+            this.restartLevelButton.LoadContent(this.content);
         }
     }
 }

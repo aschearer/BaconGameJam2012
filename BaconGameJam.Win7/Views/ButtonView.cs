@@ -1,6 +1,5 @@
 using System;
 using System.Windows.Input;
-using BaconGameJam.Common.Models.Sounds;
 using BaconGameJam.Win7.Views.Input;
 using BaconGameJam.Win7.Views.Tweens;
 using Microsoft.Xna.Framework;
@@ -12,7 +11,6 @@ namespace BaconGameJam.Win7.Views
 {
     public class ButtonView
     {
-        private readonly ISoundManager soundManager;
         private readonly IInputManager inputManager;
 
         private readonly ITween scaleTween;
@@ -23,12 +21,10 @@ namespace BaconGameJam.Win7.Views
         private Vector2 origin;
 
         public ButtonView(
-            ISoundManager soundManager, 
             IInputManager inputManager, 
             string textureName, 
             Vector2 position)
         {
-            this.soundManager = soundManager;
             this.inputManager = inputManager;
             this.textureName = textureName;
             this.position = position;
@@ -145,7 +141,6 @@ namespace BaconGameJam.Win7.Views
             this.inputManager.DragEnded -= this.OnDragEnded;
             if (this.Command != null && this.Command.CanExecute(null) && this.bounds.Contains(e.X, e.Y))
             {
-                this.soundManager.PlaySound("Click");
                 this.Execute();
             }
         }
@@ -159,7 +154,6 @@ namespace BaconGameJam.Win7.Views
 
             if (this.Command != null && this.Command.CanExecute(null) && this.bounds.Contains(e.X, e.Y))
             {
-                this.soundManager.PlaySound("Click");
                 this.Execute();
                 //this.scaleTween.Reverse();
                 this.scaleTween.IsPaused = false;

@@ -16,6 +16,10 @@ namespace BaconGameJam.Win7.Views.States
         private readonly LevelView levelView;
         private readonly IInputManager input;
         private bool isContentLoaded;
+        private Rectangle overlayBounds;
+        private Texture2D overlay;
+        private ButtonView nextLevelButton;
+
 
         public LevelCompleteView(
             ContentManager content, 
@@ -29,17 +33,19 @@ namespace BaconGameJam.Win7.Views.States
             this.levelView = levelView;
             this.viewModel = viewModel;
             this.spriteBatch = spriteBatch;
+            this.nextLevelButton = new ButtonView(input, "Images/LevelComplete/NextLevelButton", new Vector2(328, 342));
+            this.nextLevelButton.Command = this.viewModel.NextLevelCommand;
         }
 
         public void NavigateTo()
         {
             this.LoadContent();
-            this.input.Click += this.OnClick;
+            this.nextLevelButton.Activate();
         }
 
         public void NavigateFrom()
         {
-            this.input.Click -= this.OnClick;
+            this.nextLevelButton.Deactivate();
         }
 
         public void Update(GameTime gameTime)
@@ -50,7 +56,14 @@ namespace BaconGameJam.Win7.Views.States
         public void Draw(GameTime gameTime)
         {
             this.spriteBatch.Begin();
-            this.levelView.Draw(gameTime, spriteBatch);
+            this.levelView.Draw(gameTime, this.spriteBatch);
+
+            this.spriteBatch.Draw(
+                this.overlay,
+                this.overlayBounds,
+                Color.Black * 0.5f);
+
+            this.nextLevelButton.Draw(gameTime, this.spriteBatch);
             this.spriteBatch.End();
         }
 
@@ -63,11 +76,9 @@ namespace BaconGameJam.Win7.Views.States
 
             this.isContentLoaded = true;
             this.levelView.LoadContent(this.content);
-        }
-
-        private void OnClick(object sender, InputEventArgs e)
-        {
-            this.viewModel.NextLevelCommand.Execute(null);
+            this.overlayBounds = new Rectangle(0, 0, 512, 384);
+            this.overlay = content.Load<Texture2D>("Images/InGame/Pixel"); 
+            this.nextLevelButton.LoadContent(this.content);
         }
     }
 }

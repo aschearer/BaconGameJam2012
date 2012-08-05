@@ -213,8 +213,20 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Images\LevelComplete\Background.png">
-      <Name>Background</Name>
+    <Compile Include="Images\LevelComplete\NextLevelButton.png">
+      <Name>NextLevelButton</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Images\LevelComplete\ShareGameButton.png">
+      <Name>ShareGameButton</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\GameOver\RestartLevelButton.png">
+      <Name>RestartLevelButton</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
