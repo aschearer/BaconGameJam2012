@@ -108,6 +108,7 @@
     <Compile Include="ViewModels\ConductorViewModel.cs" />
     <Compile Include="ViewModels\IConductorViewModel.cs" />
     <Compile Include="ViewModels\NavigationEventArgs.cs" />
+    <Compile Include="ViewModels\States\GameOverViewModel.cs" />
     <Compile Include="ViewModels\States\PlayingViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\ConductorView.cs" />
@@ -131,6 +132,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="BaconGame.cs" />
     <Compile Include="Views\Levels\LevelView.cs" />
+    <Compile Include="Views\States\GameOverView.cs" />
     <Compile Include="Views\States\PlayingView.cs" />
     <Compile Include="Views\Doodads\TankView.cs" />
     <Compile Include="Views\Doodads\TurretView.cs" />

@@ -12,6 +12,7 @@ namespace BaconGameJam.Common.Models.Levels
 
         private readonly World world;
         private Collection<IDoodad> doodads;
+        public bool GameOver { get; protected set; }
 
         public Level(World world, Collection<IDoodad> doodads)
         {
@@ -21,10 +22,20 @@ namespace BaconGameJam.Common.Models.Levels
 
         public void Update(GameTime gameTime)
         {
-            var doodads = this.doodads.ToArray();
-            foreach (IDoodad doodad in doodads)
+            world.Step(Level.WorldStep);
+
+            if (!GameOver)
             {
-                doodad.Update(gameTime);
+                bool playerIsAlive = this.doodads.Any(doodad => doodad is PlayerControlledTank);
+                bool enemiesAlive = this.doodads.Any(doodad => doodad is ComputerControlledTank);
+                if (!playerIsAlive) this.GameOver = true;
+                else if (!enemiesAlive) this.GameOver = true;
+
+                var doodads = this.doodads.ToArray();
+                foreach (IDoodad doodad in this.doodads)
+                {
+                    doodad.Update(gameTime);
+                }
             }
 
             world.Step(Level.WorldStep);
