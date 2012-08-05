@@ -1,3 +1,4 @@
+using System;
 using BaconGameJam.Common;
 using BaconGameJam.Common.Models.Doodads;
 using Microsoft.Xna.Framework;
@@ -38,6 +39,10 @@ namespace BaconGameJam.Win7.Views.Doodads
                 1,
                 SpriteEffects.None,
                 0);
+        }
+
+        public void Dispose()
+        {
         }
     }
 }

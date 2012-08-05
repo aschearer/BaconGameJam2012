@@ -59,6 +59,10 @@ namespace BaconGameJam.Win7.Views.Doodads
             this.turretView.Draw(gameTime, spriteBatch);
         }
 
+        public virtual void Dispose()
+        {
+        }
+
         protected virtual void OnLoad(ContentManager content)
         {
         }

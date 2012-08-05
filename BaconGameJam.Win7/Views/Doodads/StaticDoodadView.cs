@@ -38,5 +38,9 @@ namespace BaconGameJam.Win7.Views.Doodads
                 SpriteEffects.None,
                 0);
         }
+
+        public void Dispose()
+        {
+        }
     }
 }

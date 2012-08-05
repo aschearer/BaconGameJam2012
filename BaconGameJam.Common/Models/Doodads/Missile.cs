@@ -2,6 +2,7 @@ using System;
 using System.Collections.ObjectModel;
 using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Dynamics;
+using FarseerPhysics.Dynamics.Contacts;
 using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
 
@@ -30,39 +31,10 @@ namespace BaconGameJam.Common.Models.Doodads
             fixture.CollisionCategories = PhysicsConstants.MissileCategory;
             fixture.CollidesWith = PhysicsConstants.EnemyCategory | PhysicsConstants.PlayerCategory |
                                    PhysicsConstants.ObstacleCategory | PhysicsConstants.MissileCategory;
-            fixture.OnCollision += Body_OnCollision;
             obstacleCollisionCtr = 0;
 
             Vector2 force = new Vector2((float)Math.Cos(rotation), (float)Math.Sin(rotation)) * 300;
             this.body.ApplyForce(force);
-        }
-
-        bool Body_OnCollision(Fixture fixtureA, Fixture fixtureB, FarseerPhysics.Dynamics.Contacts.Contact contact)
-        {
-            if (this.elapsedTime.TotalSeconds < 0.2)
-            {
-                return false;
-            }
-
-            switch (fixtureB.CollisionCategories)
-            {
-                case PhysicsConstants.ObstacleCategory:
-                    obstacleCollisionCtr++;
-                    if (obstacleCollisionCtr >= 2)
-                    {
-                        RemoveFromGame();
-                    }
-                    break;
-                case PhysicsConstants.EnemyCategory:
-                case PhysicsConstants.PlayerCategory:
-                    RemoveFromGame();
-                    (fixtureB.Body.UserData as Tank).RemoveFromGame();
-                    break;
-                case PhysicsConstants.MissileCategory:
-                    this.RemoveFromGame();
-                    break;
-            }
-            return true;
         }
 
         public Vector2 Position
@@ -75,6 +47,22 @@ namespace BaconGameJam.Common.Models.Doodads
         public void Update(GameTime gameTime)
         {
             this.elapsedTime += gameTime.ElapsedGameTime;
+
+            ContactEdge edge = this.body.ContactList;
+            while (edge != null)
+            {
+                if (edge.Contact.IsTouching())
+                {
+                    Fixture enemy = this.body.Equals(edge.Contact.FixtureA.Body)
+                                        ? edge.Contact.FixtureB
+                                        : edge.Contact.FixtureA;
+
+                    this.HandleCollision(enemy);
+                    break;
+                }
+
+                edge = edge.Next;
+            }
         }
 
         public void RemoveFromGame()
@@ -82,6 +70,33 @@ namespace BaconGameJam.Common.Models.Doodads
             this.IsDead = true;
             this.world.RemoveBody(this.body);
             this.doodads.Remove(this);
+        }
+
+        private void HandleCollision(Fixture fixture)
+        {
+            if (this.elapsedTime.TotalSeconds < 0.2)
+            {
+                return;
+            }
+
+            switch (fixture.CollisionCategories)
+            {
+                case PhysicsConstants.ObstacleCategory:
+                    obstacleCollisionCtr++;
+                    if (obstacleCollisionCtr >= 2)
+                    {
+                        RemoveFromGame();
+                    }
+                    break;
+                case PhysicsConstants.EnemyCategory:
+                case PhysicsConstants.PlayerCategory:
+                    RemoveFromGame();
+                    (fixture.Body.UserData as Tank).RemoveFromGame();
+                    break;
+                case PhysicsConstants.MissileCategory:
+                    this.RemoveFromGame();
+                    break;
+            }
         }
     }
 }

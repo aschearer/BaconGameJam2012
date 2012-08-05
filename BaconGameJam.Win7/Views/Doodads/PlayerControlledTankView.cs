@@ -28,6 +28,12 @@ namespace BaconGameJam.Win7.Views.Doodads
             this.keyInput.KeyDown += this.OnKeyDown;
         }
 
+        public override void Dispose()
+        {
+            this.input.MouseDown -= this.OnMouseDown;
+            this.keyInput.KeyDown -= this.OnKeyDown;
+        }
+
         protected override void OnLoad(ContentManager content)
         {
             this.pixel = content.Load<Texture2D>("Images/InGame/Pixel");

@@ -8,5 +8,6 @@ namespace BaconGameJam.Win7.Views
     {
         void LoadContent(ContentManager content);
         void Draw(GameTime gameTime, SpriteBatch spriteBatch);
+        void Dispose();
     }
 }

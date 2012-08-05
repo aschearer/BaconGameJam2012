@@ -40,6 +40,7 @@ namespace BaconGameJam.Win7.Views.States
 
         public void NavigateFrom()
         {
+            
         }
 
         public void Update(GameTime gameTime)

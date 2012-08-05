@@ -61,11 +61,17 @@ namespace BaconGameJam.Win7.Views.Levels
                 case NotifyCollectionChangedAction.Remove:
                     for (int i = e.OldStartingIndex + e.OldItems.Count - 1; i >= e.OldStartingIndex; i--)
                     {
+                        this.doodadViews[i].Dispose();
                         this.doodadViews.RemoveAt(i);
                     }
 
                     break;
                 case NotifyCollectionChangedAction.Reset:
+                    foreach (IRetainedControl view in this.doodadViews)
+                    {
+                        view.Dispose();
+                    }
+
                     this.doodadViews.Clear();
                     break;
                 default:
