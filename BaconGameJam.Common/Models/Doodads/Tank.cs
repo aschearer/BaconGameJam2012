@@ -16,6 +16,7 @@ namespace BaconGameJam.Common.Models.Doodads
         private Collection<IDoodad> doodads;
         private DoodadFactory doodadFactory;
         private List<Missile> activeMissiles;
+        private TimeSpan elapsedTime;
 
         protected Tank(
             World world, 
@@ -76,6 +77,7 @@ namespace BaconGameJam.Common.Models.Doodads
 
         public void Update(GameTime gameTime)
         {
+            this.elapsedTime += gameTime.ElapsedGameTime;
             this.OnUpdate(gameTime);
             for (int i = this.activeMissiles.Count - 1; i >= 0; i--)
             {
@@ -96,14 +98,17 @@ namespace BaconGameJam.Common.Models.Doodads
 
         public bool CanFireMissile(Vector2 target)
         {
-            return this.activeMissiles.Count < Constants.MaxNumberOfMissiles && !this.ContainsPoint(target);
+            return this.activeMissiles.Count < Constants.MaxNumberOfMissiles && 
+                this.elapsedTime.TotalSeconds > 0.3 &&
+                !this.ContainsPoint(target);
         }
 
         public void FireAtTarget(float theta)
         {
+            this.elapsedTime = TimeSpan.Zero;
             this.Heading = theta + MathHelper.PiOver2;
             Vector2 distance = new Vector2((float)Math.Cos(theta), (float)Math.Sin(theta));
-            distance *= 0.5f;
+            distance *= 0.9f;
 
             this.activeMissiles.Add(
                 (Missile)this.doodadFactory.CreateDoodad(

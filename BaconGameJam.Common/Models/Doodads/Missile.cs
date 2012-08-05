@@ -44,6 +44,11 @@ namespace BaconGameJam.Common.Models.Doodads
 
         public bool IsDead { get; private set; }
 
+        public Vector2 Velocity
+        {
+            get { return this.body.LinearVelocity; }
+        }
+
         public void Update(GameTime gameTime)
         {
             this.elapsedTime += gameTime.ElapsedGameTime;
@@ -75,6 +80,16 @@ namespace BaconGameJam.Common.Models.Doodads
         private void HandleCollision(Fixture fixture)
         {
             if (this.elapsedTime.TotalSeconds < 0.2)
+            {
+                if (fixture.Body.UserData != null)
+                {
+                    this.RemoveFromGame();
+                }
+
+                return;
+            }
+
+            if (fixture.Body.UserData == null)
             {
                 return;
             }

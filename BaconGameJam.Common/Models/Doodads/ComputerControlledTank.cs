@@ -17,7 +17,7 @@ namespace BaconGameJam.Common.Models.Doodads
         private readonly World world;
         private ITankState currentState;
         private readonly Body sensor;
-        private Tuple<float, IDoodad> closestBody;
+        private Tuple<float, IDoodad> closestTarget;
         private TimeSpan elapsedTime;
 
         public ComputerControlledTank(
@@ -46,7 +46,8 @@ namespace BaconGameJam.Common.Models.Doodads
             sensorFixture.Friction = 1f;
             sensorFixture.IsSensor = true;
             sensorFixture.CollisionCategories = PhysicsConstants.EnemyCategory;
-            sensorFixture.CollidesWith = PhysicsConstants.PlayerCategory | PhysicsConstants.ObstacleCategory;
+            sensorFixture.CollidesWith = PhysicsConstants.PlayerCategory | PhysicsConstants.ObstacleCategory |
+                                         PhysicsConstants.MissileCategory;
         }
 
         public override bool IsMoving
@@ -66,21 +67,21 @@ namespace BaconGameJam.Common.Models.Doodads
             this.sensor.SetTransform(this.Position, this.Rotation);
 
             if (!(this.currentState is AttackingState) &&
-                this.closestBody != null && 
-                this.closestBody.Item2 is PlayerControlledTank)
+                this.closestTarget != null && 
+                this.closestTarget.Item2 is PlayerControlledTank)
             {
-                this.Target = (Tank)this.closestBody.Item2;
-                this.closestBody = null;
+                this.Target = (Tank)this.closestTarget.Item2;
+                this.closestTarget = null;
                 this.ChangeState(this.states[typeof(AttackingState)]);
                 return;
             }
 
             if (this.currentState is AttackingState &&
-                this.closestBody != null &&
-                !(this.closestBody.Item2 is PlayerControlledTank))
+                this.closestTarget != null &&
+                !(this.closestTarget.Item2 is PlayerControlledTank))
             {
                 this.Target = null;
-                this.closestBody = null;
+                this.closestTarget = null;
                 this.ChangeState(this.states[typeof(MovingState)]);
             }
 
@@ -101,11 +102,21 @@ namespace BaconGameJam.Common.Models.Doodads
                     if (this.elapsedTime.TotalSeconds > 0.1)
                     {
                         this.elapsedTime = TimeSpan.Zero;
-                        this.closestBody = null;
+                        this.closestTarget = null;
                         this.TryToTargetEnemny(((Tank)enemy.Body.UserData));
                     }
 
                     break;
+                }
+
+                if (edge.Contact.FixtureA.Body.UserData is Missile ||
+                    edge.Contact.FixtureB.Body.UserData is Missile)
+                {
+                    Missile missile = edge.Contact.FixtureA.Body.UserData is Missile
+                                          ? edge.Contact.FixtureA.Body.UserData as Missile
+                                          : edge.Contact.FixtureB.Body.UserData as Missile;
+
+                    this.TestForDanger(missile);
                 }
 
                 edge = edge.Next;
@@ -114,11 +125,53 @@ namespace BaconGameJam.Common.Models.Doodads
             if (!isEnemyInRange && this.currentState is AttackingState)
             {
                 this.Target = null;
-                this.closestBody = null;
+                this.closestTarget = null;
                 this.ChangeState(this.states[typeof(MovingState)]);
             }
 
             this.currentState.Update(gameTime);
+        }
+
+        private void TestForDanger(Missile missile)
+        {
+            Vector2 delta = missile.Velocity;
+            delta.Normalize();
+            delta *= Vector2.Subtract(missile.Position, this.Position).Length();
+
+            IDoodad doodad = null;
+            float minFraction = float.MaxValue;
+            this.world.RayCast((f, p, n, fr) =>
+                                   {
+                                       if (!(f.Body.UserData is Pit))
+                                       {
+                                           if (fr < minFraction)
+                                           {
+                                               minFraction = fr;
+                                               doodad = f.Body.UserData as IDoodad;
+                                           }
+
+                                           return 1;
+                                       }
+                                       else
+                                       {
+                                           return -1;
+                                       }
+                                   },
+                                   missile.Position, 
+                                   missile.Position + delta);
+
+            // in the calling method we established there was a missle near us.
+            // after the ray cast finishes we know whether the missile is on a
+            // collision course with this tank. If it is try to shoot it down!
+            if (doodad != null && doodad.Equals(this))
+            {
+                if (this.CanFireMissile(missile.Position))
+                {
+                    Vector2 missileDelta = Vector2.Subtract(missile.Position, this.Position);
+                    float theta = (float)Math.Atan2(missileDelta.Y, missileDelta.X);
+                    this.FireAtTarget(theta);
+                }
+            }
         }
 
         private void TryToTargetEnemny(Tank tank)
@@ -127,12 +180,12 @@ namespace BaconGameJam.Common.Models.Doodads
             delta.Normalize();
             delta *= 1;
 
-            this.world.RayCast(this.OnProbeReturned, this.Position, tank.Position + delta);
+            this.world.RayCast(this.OnTargetingProbeReturned, this.Position, tank.Position + delta);
         }
 
-        private float OnProbeReturned(Fixture fixture, Vector2 point, Vector2 normal, float fraction)
+        private float OnTargetingProbeReturned(Fixture fixture, Vector2 point, Vector2 normal, float fraction)
         {
-            if (this.closestBody == null)
+            if (this.closestTarget == null)
             {
                 // getting started
                 if (fixture.Body.UserData is Pit)
@@ -140,19 +193,19 @@ namespace BaconGameJam.Common.Models.Doodads
                     return 1;
                 }
 
-                this.closestBody = new Tuple<float, IDoodad>(fraction, (IDoodad)fixture.Body.UserData);
+                this.closestTarget = new Tuple<float, IDoodad>(fraction, (IDoodad)fixture.Body.UserData);
                 return 1;
             }
-            else if (this.closestBody.Item2 is PlayerControlledTank && this.closestBody.Item1 > fraction)
+            else if (this.closestTarget.Item2 is PlayerControlledTank && this.closestTarget.Item1 > fraction)
             {
                 // there's a body in between us and the player
-                this.closestBody = null;
+                this.closestTarget = null;
                 return 0;
             }
-            else if (this.closestBody.Item1 > fraction)
+            else if (this.closestTarget.Item1 > fraction)
             {
                 // this body is closer to us, but we're not finished yet
-                this.closestBody = new Tuple<float, IDoodad>(fraction, (IDoodad)fixture.Body.UserData);
+                this.closestTarget = new Tuple<float, IDoodad>(fraction, (IDoodad)fixture.Body.UserData);
                 return 1;
             }
 
