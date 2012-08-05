@@ -36,7 +36,6 @@ namespace BaconGameJam.Common.Models.Doodads
 
         protected override void OnUpdate(GameTime gameTime)
         {
-            return;
             // up/down raycast
             Vector2 rayStart = new Vector2(Position.X, Position.Y);
             Vector2 rayEnd = rayStart + new Vector2(0, (MovingUp ? -1 : (MovingDown ? 1 : 0)));
@@ -67,7 +66,56 @@ namespace BaconGameJam.Common.Models.Doodads
                 return fraction;
             }, rayStart, rayEnd);
 
-            this.Body.SetTransform(new Vector2(this.Body.Position.X + (MovingLeft ? -0.05f : (MovingRight ? 0.05f : 0)), this.Body.Position.Y + (MovingUp ? -0.05f : (MovingDown ? 0.05f : 0))), this.Heading);
+            bool wasMoving = true;
+            if (this.MovingUp)
+            {
+                if (this.MovingLeft)
+                {
+                    this.Body.SetTransform(this.Body.Position, (float)((Math.PI * 11) / 6));
+                }
+                else if (this.MovingRight)
+                {
+                    this.Body.SetTransform(this.Body.Position, (float)(Math.PI / 3));
+                }
+                else
+                {
+                    this.Body.SetTransform(this.Body.Position, 0);
+                }
+            }
+            else if (this.MovingDown)
+            {
+                if (this.MovingLeft)
+                {
+                    this.Body.SetTransform(this.Body.Position, (float)((Math.PI * 5) / 4));
+                }
+                else if (this.MovingRight)
+                {
+                    this.Body.SetTransform(this.Body.Position, (float)((Math.PI * 3) / 4));
+                }
+                else
+                {
+                    this.Body.SetTransform(this.Body.Position, (float)Math.PI);
+                }
+            }
+            else
+            {
+                if (this.MovingLeft)
+                {
+                    this.Body.SetTransform(this.Body.Position, (float)((Math.PI * 3) / 2));
+                }
+                else if (this.MovingRight)
+                {
+                    this.Body.SetTransform(this.Body.Position, (float)(Math.PI / 2));
+                }
+                else
+                {
+                    wasMoving = false;
+                }
+            }
+
+            this.isMoving = wasMoving;
+
+            this.Body.SetTransform(new Vector2(this.Body.Position.X + (MovingLeft ? -0.05f : (MovingRight ? 0.05f : 0)), this.Body.Position.Y + (MovingUp ? -0.05f : (MovingDown ? 0.05f : 0))), this.Body.Rotation);
         }
 
         protected override Category CollisionCategory
