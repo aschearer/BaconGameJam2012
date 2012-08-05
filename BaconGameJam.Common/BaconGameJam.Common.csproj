@@ -94,6 +94,7 @@
     <Compile Include="Models\Doodads\Tanks\TurningState.cs" />
     <Compile Include="Models\Doodads\Team.cs" />
     <Compile Include="Models\Doodads\TileDoodad.cs" />
+    <Compile Include="Models\Doodads\Waypoint.cs" />
     <Compile Include="Models\Levels\Level.cs" />
     <Compile Include="Models\Levels\LevelFactory.cs" />
     <Compile Include="Models\Doodads\Wall.cs" />

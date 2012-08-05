@@ -113,6 +113,7 @@
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\ConductorView.cs" />
     <Compile Include="Views\Doodads\DoodadViewFactory.cs" />
+    <Compile Include="Views\Doodads\EmptyView.cs" />
     <Compile Include="Views\Doodads\MissileView.cs" />
     <Compile Include="Views\Doodads\PlayerControlledTankView.cs" />
     <Compile Include="Views\Doodads\StaticDoodadView.cs" />

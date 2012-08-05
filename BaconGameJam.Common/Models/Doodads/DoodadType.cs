@@ -7,5 +7,6 @@ namespace BaconGameJam.Common.Models.Doodads
         Wall,
         Missile,
         Pit,
+        Waypoint
     }
 }

@@ -10,10 +10,12 @@ namespace BaconGameJam.Common.Models.Doodads
         private readonly World world;
         private readonly Collection<IDoodad> doodads;
         private readonly Random random;
+        private Collection<Waypoint> waypoints;
 
-        public DoodadFactory(World world, Collection<IDoodad> doodads, Random random)
+        public DoodadFactory(World world, Collection<IDoodad> doodads, Random random, Collection<Waypoint> waypoints)
         {
             this.world = world;
+            this.waypoints = waypoints;
             this.random = random;
             this.doodads = doodads;
         }
@@ -33,7 +35,7 @@ namespace BaconGameJam.Common.Models.Doodads
                     }
                     else
                     {
-                        doodad = new ComputerControlledTank(this.world, this.doodads, doodadPlacement.Team, doodadPlacement.Position, doodadPlacement.Rotation, this.random, this);
+                        doodad = new ComputerControlledTank(this.world, this.doodads, doodadPlacement.Team, doodadPlacement.Position, doodadPlacement.Rotation, this.random, this, this.waypoints);
                     }
 
                     break;
@@ -49,6 +51,9 @@ namespace BaconGameJam.Common.Models.Doodads
                         doodadPlacement.Position,
                         doodadPlacement.Rotation,
                         doodadPlacement.Source);
+                    break;
+                case DoodadType.Waypoint:
+                    doodad = new Waypoint(doodadPlacement.Position, this.waypoints);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

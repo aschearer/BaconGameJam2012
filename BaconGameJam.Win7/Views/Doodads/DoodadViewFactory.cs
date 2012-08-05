@@ -34,6 +34,10 @@ namespace BaconGameJam.Win7.Views.Doodads
             {
                 return new MissileView((Missile)doodad);
             }
+            else if (doodad is Waypoint)
+            {
+                return new EmptyView();
+            }
 
             throw new ArgumentException("No view found for doodad");
         }

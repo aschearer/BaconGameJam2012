@@ -74,19 +74,27 @@
    </properties>
   </tile>
  </tileset>
+ <tileset firstgid="261" name="Waypoints" tilewidth="32" tileheight="32">
+  <image source="TileSets/WaypointTileSet.png" width="32" height="32"/>
+ </tileset>
  <layer name="main" width="16" height="12">
   <data encoding="base64" compression="zlib">
    eJydkdsNgzAMRSMxQaFdAMQCUCYozQKQ/JMNYP+P3ki2dGWh8vg4skl0bF3ycc69bzKCBL43WcB20QnAS7+CVnp/0i9lRgTNH78CT+FFu2upQfxkZmuf7x5ypjsi+XEnf238AgzkZ6+Tyvn9jt/TOw20X3frDs7fHfxHdtVP5Nhqieab85+dweT8E73TVWbwAzx8LrM=
   </data>
  </layer>
  <objectgroup name="tanks" width="16" height="12">
-  <object gid="257" x="240" y="320"/>
-  <object gid="258" x="96" y="110"/>
-  <object gid="257" x="384" y="322"/>
+  <object gid="257" x="307" y="323"/>
+  <object gid="258" x="57" y="223"/>
+  <object gid="257" x="306" y="95"/>
  </objectgroup>
  <layer name="shadows" width="16" height="12">
   <data encoding="base64" compression="zlib">
    eJxjYKAcJANxChkYBooptJ9U/c1k6EfWg66+GIc6ZDFkNfj0Y3NLMZn6Uxkg4VyCJJ4K5RPSD9MLw+h6sOnHZjYxgNL4pwQAANUuFQE=
+  </data>
+ </layer>
+ <layer name="waypoints" width="16" height="12">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgcgJWRNmpHAX3AUI0/ACcsABk=
   </data>
  </layer>
 </map>

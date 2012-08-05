@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 
@@ -12,7 +13,7 @@ namespace BaconGameJam.Common.Models.Doodads.Tanks
         private readonly Body body;
         private TimeSpan elapsedTime;
 
-        public MovingState(World world, Body body)
+        public MovingState(World world, Body body, IEnumerable<Waypoint> waypoints)
         {
             this.world = world;
             this.body = body;

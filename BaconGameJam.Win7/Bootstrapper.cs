@@ -35,9 +35,12 @@ namespace BaconGameJam.Win7
             SimpleIoc.Default.Register(() => new Random());
 
             // Models
+            Collection<Waypoint> waypoints = new Collection<Waypoint>();
             ObservableCollection<IDoodad> doodads = new ObservableCollection<IDoodad>();
             SimpleIoc.Default.Register(() => doodads);
             SimpleIoc.Default.Register<Collection<IDoodad>>(() => doodads);
+            SimpleIoc.Default.Register(() => waypoints);
+            SimpleIoc.Default.Register<IEnumerable<IDoodad>>(() => waypoints);
             SimpleIoc.Default.Register(() => new World(Vector2.Zero));
             SimpleIoc.Default.Register<DoodadFactory>();
             SimpleIoc.Default.Register<Level>();

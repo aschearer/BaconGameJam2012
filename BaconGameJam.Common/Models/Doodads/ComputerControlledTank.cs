@@ -15,6 +15,7 @@ namespace BaconGameJam.Common.Models.Doodads
         private readonly Dictionary<Type, ITankState> states;
 
         private readonly World world;
+        private readonly IEnumerable<Waypoint> waypoints;
         private ITankState currentState;
         private readonly Body sensor;
         private Tuple<float, IDoodad> closestTarget;
@@ -27,10 +28,12 @@ namespace BaconGameJam.Common.Models.Doodads
             Vector2 position, 
             float rotation,
             Random random, 
-            DoodadFactory doodadFactory)
+            DoodadFactory doodadFactory,
+            IEnumerable<Waypoint> waypoints)
             : base(world, doodads, team, position, rotation, doodadFactory)
         {
             this.world = world;
+            this.waypoints = waypoints;
             this.states = new Dictionary<Type, ITankState>();
             this.states.Add(typeof(MovingState), new MovingState(world, this.Body));
             this.states.Add(typeof(AttackingState), new AttackingState(world, this.Body, this));
