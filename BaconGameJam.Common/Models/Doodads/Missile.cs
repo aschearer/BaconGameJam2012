@@ -13,6 +13,7 @@ namespace BaconGameJam.Common.Models.Doodads
         private readonly Body body;
         private int obstacleCollisionCtr;
         private Collection<IDoodad> doodads;
+        private TimeSpan elapsedTime;
 
         public Missile(World world, Collection<IDoodad> doodads, Team team, Vector2 position, float rotation)
         {
@@ -27,7 +28,7 @@ namespace BaconGameJam.Common.Models.Doodads
             fixture.Restitution = 1;
             fixture.Friction = 0;
             fixture.CollisionCategories = PhysicsConstants.MissileCategory;
-            fixture.CollidesWith = PhysicsConstants.EnemyCategory | PhysicsConstants.ObstacleCategory;
+            fixture.CollidesWith = PhysicsConstants.EnemyCategory | PhysicsConstants.PlayerCategory | PhysicsConstants.ObstacleCategory;
             fixture.OnCollision += Body_OnCollision;
             obstacleCollisionCtr = 0;
 
@@ -37,6 +38,11 @@ namespace BaconGameJam.Common.Models.Doodads
 
         bool Body_OnCollision(Fixture fixtureA, Fixture fixtureB, FarseerPhysics.Dynamics.Contacts.Contact contact)
         {
+            if (this.elapsedTime.TotalSeconds < 0.1)
+            {
+                return false;
+            }
+
             switch (fixtureB.CollisionCategories)
             {
                 case PhysicsConstants.ObstacleCategory:
@@ -47,6 +53,7 @@ namespace BaconGameJam.Common.Models.Doodads
                     }
                     break;
                 case PhysicsConstants.EnemyCategory:
+                case PhysicsConstants.PlayerCategory:
                     RemoveFromGame();
                     (fixtureB.Body.UserData as Tank).RemoveFromGame();
                     break;
@@ -61,6 +68,7 @@ namespace BaconGameJam.Common.Models.Doodads
 
         public void Update(GameTime gameTime)
         {
+            this.elapsedTime += gameTime.ElapsedGameTime;
         }
 
         public void RemoveFromGame()
