@@ -119,7 +119,7 @@
     <Compile Include="Views\Doodads\PowerUpView.cs" />
     <Compile Include="Views\Doodads\TreadMarkView.cs" />
     <Compile Include="Views\Doodads\DoodadViewFactory.cs" />
-    <Compile Include="Views\Doodads\EmptyView.cs" />
+    <Compile Include="Views\Doodads\WaypointView.cs" />
     <Compile Include="Views\Doodads\MissileView.cs" />
     <Compile Include="Views\Doodads\PlayerControlledTankView.cs" />
     <Compile Include="Views\Doodads\StaticDoodadView.cs" />

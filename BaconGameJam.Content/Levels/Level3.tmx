@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="16" height="12" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="ConcreteStorm" tilewidth="32" tileheight="32">
+  <image source="TileSets/ConcreteStormTileSet.png" width="512" height="512"/>
+  <tile id="5">
+   <properties>
+    <property name="Pit" value=""/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="Pit" value=""/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="Pit" value=""/>
+   </properties>
+  </tile>
+  <tile id="21">
+   <properties>
+    <property name="Pit" value=""/>
+   </properties>
+  </tile>
+  <tile id="37">
+   <properties>
+    <property name="Pit" value=""/>
+   </properties>
+  </tile>
+  <tile id="53">
+   <properties>
+    <property name="Pit" value=""/>
+   </properties>
+  </tile>
+  <tile id="68">
+   <properties>
+    <property name="Empty" value=""/>
+   </properties>
+  </tile>
+  <tile id="69">
+   <properties>
+    <property name="Empty" value=""/>
+   </properties>
+  </tile>
+  <tile id="84">
+   <properties>
+    <property name="Empty" value=""/>
+   </properties>
+  </tile>
+  <tile id="85">
+   <properties>
+    <property name="Empty" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="257" name="Tanks" tilewidth="32" tileheight="32">
+  <image source="TileSets/TanksTileSet.png" width="128" height="32"/>
+  <tile id="0">
+   <properties>
+    <property name="Team" value="Red"/>
+    <property name="Type" value="Tank"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="Team" value="Green"/>
+    <property name="Type" value="Tank"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="Team" value="Red"/>
+    <property name="Type" value="Tank"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="261" name="Waypoints" tilewidth="32" tileheight="32">
+  <image source="TileSets/WaypointTileSet.png" width="32" height="32"/>
+  <tile id="0">
+   <properties>
+    <property name="Color" value="Green"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="waypoints" width="16" height="12">
+  <data encoding="base64" compression="zlib">
+   eJxjYBicgJWRPDl6AFz2I4tT043oZg20/3EBYsJlsAEAVe8ANw==
+  </data>
+ </layer>
+ <layer name="main" width="16" height="12">
+  <data encoding="base64" compression="zlib">
+   eJyFklEKgzAQRAPVC0Q9gJFcIOoBWtD/Fpr7H6UbmIVhTezHQ3B3NrOZDM65kZiEh9AJvbAIb+EjRFObUR9IW3qycIJV2MBO/wse+gWzIumPPxR9gHal+RG1g87J5qu1ZPyxx9LzFF7YV+lJ78HX7Kz+AzgN7D8YX4zWW/snwHM1n45y037NibP2lXtp+a1lHWj/u7xyI+sEvc5gjxPdp+pt1rO7vlfNzb7XWtY/b4wl1Q==
+  </data>
+ </layer>
+ <objectgroup name="tanks" width="16" height="12">
+  <object gid="257" x="417" y="224">
+   <properties>
+    <property name="WaypointColor" value="Green"/>
+   </properties>
+  </object>
+  <object gid="258" x="57" y="223"/>
+  <object gid="257" x="418" y="159">
+   <properties>
+    <property name="WaypointColor" value="Green"/>
+   </properties>
+  </object>
+  <object gid="257" x="416" y="98">
+   <properties>
+    <property name="WaypointColor" value="Green"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer name="shadows" width="16" height="12">
+  <data encoding="base64" compression="zlib">
+   eJxjYCAeFBOhphmIk4E4BYpBIBXKLsEih663GM2eVCT1MDOwgVSoHLp+YgCyHTAz8IFmND6yn7C5kZA8IfvoKY8e3vjCHBYOpIY3TC9MHz796GENcyM58QTTi+wvAJjqG04=
+  </data>
+ </layer>
+</map>

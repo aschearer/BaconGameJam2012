@@ -13,9 +13,11 @@ Content\Images\InGame\TreadMarks.xnb
 Content\Images\LevelComplete\NextLevelButton.xnb
 Content\Images\LevelComplete\ShareGameButton.xnb
 Content\Images\GameOver\RestartLevelButton.xnb
+Content\Images\InGame\Waypoint.xnb
 Content\SpriteFont1.xnb
 Content\Levels\Level1.xnb
 Content\Levels\Level2.xnb
+Content\Levels\Level3.xnb
 Content\Sounds\Chimera-Derivation-3.xnb
 Content\Sounds\Gun_NailRifle_Shot01.xnb
 Content\Sounds\Gun_NailRifle_Shot02.xnb

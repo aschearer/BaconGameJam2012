@@ -48,8 +48,12 @@ namespace BaconGameJam.Common.Models.Doodads
             shape.SetAsBox(15 / Constants.PixelsPerMeter, 15 / Constants.PixelsPerMeter);
             var fixture = this.body.CreateFixture(shape);
             fixture.CollisionCategories = this.CollisionCategory;
-            fixture.CollidesWith = PhysicsConstants.ObstacleCategory | PhysicsConstants.SensorCategory |
-                                   PhysicsConstants.MissileCategory | PhysicsConstants.PitCategory;
+            fixture.CollidesWith = PhysicsConstants.MissileCategory;
+            if (this is PlayerControlledTank)
+            {
+                fixture.CollidesWith |= PhysicsConstants.ObstacleCategory | PhysicsConstants.PitCategory |
+                                        PhysicsConstants.SensorCategory;
+            }
         }
 
         public abstract bool IsMoving { get; }

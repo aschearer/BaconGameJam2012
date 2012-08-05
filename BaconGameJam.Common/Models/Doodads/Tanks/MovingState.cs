@@ -34,7 +34,7 @@ namespace BaconGameJam.Common.Models.Doodads.Tanks
             this.waypoints = waypoints;
             this.currentWaypoint = this.GetClosestWaypoint();
             this.body.Position = this.currentWaypoint.Position;
-            this.targetWaypoint = this.GetRandomNeighbor();
+            this.targetWaypoint = this.GetNearestNeighbor();
 
             Vector2 delta = Vector2.Subtract(this.targetWaypoint.Position, this.body.Position);
             float theta = (float)Math.Atan2(delta.Y, delta.X);
@@ -66,7 +66,7 @@ namespace BaconGameJam.Common.Models.Doodads.Tanks
             {
                 this.previousWaypoint = this.currentWaypoint;
                 this.currentWaypoint = this.targetWaypoint;
-                this.targetWaypoint = this.GetRandomNeighbor();
+                this.targetWaypoint = this.GetNearestNeighbor();
 
                 Vector2 delta = Vector2.Subtract(this.targetWaypoint.Position, this.body.Position);
                 float theta = (float)Math.Atan2(delta.Y, delta.X);
@@ -78,10 +78,16 @@ namespace BaconGameJam.Common.Models.Doodads.Tanks
             this.tank.TrackMove();
         }
 
-        private Waypoint GetRandomNeighbor()
+        private Waypoint GetNearestNeighbor()
         {
             var neighbors = this.GetNeighboringWaypoints();
-            return neighbors.ElementAt(this.random.Next(neighbors.Count()));
+            var neighbor = neighbors.OrderBy(this.DistanceToWaypoint).FirstOrDefault();
+            return neighbor;
+        }
+
+        private float DistanceToWaypoint(Waypoint neighbor)
+        {
+            return Vector2.Subtract(neighbor.Position, this.currentWaypoint.Position).Length();
         }
 
         private IEnumerable<Waypoint> GetNeighboringWaypoints()
@@ -89,6 +95,10 @@ namespace BaconGameJam.Common.Models.Doodads.Tanks
             List<Waypoint> neighbors = new List<Waypoint>();
             neighbors.AddRange(this.GetNeighboringWaypoints(waypoint => waypoint.Row == this.currentWaypoint.Row, waypoint => waypoint.Column));
             neighbors.AddRange(this.GetNeighboringWaypoints(waypoint => waypoint.Column == this.currentWaypoint.Column, waypoint => waypoint.Row));
+            if (neighbors.Count == 0)
+            {
+                neighbors.Add(this.previousWaypoint);
+            }
 
             return neighbors;
         }
@@ -96,17 +106,16 @@ namespace BaconGameJam.Common.Models.Doodads.Tanks
         private IEnumerable<Waypoint> GetNeighboringWaypoints(Func<Waypoint, bool> select, Func<Waypoint, int> order)
         {
             List<Waypoint> neighbors = new List<Waypoint>();
-            var row = this.waypoints.Where(select).OrderBy(order);
-            var precending = row.TakeWhile(waypoint => !waypoint.Equals(this.currentWaypoint) && !waypoint.Equals(this.previousWaypoint));
-            var following = row.Reverse().TakeWhile(waypoint => !waypoint.Equals(this.currentWaypoint) && !waypoint.Equals(this.previousWaypoint));
-            if (precending.Any())
+            var row = this.waypoints.Where(select).OrderBy(order).ToList();
+            int index = row.IndexOf(this.currentWaypoint);
+            if (index > 0 && !row[index - 1].Equals(this.previousWaypoint))
             {
-                neighbors.Add(precending.Last());
+                neighbors.Add(row[index - 1]);
             }
 
-            if (following.Any())
+            if (index < row.Count - 1 && !row[index + 1].Equals(this.previousWaypoint))
             {
-                neighbors.Add(following.First());
+                neighbors.Add(row[index + 1]);
             }
 
             return neighbors;

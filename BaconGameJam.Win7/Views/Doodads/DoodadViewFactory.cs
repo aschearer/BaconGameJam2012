@@ -39,7 +39,7 @@ namespace BaconGameJam.Win7.Views.Doodads
             }
             else if (doodad is Waypoint)
             {
-                return new EmptyView();
+                return new WaypointView((Waypoint)doodad);
             }
             else if (doodad is BlastMark)
             {
