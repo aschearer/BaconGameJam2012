@@ -12,16 +12,23 @@ namespace BaconGameJam.Common.Models.Doodads.Tanks
 
         private readonly World world;
         private readonly Body body;
+        private readonly ComputerControlledTank tank;
         private readonly IEnumerable<Waypoint> waypoints;
         private TimeSpan elapsedTime;
         private Waypoint targetWaypoint;
         private Waypoint currentWaypoint;
         private readonly Random random;
 
-        public MovingState(World world, Body body, IEnumerable<Waypoint> waypoints, Random random)
+        public MovingState(
+            World world, 
+            Body body, 
+            ComputerControlledTank tank,
+            IEnumerable<Waypoint> waypoints, 
+            Random random)
         {
             this.world = world;
             this.body = body;
+            this.tank = tank;
             this.random = random;
             this.waypoints = waypoints;
             this.currentWaypoint = this.GetClosestWaypoint();
@@ -30,7 +37,7 @@ namespace BaconGameJam.Common.Models.Doodads.Tanks
 
             Vector2 delta = Vector2.Subtract(this.targetWaypoint.Position, this.body.Position);
             float theta = (float)Math.Atan2(delta.Y, delta.X);
-            this.body.Rotation = theta + MathHelper.PiOver2;
+            this.tank.Heading = this.body.Rotation = theta + MathHelper.PiOver2;
         }
 
         public bool IsMoving
@@ -52,6 +59,7 @@ namespace BaconGameJam.Common.Models.Doodads.Tanks
                 Vector2 direction = new Vector2((float)Math.Cos(theta), (float)Math.Sin(theta));
                 direction.Normalize();
                 this.body.Position += direction * speed;
+                this.body.Awake = true;
             }
             else
             {
@@ -60,9 +68,9 @@ namespace BaconGameJam.Common.Models.Doodads.Tanks
 
                 Vector2 delta = Vector2.Subtract(this.targetWaypoint.Position, this.body.Position);
                 float theta = (float)Math.Atan2(delta.Y, delta.X);
+                this.tank.TargetRotation = theta + MathHelper.PiOver2;
 
-                this.body.Position = this.currentWaypoint.Position;
-                this.body.Rotation = theta + MathHelper.PiOver2;
+                this.StateChanged(this, new StateChangeEventArgs(typeof(TurningState)));
             }
         }
 

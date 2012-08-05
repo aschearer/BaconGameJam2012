@@ -24,7 +24,7 @@ namespace BaconGameJam.Common.Models.Doodads
             this.body.BodyType = BodyType.Dynamic;
             this.body.FixedRotation = true;
 
-            CircleShape shape = new CircleShape(5 / Constants.PixelsPerMeter, 0);
+            CircleShape shape = new CircleShape(5 / Constants.PixelsPerMeter, 0.1f);
             Fixture fixture = body.CreateFixture(shape);
             fixture.Restitution = 1;
             fixture.Friction = 0;
@@ -33,7 +33,7 @@ namespace BaconGameJam.Common.Models.Doodads
                                    PhysicsConstants.ObstacleCategory | PhysicsConstants.MissileCategory;
             obstacleCollisionCtr = 0;
 
-            Vector2 force = new Vector2((float)Math.Cos(rotation), (float)Math.Sin(rotation)) * 300;
+            Vector2 force = new Vector2((float)Math.Cos(rotation), (float)Math.Sin(rotation)) * 3;
             this.body.ApplyForce(force);
         }
 

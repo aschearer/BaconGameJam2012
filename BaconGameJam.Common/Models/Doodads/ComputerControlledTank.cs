@@ -15,8 +15,8 @@ namespace BaconGameJam.Common.Models.Doodads
         private readonly Dictionary<Type, ITankState> states;
 
         private readonly World world;
-        private readonly IEnumerable<Waypoint> waypoints;
         private ITankState currentState;
+        private ITankState interruptedState;
         private readonly Body sensor;
         private Tuple<float, IDoodad> closestTarget;
         private TimeSpan elapsedTime;
@@ -33,11 +33,10 @@ namespace BaconGameJam.Common.Models.Doodads
             : base(world, doodads, team, position, rotation, doodadFactory)
         {
             this.world = world;
-            this.waypoints = waypoints;
             this.states = new Dictionary<Type, ITankState>();
-            this.states.Add(typeof(MovingState), new MovingState(world, this.Body, waypoints, random));
+            this.states.Add(typeof(MovingState), new MovingState(world, this.Body, this, waypoints, random));
             this.states.Add(typeof(AttackingState), new AttackingState(world, this.Body, this));
-            this.states.Add(typeof(TurningState), new TurningState(world, this.Body, random, this));
+            this.states.Add(typeof(TurningState), new TurningState(this.Body, this));
             this.currentState = this.states[typeof(MovingState)];
             this.currentState.StateChanged += this.OnStateChanged;
             this.currentState.NavigateTo();
@@ -60,6 +59,8 @@ namespace BaconGameJam.Common.Models.Doodads
 
         public Tank Target { get; private set; }
 
+        public float TargetRotation { get; set; }
+
         protected override void OnRemoveFromGame(World world)
         {
             world.RemoveBody(this.sensor);
@@ -75,6 +76,7 @@ namespace BaconGameJam.Common.Models.Doodads
             {
                 this.Target = (Tank)this.closestTarget.Item2;
                 this.closestTarget = null;
+                this.interruptedState = this.currentState;
                 this.ChangeState(this.states[typeof(AttackingState)]);
                 return;
             }
@@ -85,7 +87,8 @@ namespace BaconGameJam.Common.Models.Doodads
             {
                 this.Target = null;
                 this.closestTarget = null;
-                this.ChangeState(this.states[typeof(MovingState)]);
+                this.ChangeState(this.interruptedState);
+                this.interruptedState = null;
             }
 
             this.elapsedTime += gameTime.ElapsedGameTime;
@@ -129,7 +132,8 @@ namespace BaconGameJam.Common.Models.Doodads
             {
                 this.Target = null;
                 this.closestTarget = null;
-                this.ChangeState(this.states[typeof(MovingState)]);
+                this.ChangeState(this.interruptedState);
+                this.interruptedState = null;
             }
 
             this.currentState.Update(gameTime);
