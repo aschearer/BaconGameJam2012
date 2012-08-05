@@ -133,6 +133,10 @@
     <Compile Include="Program.cs" />
     <Compile Include="BaconGame.cs" />
     <Compile Include="Views\Levels\LevelView.cs" />
+    <Compile Include="Views\Particles\DustParticleSystem.cs" />
+    <Compile Include="Views\Particles\Particle.cs" />
+    <Compile Include="Views\Particles\ParticleSystem.cs" />
+    <Compile Include="Views\Particles\MuzzleFireParticleSystem.cs" />
     <Compile Include="Views\Sounds\SoundManagerView.cs" />
     <Compile Include="Views\States\BlastMarkView.cs" />
     <Compile Include="Views\States\GameOverView.cs" />

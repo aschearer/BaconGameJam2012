@@ -10,10 +10,12 @@ namespace BaconGameJam.Win7.Views.Doodads
     {
         private readonly IInputManager input;
         private readonly IKeyboardInputManager keyInput;
+        private readonly Random random;
 
-        public DoodadViewFactory(IInputManager input, IKeyboardInputManager keyInput)
+        public DoodadViewFactory(IInputManager input, IKeyboardInputManager keyInput, Random random)
         {
             this.input = input;
+            this.random = random;
             this.keyInput = keyInput;
         }
 
@@ -25,11 +27,11 @@ namespace BaconGameJam.Win7.Views.Doodads
             }
             else if (doodad is PlayerControlledTank)
             {
-                return new PlayerControlledTankView((PlayerControlledTank)doodad, this.input, this.keyInput);
+                return new PlayerControlledTankView((PlayerControlledTank)doodad, this.input, this.keyInput, this.random);
             }
             else if (doodad is Tank)
             {
-                return new TankView((Tank)doodad);
+                return new TankView((Tank)doodad, this.random);
             }
             else if (doodad is Missile)
             {

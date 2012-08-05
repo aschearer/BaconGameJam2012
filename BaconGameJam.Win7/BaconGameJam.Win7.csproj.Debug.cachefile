@@ -6,6 +6,7 @@ Content\Images\InGame\Pixel.xnb
 Content\TileSets\ConcreteStormTileSet.xnb
 Content\Images\InGame\Tanks.xnb
 Content\Images\InGame\Blasts.xnb
+Content\Images\InGame\Dust.xnb
 Content\Levels\TestLevel.xnb
 Content\Levels\Level1.xnb
 Content\Levels\Level2.xnb
@@ -26,4 +27,5 @@ Content\Sounds\Robot_Death_Powerdown.xnb
 Content\ConcreteStormTileSet.xnb
 Content\TanksTileSet.xnb
 Content\WaypointTileSet.xnb
+Content\Images\InGame\Spark.xnb
 Content\Sounds\Chimera-Derivation-3.wma

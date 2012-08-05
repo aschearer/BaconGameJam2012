@@ -1,6 +1,7 @@
 using System;
 using BaconGameJam.Common;
 using BaconGameJam.Common.Models.Doodads;
+using BaconGameJam.Win7.Views.Particles;
 using BaconGameJam.Win7.Views.Tweens;
 using BaconGameJam.Win7.Views.Tweens.Easings;
 using Microsoft.Xna.Framework;
@@ -17,14 +18,18 @@ namespace BaconGameJam.Win7.Views.Doodads
         private Texture2D texture;
         private Vector2 origin;
         private Rectangle source;
+        private DustParticleSystem dustParticles;
+        private MuzzleFireParticleSystem smokeParticles;
 
-        public TankView(Tank tank)
+        public TankView(Tank tank, Random random)
         {
             this.tank = tank;
             this.movementTween = TweenFactory.Tween(0, 1, TimeSpan.FromSeconds(0.25), EasingFunction.Discrete);
             this.movementTween.Repeats = Repeat.Forever;
             this.movementTween.YoYos = true;
             this.turretView = new TurretView(tank);
+            this.dustParticles = new DustParticleSystem(random);
+            this.smokeParticles = new MuzzleFireParticleSystem(random);
         }
 
         public void LoadContent(ContentManager content)
@@ -34,11 +39,27 @@ namespace BaconGameJam.Win7.Views.Doodads
             this.origin = new Vector2(25, 25);
             this.source = new Rectangle(0, 0, 50, 50);
             this.turretView.LoadContent(content);
+            this.dustParticles.LoadContent(content);
+            this.smokeParticles.LoadContent(content);
             this.OnLoad(content);
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            if (this.tank.IsFiring)
+            {
+                this.smokeParticles.Direction = this.tank.Heading - MathHelper.PiOver2;
+                this.smokeParticles.AddParticles(this.tank.Position * Constants.PixelsPerMeter);
+            }
+
+            if (this.tank.IsMoving)
+            {
+                this.dustParticles.AddParticles(this.tank.Position * Constants.PixelsPerMeter);
+            }
+
+            this.dustParticles.Draw(gameTime, spriteBatch);
+            this.smokeParticles.Draw(gameTime, spriteBatch);
+
             this.OnDraw(gameTime, spriteBatch);
 
             this.movementTween.IsPaused = !this.tank.IsMoving;

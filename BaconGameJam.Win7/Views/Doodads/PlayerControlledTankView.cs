@@ -18,8 +18,9 @@ namespace BaconGameJam.Win7.Views.Doodads
         public PlayerControlledTankView(
             PlayerControlledTank tank, 
             IInputManager input, 
-            IKeyboardInputManager keyInput)
-            : base(tank)
+            IKeyboardInputManager keyInput, 
+            Random random)
+            : base(tank, random)
         {
             this.tank = tank;
             this.input = input;
