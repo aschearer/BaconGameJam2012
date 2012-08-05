@@ -28,6 +28,7 @@ namespace BaconGameJam.Win7
             this.graphics = new GraphicsDeviceManager(this);
             this.graphics.PreferredBackBufferWidth = Constants.ScreenWidth;
             this.graphics.PreferredBackBufferHeight = Constants.ScreenHeight;
+            //this.graphics.IsFullScreen = true;
             this.Content.RootDirectory = "Content";
             this.IsMouseVisible = true;
         }
