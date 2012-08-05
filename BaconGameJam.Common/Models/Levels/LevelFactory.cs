@@ -29,7 +29,7 @@ namespace BaconGameJam.Common.Models.Levels
 
             this.doodads.Clear();
 
-            var doodadPlacements = this.content.Load<IEnumerable<DoodadPlacement>>("Levels/TestLevel");
+            var doodadPlacements = this.content.Load<IEnumerable<DoodadPlacement>>("Levels/Level1");
             foreach (DoodadPlacement doodadPlacement in doodadPlacements)
             {
                 this.doodadFactory.CreateDoodad(doodadPlacement);
