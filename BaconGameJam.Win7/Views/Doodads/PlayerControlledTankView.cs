@@ -1,3 +1,4 @@
+using System;
 using BaconGameJam.Common;
 using BaconGameJam.Common.Models.Doodads;
 using BaconGameJam.Win7.Views.Input;
@@ -24,6 +25,7 @@ namespace BaconGameJam.Win7.Views.Doodads
             this.input = input;
 
             this.input.MouseDown += this.OnMouseDown;
+            this.input.MouseMoved += this.OnMouseMoved;
             this.keyInput = keyInput;
             this.keyInput.KeyDown += this.OnKeyDown;
         }
@@ -31,6 +33,7 @@ namespace BaconGameJam.Win7.Views.Doodads
         public override void Dispose()
         {
             this.input.MouseDown -= this.OnMouseDown;
+            this.input.MouseMoved -= this.OnMouseMoved;
             this.keyInput.KeyDown -= this.OnKeyDown;
         }
 
@@ -46,6 +49,12 @@ namespace BaconGameJam.Win7.Views.Doodads
             {
                 this.tank.FireMissileCommand.Execute(physicalPosition);
             }
+        }
+
+        private void OnMouseMoved(object sender, InputEventArgs e)
+        {
+            Vector2 physicalPosition = new Vector2(e.X, e.Y) / Constants.PixelsPerMeter;
+            this.tank.PointTurretCommand.Execute(physicalPosition);
         }
 
         /*

@@ -10,6 +10,11 @@ namespace BaconGameJam.Win7.Views.Input
         event EventHandler<InputEventArgs> MouseDown;
 
         /// <summary>
+        /// Fired when the mouse is moved but not pressed.
+        /// </summary>
+        event EventHandler<InputEventArgs> MouseMoved;
+
+        /// <summary>
         /// Fired when the mouse is released without moving.
         /// </summary>
         event EventHandler<InputEventArgs> Click;

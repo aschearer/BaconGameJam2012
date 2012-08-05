@@ -7,6 +7,7 @@ namespace BaconGameJam.Win7.Views.Input
     public class MouseInputManager : IInputManager
     {
         public event EventHandler<InputEventArgs> MouseDown;
+        public event EventHandler<InputEventArgs> MouseMoved;
         public event EventHandler<InputEventArgs> Click;
         public event EventHandler<InputEventArgs> DragStarted;
         public event EventHandler<InputEventArgs> Dragged;
@@ -48,6 +49,13 @@ namespace BaconGameJam.Win7.Views.Input
                 if (this.Click != null)
                 {
                     this.Click(this, new InputEventArgs(position.X, position.Y));
+                }
+            }
+            else if (this.oldPosition != position)
+            {
+                if (this.MouseMoved != null)
+                {
+                    this.MouseMoved(this, new InputEventArgs(position.X, position.Y));
                 }
             }
         }

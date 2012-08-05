@@ -23,6 +23,7 @@ namespace BaconGameJam.Common.Models.Doodads
         {
             this.world = world;
             this.FireMissileCommand = new RelayCommand<Vector2>(this.FireMissile, this.CanFireMissile);
+            this.PointTurretCommand = new RelayCommand<Vector2>(this.PointTurret);
         }
 
         public override bool IsMoving
@@ -31,6 +32,8 @@ namespace BaconGameJam.Common.Models.Doodads
         }
 
         public ICommand FireMissileCommand { get; private set; }
+
+        public ICommand PointTurretCommand { get; private set; }
 
         protected override void OnRemoveFromGame(World world)
         {
@@ -71,6 +74,13 @@ namespace BaconGameJam.Common.Models.Doodads
             Vector2 delta = Vector2.Subtract(target, this.Position);
             float theta = (float)Math.Atan2(delta.Y, delta.X);
             this.FireAtTarget(theta);
+        }
+
+        private void PointTurret(Vector2 target)
+        {
+            Vector2 delta = Vector2.Subtract(target, this.Position);
+            float theta = (float)Math.Atan2(delta.Y, delta.X);
+            this.Heading = theta + MathHelper.PiOver2;
         }
     }
 }
