@@ -86,6 +86,7 @@
     <Compile Include="Models\Doodads\Missile.cs" />
     <Compile Include="Models\Doodads\PlayerControlledTank.cs" />
     <Compile Include="Models\Doodads\Tank.cs" />
+    <Compile Include="Models\Doodads\Tanks\AttackingState.cs" />
     <Compile Include="Models\Doodads\Tanks\ITankState.cs" />
     <Compile Include="Models\Doodads\Tanks\MovingState.cs" />
     <Compile Include="Models\Doodads\Tanks\StateChangeEventArgs.cs" />

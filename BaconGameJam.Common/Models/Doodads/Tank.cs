@@ -86,6 +86,7 @@ namespace BaconGameJam.Common.Models.Doodads
 
         protected virtual void OnUpdate(GameTime gameTime)
         {
+            //this.startPoint = this.Position;
         }
     }
 }
