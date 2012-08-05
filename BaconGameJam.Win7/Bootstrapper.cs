@@ -53,6 +53,8 @@ namespace BaconGameJam.Win7
             SimpleIoc.Default.Register<PlayingViewModel>();
             SimpleIoc.Default.Register<LevelCompleteViewModel>();
             SimpleIoc.Default.Register<GameOverViewModel>();
+            SimpleIoc.Default.Register<CreditsViewModel>();
+            SimpleIoc.Default.Register<TitleViewModel>();
 
             // Views
             SimpleIoc.Default.Register<IInputManager, MouseInputManager>();
@@ -67,11 +69,15 @@ namespace BaconGameJam.Win7
             SimpleIoc.Default.Register<DebugViewXNA>();
             SimpleIoc.Default.Register<SoundManagerView>();
             SimpleIoc.Default.Register<LevelCompleteView>();
+            SimpleIoc.Default.Register<CreditsView>();
+            SimpleIoc.Default.Register<TitleView>();
 
             List<IScreenView> screenViews = new List<IScreenView>();
             screenViews.Add(this.GetInstance<PlayingView>());
             screenViews.Add(this.GetInstance<GameOverView>());
             screenViews.Add(this.GetInstance<LevelCompleteView>());
+            screenViews.Add(this.GetInstance<CreditsView>());
+            screenViews.Add(this.GetInstance<TitleView>());
             SimpleIoc.Default.Register<IEnumerable<IScreenView>>(() => screenViews);
         }
 

@@ -26,8 +26,16 @@ namespace BaconGameJam.Win7.ViewModels.States
 
         private void StartNewGame()
         {
-            this.levelFactory.LoadNextLevel();
-            this.conductor.Pop();
+            if (this.levelFactory.CanLoadNextLevel)
+            {
+                this.levelFactory.LoadNextLevel();
+                this.conductor.Pop();
+            }
+            else
+            {
+                this.conductor.Pop();
+                this.conductor.Push(typeof(CreditsViewModel));
+            }
         }
 
         public void Update(GameTime gameTime)

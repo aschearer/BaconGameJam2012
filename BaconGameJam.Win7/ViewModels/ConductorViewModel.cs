@@ -6,6 +6,7 @@ namespace BaconGameJam.Win7.ViewModels
     {
         public event EventHandler<NavigationEventArgs> PushViewModel;
         public event EventHandler<EventArgs> PopViewModel;
+        public event EventHandler<NavigationEventArgs> SetTopViewModel;
 
         public void Push(Type viewModel)
         {
@@ -15,6 +16,11 @@ namespace BaconGameJam.Win7.ViewModels
         public void Pop()
         {
             this.PopViewModel(this, new EventArgs());
+        }
+
+        public void SetTop(Type viewMode)
+        {
+            this.SetTopViewModel(this, new NavigationEventArgs(viewMode));
         }
     }
 }

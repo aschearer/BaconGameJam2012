@@ -21,6 +21,7 @@ namespace BaconGameJam.Win7.Views
             this.activeViews = new Stack<IScreenView>();
             this.viewModel.PushViewModel += this.OnViewModelPushed;
             this.viewModel.PopViewModel += this.OnViewModelPopped;
+            this.viewModel.SetTopViewModel += this.OnViewModelSetTop;
         }
 
         public void Update(GameTime gameTime)
@@ -37,6 +38,18 @@ namespace BaconGameJam.Win7.Views
             {
                 this.activeViews.Peek().Draw(gameTime);
             }
+        }
+
+        private void OnViewModelSetTop(object sender, NavigationEventArgs e)
+        {
+            while (this.activeViews.Count > 0)
+            {
+                this.activeViews.Peek().NavigateFrom();
+                this.activeViews.Pop();
+            }
+
+            this.activeViews.Push(this.GetViewForViewModel(e.TargetViewModel));
+            this.activeViews.Peek().NavigateTo();
         }
 
         private void OnViewModelPushed(object sender, NavigationEventArgs e)

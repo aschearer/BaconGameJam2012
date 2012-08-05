@@ -50,7 +50,7 @@ namespace BaconGameJam.Win7
             this.soundManagerView = bootstrapper.GetInstance<SoundManagerView>();
 
             IConductorViewModel conductorViewModel = bootstrapper.GetInstance<IConductorViewModel>();
-            conductorViewModel.Push(typeof(PlayingViewModel));
+            conductorViewModel.Push(typeof(TitleViewModel));
 
             this.soundManagerView.LoadContent(this.Content);
             ISoundManager soundManager = bootstrapper.GetInstance<ISoundManager>();

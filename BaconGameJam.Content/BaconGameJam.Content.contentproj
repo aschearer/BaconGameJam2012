@@ -269,6 +269,74 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\Credits\Background.png">
+      <Name>Background</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\Title\Background.png">
+      <Name>Background</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Images\Title\CreditsButton.png">
+      <Name>CreditsButton</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Images\Title\PlayButton.png">
+      <Name>PlayButton</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="TileSets\TanksTiled.png">
+      <Name>TanksTiled</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Levels\Level10.tmx">
+      <Name>Level10</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>LevelProcessor</Processor>
+    </Compile>
+    <Compile Include="Levels\Level4.tmx">
+      <Name>Level4</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>LevelProcessor</Processor>
+    </Compile>
+    <Compile Include="Levels\Level5.tmx">
+      <Name>Level5</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>LevelProcessor</Processor>
+    </Compile>
+    <Compile Include="Levels\Level6.tmx">
+      <Name>Level6</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>LevelProcessor</Processor>
+    </Compile>
+    <Compile Include="Levels\Level7.tmx">
+      <Name>Level7</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>LevelProcessor</Processor>
+    </Compile>
+    <Compile Include="Levels\Level8.tmx">
+      <Name>Level8</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>LevelProcessor</Processor>
+    </Compile>
+    <Compile Include="Levels\Level9.tmx">
+      <Name>Level9</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>LevelProcessor</Processor>
+    </Compile>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

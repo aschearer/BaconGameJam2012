@@ -1,3 +1,4 @@
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using FarseerPhysics.Dynamics;
@@ -21,6 +22,8 @@ namespace BaconGameJam.Common.Models.Levels
 
         public bool LevelCleared { get; private set; }
         public bool LevelLost { get; private set; }
+
+        public int Number { get; set; }
 
         public void Update(GameTime gameTime)
         {

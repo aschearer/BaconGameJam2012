@@ -11,10 +11,12 @@ namespace BaconGameJam.Win7.Views.Doodads
         private readonly IInputManager input;
         private readonly IKeyboardInputManager keyInput;
         private readonly Random random;
+        private readonly Level level;
 
-        public DoodadViewFactory(IInputManager input, IKeyboardInputManager keyInput, Random random)
+        public DoodadViewFactory(IInputManager input, IKeyboardInputManager keyInput, Random random, Level level)
         {
             this.input = input;
+            this.level = level;
             this.random = random;
             this.keyInput = keyInput;
         }
@@ -23,7 +25,7 @@ namespace BaconGameJam.Win7.Views.Doodads
         {
             if (doodad is Wall || doodad is TileDoodad || doodad is Pit)
             {
-                return new StaticDoodadView((IStaticDoodad)doodad);
+                return new StaticDoodadView((IStaticDoodad)doodad, level);
             }
             else if (doodad is PlayerControlledTank)
             {

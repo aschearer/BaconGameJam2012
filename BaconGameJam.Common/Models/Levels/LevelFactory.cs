@@ -12,18 +12,30 @@ namespace BaconGameJam.Common.Models.Levels
         private readonly ContentManager content;
         private readonly DoodadFactory doodadFactory;
         private readonly Collection<IDoodad> doodads;
+        private readonly Level level;
         private int currentLevel;
 
-        public LevelFactory(ContentManager content, DoodadFactory doodadFactory, Collection<IDoodad> doodads)
+        public LevelFactory(
+            ContentManager content, 
+            DoodadFactory doodadFactory, 
+            Collection<IDoodad> doodads,
+            Level level)
         {
             this.doodadFactory = doodadFactory;
             this.doodads = doodads;
+            this.level = level;
             this.content = content;
             this.currentLevel = 1;
         }
 
+        public bool CanLoadNextLevel
+        {
+            get { return this.currentLevel < Constants.NumberOfLevels; }
+        }
+
         public void LoadLevel()
         {
+            level.Number = this.currentLevel;
             var doodads = this.doodads.ToArray();
             foreach (IDoodad doodad in doodads)
             {
@@ -44,6 +56,11 @@ namespace BaconGameJam.Common.Models.Levels
             this.currentLevel++;
             this.LoadLevel();
             return true;
+        }
+
+        public void Reset()
+        {
+            this.currentLevel = 1;
         }
     }
 }
