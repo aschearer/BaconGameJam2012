@@ -9,8 +9,9 @@ namespace BaconGameJam.Common.Models.Doodads
         private readonly Vector2 position;
         private readonly Collection<Waypoint> waypoints;
 
-        public Waypoint(Vector2 position, Collection<Waypoint> waypoints)
+        public Waypoint(Vector2 position, string color, Collection<Waypoint> waypoints)
         {
+            this.Color = color;
             this.position = position;
             this.waypoints = waypoints;
             this.waypoints.Add(this);
@@ -21,6 +22,18 @@ namespace BaconGameJam.Common.Models.Doodads
             get { return this.position; }
         }
 
+        public int Column
+        {
+            get { return (int)((this.position.X * Constants.PixelsPerMeter) / 32); }
+        }
+
+        public int Row
+        {
+            get { return (int)((this.position.Y * Constants.PixelsPerMeter) / 32); }
+        }
+
+        public string Color { get; private set; }
+
         public void RemoveFromGame()
         {
             this.waypoints.Remove(this);
@@ -28,6 +41,11 @@ namespace BaconGameJam.Common.Models.Doodads
 
         public void Update(GameTime gameTime)
         {
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0}: {1},{2}", this.Color, this.Column, this.Row);
         }
     }
 }

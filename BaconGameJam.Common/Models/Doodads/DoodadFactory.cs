@@ -1,5 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using BaconGameJam.Common.Models.Levels;
 using FarseerPhysics.Dynamics;
 
@@ -35,7 +36,15 @@ namespace BaconGameJam.Common.Models.Doodads
                     }
                     else
                     {
-                        doodad = new ComputerControlledTank(this.world, this.doodads, doodadPlacement.Team, doodadPlacement.Position, doodadPlacement.Rotation, this.random, this, this.waypoints);
+                        doodad = new ComputerControlledTank(
+                            this.world, 
+                            this.doodads, 
+                            doodadPlacement.Team, 
+                            doodadPlacement.Position, 
+                            doodadPlacement.Rotation, 
+                            this.random, 
+                            this, 
+                            this.waypoints.Where(waypoint => waypoint.Color == doodadPlacement.WaypointColor));
                     }
 
                     break;
@@ -53,7 +62,7 @@ namespace BaconGameJam.Common.Models.Doodads
                         doodadPlacement.Source);
                     break;
                 case DoodadType.Waypoint:
-                    doodad = new Waypoint(doodadPlacement.Position, this.waypoints);
+                    doodad = new Waypoint(doodadPlacement.Position, doodadPlacement.WaypointColor, this.waypoints);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

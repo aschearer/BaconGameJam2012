@@ -35,7 +35,7 @@ namespace BaconGameJam.Common.Models.Doodads
             this.world = world;
             this.waypoints = waypoints;
             this.states = new Dictionary<Type, ITankState>();
-            this.states.Add(typeof(MovingState), new MovingState(world, this.Body, waypoints));
+            this.states.Add(typeof(MovingState), new MovingState(world, this.Body, waypoints, random));
             this.states.Add(typeof(AttackingState), new AttackingState(world, this.Body, this));
             this.states.Add(typeof(TurningState), new TurningState(world, this.Body, random, this));
             this.currentState = this.states[typeof(MovingState)];

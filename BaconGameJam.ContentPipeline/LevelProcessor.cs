@@ -25,7 +25,11 @@ namespace BaconGameJam.ContentPipeline
             List<DoodadPlacement> doodadPlacements = new List<DoodadPlacement>();
             foreach (LayerContent layer in input.Layers)
             {
-                if (layer is TileLayerContent && layer.Name == "main")
+                if (layer is TileLayerContent && layer.Name == "waypoints")
+                {
+                    this.ProcessWaypointsLayer((TileLayerContent)layer, input.TileSets, doodadPlacements);
+                }
+                else if (layer is TileLayerContent && layer.Name == "main")
                 {
                     this.ProcessMainLayer((TileLayerContent)layer, input.TileSets, doodadPlacements);
                 }
@@ -40,6 +44,38 @@ namespace BaconGameJam.ContentPipeline
             }
 
             return doodadPlacements;
+        }
+
+        private void ProcessWaypointsLayer(
+            TileLayerContent layer, 
+            IEnumerable<TileSetContent> tileSets, 
+            List<DoodadPlacement> doodadPlacements)
+        {
+            for (int column = 0; column < layer.Width; column++)
+            {
+                for (int row = 0; row < layer.Height; row++)
+                {
+                    uint tileID = layer.Data[column + row * layer.Width];
+                    int tileIndex;
+                    SpriteEffects spriteEffects;
+                    TiledHelpers.DecodeTileID(tileID, out tileIndex, out spriteEffects);
+
+                    Tile tileDef = this.GetTile(tileIndex, tileSets);
+                    if (tileDef == null)
+                    {
+                        continue;
+                    }
+
+                    DoodadPlacement placement = new DoodadPlacement();
+                    placement.DoodadType = DoodadType.Waypoint;
+                    placement.Position = new Vector2(
+                                                column * tileDef.Source.Width + (tileDef.Source.Width / 2f),
+                                                row * tileDef.Source.Height + (tileDef.Source.Height / 2f)) / 30f;
+                    placement.WaypointColor = tileDef.Properties["Color"];
+
+                    doodadPlacements.Add(placement);
+                }
+            }
         }
 
         private void ProcessObjectLayer(
@@ -65,6 +101,11 @@ namespace BaconGameJam.ContentPipeline
                     placement.Position = new Vector2(
                         mapObject.Bounds.Center.X + tile.Source.Width / 2f,
                         mapObject.Bounds.Center.Y - tile.Source.Height / 2f) / Constants.PixelsPerMeter;
+
+                    string waypointColor = string.Empty;
+                    mapObject.Properties.TryGetValue("WaypointColor", out waypointColor);
+                    placement.WaypointColor = waypointColor;
+
                     Team team;
                     if (!Enum.TryParse(tile.Properties["Team"], true, out team))
                     {
@@ -83,7 +124,6 @@ namespace BaconGameJam.ContentPipeline
             IEnumerable<TileSetContent> tileSets,
             List<DoodadPlacement> doodadPlacements)
         {
-
             for (int column = 0; column < layer.Width; column++)
             {
                 for (int row = 0; row < layer.Height; row++)

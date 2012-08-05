@@ -21,5 +21,8 @@ namespace BaconGameJam.Common.Models.Doodads
 
         [DataMember]
         public Team Team { get; set; }
+
+        [DataMember]
+        public string WaypointColor { get; set; }
     }
 }
