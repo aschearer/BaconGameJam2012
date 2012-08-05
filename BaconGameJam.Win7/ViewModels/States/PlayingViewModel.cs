@@ -33,6 +33,7 @@ namespace BaconGameJam.Win7.ViewModels.States
 
         public void NavigateTo()
         {
+            this.GameOver = false;
             this.levelFactory.LoadLevel();
         }
 

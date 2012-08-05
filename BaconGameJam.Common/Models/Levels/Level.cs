@@ -38,7 +38,7 @@ namespace BaconGameJam.Common.Models.Levels
                 }
             }
 
-            world.Step(Level.WorldStep);
+            //world.Step(Level.WorldStep);
         }
     }
 }

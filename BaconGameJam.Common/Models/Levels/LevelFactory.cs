@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Collections.ObjectModel;
 using BaconGameJam.Common.Models.Doodads;
 using Microsoft.Xna.Framework.Content;
@@ -20,7 +21,8 @@ namespace BaconGameJam.Common.Models.Levels
 
         public void LoadLevel()
         {
-            foreach (IDoodad doodad in this.doodads)
+            var doodads = this.doodads.ToArray();
+            foreach (IDoodad doodad in doodads)
             {
                 doodad.RemoveFromGame();
             }
