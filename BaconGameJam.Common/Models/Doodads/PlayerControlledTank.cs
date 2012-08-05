@@ -36,6 +36,7 @@ namespace BaconGameJam.Common.Models.Doodads
 
         protected override void OnUpdate(GameTime gameTime)
         {
+            return;
             // up/down raycast
             Vector2 rayStart = new Vector2(Position.X, Position.Y);
             Vector2 rayEnd = rayStart + new Vector2(0, (MovingUp ? -1 : (MovingDown ? 1 : 0)));

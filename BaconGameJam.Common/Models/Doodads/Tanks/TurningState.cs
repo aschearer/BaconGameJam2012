@@ -10,9 +10,10 @@ namespace BaconGameJam.Common.Models.Doodads.Tanks
 
         private readonly World world;
         private readonly Body body;
-        private float targetTheta;
         private readonly Random random;
         private readonly Tank tank;
+        private float targetTheta;
+        private float turningDirection;
 
         public TurningState(World world, Body body, Random random, Tank tank)
         {
@@ -29,7 +30,7 @@ namespace BaconGameJam.Common.Models.Doodads.Tanks
 
         public void NavigateTo()
         {
-            this.ProbeDirection();
+            this.Probe();
         }
 
         public void Update(GameTime gameTime)
@@ -50,22 +51,27 @@ namespace BaconGameJam.Common.Models.Doodads.Tanks
             }
         }
 
+        private void Probe()
+        {
+            this.turningDirection = this.random.NextDouble() > 0.5 ? 1 : -1;
+            this.targetTheta = this.body.Rotation + this.turningDirection * MathHelper.PiOver2;
+            this.ProbeDirection();
+        }
+
         private void ProbeDirection()
         {
-            this.targetTheta = this.body.Rotation;
-            this.targetTheta += this.random.NextDouble() > 0.5
-                                    ? MathHelper.PiOver2
-                                    : -MathHelper.PiOver2;
-
-            Vector2 direction = new Vector2((float)Math.Cos(this.targetTheta), (float)Math.Sin(this.targetTheta));
-            Vector2 target = this.body.Position + direction * 3;
-            //this.world.RayCast(this.OnProbeReturned, this.body.Position, target);
+            float adjustedTheta = this.targetTheta - MathHelper.PiOver2;
+            Vector2 direction = new Vector2((float)Math.Cos(adjustedTheta), (float)Math.Sin(adjustedTheta));
+            direction.Normalize();
+            Vector2 target = this.body.Position + direction * 1.5f;
+            this.world.RayCast(this.OnProbeReturned, this.body.Position, target);
         }
 
         private float OnProbeReturned(Fixture fixture, Vector2 point, Vector2 normal, float fraction)
         {
             if (fixture != null)
             {
+                this.targetTheta += this.turningDirection * MathHelper.PiOver2;
                 this.ProbeDirection();
                 return 0;
             }

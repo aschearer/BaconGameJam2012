@@ -42,6 +42,16 @@ namespace BaconGameJam.Common.Models.Doodads
             //Fixture f = SensorBody.CreateFixture(shape);
             //f.IsSensor = true;
             //f.CollisionCategories = Constants.EnemyCategory;
+            //SensorBody.CollisionCategories = PhysicsConstants.EnemyCategory;
+            //SensorBody.CollidesWith = PhysicsConstants.PlayerCategory;
+            //SensorBody.BodyType = BodyType.Dynamic;
+
+            //var shape = new CircleShape(4, 0.0000001f);
+            //Fixture f = SensorBody.CreateFixture(shape);
+            //f.IsSensor = true;
+            //f.CollisionCategories = PhysicsConstants.EnemyCategory;
+            //f.CollidesWith = PhysicsConstants.PlayerCategory;
+
             //f.CollidesWith = Constants.PlayerCategory;
         }
 
