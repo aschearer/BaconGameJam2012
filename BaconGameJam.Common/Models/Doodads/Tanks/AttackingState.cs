@@ -30,7 +30,7 @@ namespace BaconGameJam.Common.Models.Doodads.Tanks
 
         public void NavigateTo()
         {
-            this.elapsedTime = TimeSpan.FromSeconds(0.8);
+            this.elapsedTime = TimeSpan.FromSeconds(0.25);
         }
 
         public void Update(GameTime gameTime)

@@ -33,7 +33,7 @@ namespace BaconGameJam.Common.Models.Doodads
             fixture.OnCollision += Body_OnCollision;
             obstacleCollisionCtr = 0;
 
-            Vector2 force = new Vector2((float)Math.Cos(rotation), (float)Math.Sin(rotation)) * 400;
+            Vector2 force = new Vector2((float)Math.Cos(rotation), (float)Math.Sin(rotation)) * 300;
             this.body.ApplyForce(force);
         }
 

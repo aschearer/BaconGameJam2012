@@ -39,7 +39,7 @@ namespace BaconGameJam.Common.Models.Doodads
             this.currentState.StateChanged += this.OnStateChanged;
             this.currentState.NavigateTo();
 
-            this.sensor = BodyFactory.CreateBody(world, this.Position, this);
+            this.sensor = BodyFactory.CreateBody(world, this.Position);
 
             var shape = new CircleShape(5, 0);
             Fixture sensorFixture = this.sensor.CreateFixture(shape);
@@ -60,7 +60,9 @@ namespace BaconGameJam.Common.Models.Doodads
         {
             this.sensor.SetTransform(this.Position, this.Rotation);
 
-            if (this.closestBody != null && this.closestBody.Item2 is PlayerControlledTank)
+            if (!(this.currentState is AttackingState) &&
+                this.closestBody != null && 
+                this.closestBody.Item2 is PlayerControlledTank)
             {
                 this.Target = (Tank)this.closestBody.Item2;
                 this.closestBody = null;

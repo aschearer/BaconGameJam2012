@@ -114,7 +114,8 @@ namespace BaconGameJam.Common.Models.Doodads
 
         protected bool ContainsPoint(Vector2 point)
         {
-            return this.world.TestPointAll(point).Any(fixture => this.Equals(fixture.Body.UserData));
+            bool b = this.world.TestPointAll(point).Any(fixture => this.Equals(fixture.Body.UserData));
+            return b;
         }
 
         protected virtual void OnUpdate(GameTime gameTime)
