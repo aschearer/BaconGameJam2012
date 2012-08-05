@@ -41,7 +41,7 @@ namespace BaconGameJam.Common.Models.Doodads
 
             this.sensor = BodyFactory.CreateBody(world, this.Position);
 
-            var shape = new CircleShape(5, 0);
+            var shape = new CircleShape(8, 0);
             Fixture sensorFixture = this.sensor.CreateFixture(shape);
             sensorFixture.Friction = 1f;
             sensorFixture.IsSensor = true;

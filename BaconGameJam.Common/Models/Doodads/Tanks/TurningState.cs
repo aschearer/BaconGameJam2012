@@ -42,9 +42,13 @@ namespace BaconGameJam.Common.Models.Doodads.Tanks
                 float sign = Math.Sign(this.targetTheta - this.body.Rotation);
                 this.body.Rotation = this.body.Rotation + (sign * TurningState.Torque);
 
-                if (Math.Abs(this.targetTheta - this.tank.Heading) > 0.01f)
+                if (Math.Abs(this.targetTheta - this.tank.Heading) > TurningState.Torque * 2)
                 {
                     this.tank.Heading += (sign * TurningState.Torque * 2);
+                }
+                else
+                {
+                    this.tank.Heading = this.targetTheta;
                 }
             }
             else
