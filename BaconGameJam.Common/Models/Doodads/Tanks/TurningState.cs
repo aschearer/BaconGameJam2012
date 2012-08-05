@@ -59,7 +59,7 @@ namespace BaconGameJam.Common.Models.Doodads.Tanks
 
             Vector2 direction = new Vector2((float)Math.Cos(this.targetTheta), (float)Math.Sin(this.targetTheta));
             Vector2 target = this.body.Position + direction * 3;
-            this.world.RayCast(this.OnProbeReturned, this.body.Position, target);
+            //this.world.RayCast(this.OnProbeReturned, this.body.Position, target);
         }
 
         private float OnProbeReturned(Fixture fixture, Vector2 point, Vector2 normal, float fraction)

@@ -33,16 +33,15 @@ namespace BaconGameJam.Common.Models.Doodads
             this.currentState.StateChanged += this.OnStateChanged;
             this.currentState.NavigateTo();
 
-            SensorBody = BodyFactory.CreateBody(world, this.Position);
-            SensorBody.CollisionCategories = Constants.EnemyCategory;
-            SensorBody.CollidesWith = Constants.PlayerCategory;
-            SensorBody.BodyType = BodyType.Dynamic;
+            //SensorBody = BodyFactory.CreateBody(world, this.Position);
+            //SensorBody.CollisionCategories = Constants.EnemyCategory;
+            //SensorBody.CollidesWith = Constants.PlayerCategory;
+            //SensorBody.BodyType = BodyType.Dynamic;
 
-            var shape = new CircleShape(4, 0.0000001f);
-            Fixture f = SensorBody.CreateFixture(shape);
-            f.IsSensor = true;
-            f.CollisionCategories = Constants.EnemyCategory;
-            f.CollidesWith = Constants.PlayerCategory;
+            //var shape = new CircleShape(4, 0.0000001f);
+            //Fixture f = SensorBody.CreateFixture(shape);
+            //f.IsSensor = true;
+            //f.CollisionCategories = Constants.EnemyCategory;
             //f.CollidesWith = Constants.PlayerCategory;
         }
 
@@ -53,22 +52,22 @@ namespace BaconGameJam.Common.Models.Doodads
 
         protected override void OnUpdate(GameTime gameTime)
         {
-            this.SensorBody.SetTransform(this.Position, this.Rotation);
+            //this.SensorBody.SetTransform(this.Position, this.Rotation);
 
-            ContactEdge edge = this.SensorBody.ContactList;
-            while (edge != null)
-            {
-                System.Diagnostics.Debug.WriteLine(DateTime.Now.ToString() + " " + edge.Contact.FixtureA.CollisionCategories);
-                if (edge.Contact.IsTouching())
-                {
-                    Fixture f = edge.Contact.FixtureA.Body == this.SensorBody
-                                              ? edge.Contact.FixtureB
-                                              : edge.Contact.FixtureA;
-                    System.Diagnostics.Debug.WriteLine(DateTime.Now.ToString() + " " + f.CollisionCategories);
-                }
+            //ContactEdge edge = this.SensorBody.ContactList;
+            //while (edge != null)
+            //{
+            //    System.Diagnostics.Debug.WriteLine(DateTime.Now.ToString() + " " + edge.Contact.FixtureA.CollisionCategories);
+            //    if (edge.Contact.IsTouching())
+            //    {
+            //        Fixture f = edge.Contact.FixtureA.Body == this.SensorBody
+            //                                  ? edge.Contact.FixtureB
+            //                                  : edge.Contact.FixtureA;
+            //        System.Diagnostics.Debug.WriteLine(DateTime.Now.ToString() + " " + f.CollisionCategories);
+            //    }
 
-                edge = edge.Next;
-            }
+            //    edge = edge.Next;
+            //}
 
             this.currentState.Update(gameTime);
         }
