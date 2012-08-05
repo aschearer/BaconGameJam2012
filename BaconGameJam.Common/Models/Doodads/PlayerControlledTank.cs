@@ -60,6 +60,7 @@ namespace BaconGameJam.Common.Models.Doodads
             this.isMoving = this.MovingLeft | this.MovingRight | this.MovingUp | this.MovingDown;
             if (this.isMoving)
             {
+                this.TrackMove();
                 this.Body.Awake = true;
             }
         }

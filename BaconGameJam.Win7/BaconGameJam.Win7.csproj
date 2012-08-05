@@ -112,6 +112,7 @@
     <Compile Include="ViewModels\States\PlayingViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\ConductorView.cs" />
+    <Compile Include="Views\Doodads\TreadMarkView.cs" />
     <Compile Include="Views\Doodads\DoodadViewFactory.cs" />
     <Compile Include="Views\Doodads\EmptyView.cs" />
     <Compile Include="Views\Doodads\MissileView.cs" />
@@ -139,7 +140,7 @@
     <Compile Include="Views\Particles\ParticleSystem.cs" />
     <Compile Include="Views\Particles\MuzzleFireParticleSystem.cs" />
     <Compile Include="Views\Sounds\SoundManagerView.cs" />
-    <Compile Include="Views\States\BlastMarkView.cs" />
+    <Compile Include="Views\Doodads\BlastMarkView.cs" />
     <Compile Include="Views\States\GameOverView.cs" />
     <Compile Include="Views\States\PlayingView.cs" />
     <Compile Include="Views\Doodads\TankView.cs" />

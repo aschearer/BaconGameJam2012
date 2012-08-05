@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace BaconGameJam.Win7.Views.States
+namespace BaconGameJam.Win7.Views.Doodads
 {
     public class BlastMarkView : IRetainedControl
     {
@@ -14,7 +14,7 @@ namespace BaconGameJam.Win7.Views.States
         private Texture2D texture;
         private Vector2 origin;
         private Rectangle source;
-        private ExplosionParticleSystem particles;
+        private readonly ExplosionParticleSystem particles;
         private TimeSpan particleTimer;
 
         public BlastMarkView(BlastMark blastMark, Random random)

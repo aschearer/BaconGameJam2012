@@ -84,6 +84,9 @@ namespace BaconGameJam.Common.Models.Doodads
                 case DoodadType.BlastMark:
                     doodad = new BlastMark(doodadPlacement.Position, this.random);
                     break;
+                case DoodadType.TreadMark:
+                    doodad = new TreadMark(doodadPlacement.Position, doodadPlacement.Rotation, this.doodads);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

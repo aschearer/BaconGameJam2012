@@ -20,6 +20,7 @@ namespace BaconGameJam.Common.Models.Doodads
         private readonly List<Missile> activeMissiles;
         private TimeSpan elapsedTime;
         private TimeSpan firingCooldown;
+        private TimeSpan movingTimer;
 
         protected Tank(
             ISoundManager soundManager,
@@ -85,6 +86,14 @@ namespace BaconGameJam.Common.Models.Doodads
             get { return this.firingCooldown > TimeSpan.Zero; }
         }
 
+        public void TrackMove()
+        {
+            if (this.movingTimer == TimeSpan.Zero)
+            {
+                this.movingTimer = TimeSpan.FromSeconds(0.25);
+            }
+        }
+
         public void Destroy()
         {
             this.doodadFactory.CreateDoodad(new DoodadPlacement() { DoodadType = DoodadType.BlastMark, Position = this.Position });
@@ -101,6 +110,23 @@ namespace BaconGameJam.Common.Models.Doodads
 
         public void Update(GameTime gameTime)
         {
+            if (this.movingTimer > gameTime.ElapsedGameTime)
+            {
+                this.movingTimer -= gameTime.ElapsedGameTime;
+            }
+            else
+            {
+                this.movingTimer = TimeSpan.Zero;
+                this.doodadFactory.CreateDoodad(
+                    new DoodadPlacement()
+                        {
+                            DoodadType = DoodadType.TreadMark,
+                            Position = this.Position,
+                            Rotation =
+                                this.Rotation
+                        });
+            }
+
             if (this.firingCooldown > gameTime.ElapsedGameTime)
             {
                 this.firingCooldown -= gameTime.ElapsedGameTime;

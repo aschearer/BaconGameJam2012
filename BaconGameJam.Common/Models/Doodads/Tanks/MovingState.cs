@@ -74,6 +74,8 @@ namespace BaconGameJam.Common.Models.Doodads.Tanks
 
                 this.StateChanged(this, new StateChangeEventArgs(typeof(TurningState)));
             }
+
+            this.tank.TrackMove();
         }
 
         private Waypoint GetRandomNeighbor()
