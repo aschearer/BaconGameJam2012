@@ -1,5 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
+using BaconGameJam.Common.Models.Sounds;
 using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Contacts;
@@ -10,14 +11,16 @@ namespace BaconGameJam.Common.Models.Doodads
 {
     public class Missile : IDoodad
     {
+        private readonly ISoundManager soundManager;
         private readonly World world;
         private readonly Body body;
+        private readonly Collection<IDoodad> doodads;
         private int obstacleCollisionCtr;
-        private Collection<IDoodad> doodads;
         private TimeSpan elapsedTime;
 
-        public Missile(World world, Collection<IDoodad> doodads, Team team, Vector2 position, float rotation)
+        public Missile(ISoundManager soundManager, World world, Collection<IDoodad> doodads, Team team, Vector2 position, float rotation)
         {
+            this.soundManager = soundManager;
             this.world = world;
             this.doodads = doodads;
             this.body = BodyFactory.CreateBody(world, position, this);
@@ -98,6 +101,7 @@ namespace BaconGameJam.Common.Models.Doodads
             {
                 case PhysicsConstants.ObstacleCategory:
                     obstacleCollisionCtr++;
+                    this.soundManager.PlaySound("MissileBounce");
                     if (obstacleCollisionCtr >= 2)
                     {
                         RemoveFromGame();
@@ -106,9 +110,20 @@ namespace BaconGameJam.Common.Models.Doodads
                 case PhysicsConstants.EnemyCategory:
                 case PhysicsConstants.PlayerCategory:
                     RemoveFromGame();
+                    this.soundManager.PlaySound("MissileBounce");
+                    if (fixture.CollisionCategories == PhysicsConstants.EnemyCategory)
+                    {
+                        this.soundManager.PlaySound("TankDestroyed");
+                    }
+                    else
+                    {
+                        this.soundManager.PlaySound("PlayerTankDestroyed");
+                    }
+
                     (fixture.Body.UserData as Tank).RemoveFromGame();
                     break;
                 case PhysicsConstants.MissileCategory:
+                    this.soundManager.PlaySound("MissileBounce");
                     this.RemoveFromGame();
                     break;
             }

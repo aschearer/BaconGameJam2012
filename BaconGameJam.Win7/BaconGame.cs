@@ -1,4 +1,5 @@
 using BaconGameJam.Common;
+using BaconGameJam.Common.Models.Sounds;
 using BaconGameJam.Win7.ViewModels;
 using BaconGameJam.Win7.ViewModels.States;
 using BaconGameJam.Win7.Views;
@@ -20,6 +21,7 @@ namespace BaconGameJam.Win7
         private ConductorView conductorView;
         private MouseInputManager inputManager;
         private KeyboardInputManager keyInputManager;
+        private SoundManagerView soundManagerView;
 
         public BaconGame()
         {
@@ -44,10 +46,14 @@ namespace BaconGameJam.Win7
             this.conductorView = bootstrapper.GetInstance<ConductorView>();
             this.inputManager = bootstrapper.GetInstance<MouseInputManager>();
             this.keyInputManager = bootstrapper.GetInstance<KeyboardInputManager>();
+            this.soundManagerView = bootstrapper.GetInstance<SoundManagerView>();
 
             IConductorViewModel conductorViewModel = bootstrapper.GetInstance<IConductorViewModel>();
             conductorViewModel.Push(typeof(PlayingViewModel));
 
+            this.soundManagerView.LoadContent(this.Content);
+            ISoundManager soundManager = bootstrapper.GetInstance<ISoundManager>();
+            soundManager.PlayMusic();
         }
 
         /// <summary>

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using BaconGameJam.Common.Models.Doodads.Tanks;
+using BaconGameJam.Common.Models.Sounds;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Contacts;
 using FarseerPhysics.Collision.Shapes;
@@ -22,6 +23,7 @@ namespace BaconGameJam.Common.Models.Doodads
         private TimeSpan elapsedTime;
 
         public ComputerControlledTank(
+            ISoundManager soundManager,
             World world, 
             Collection<IDoodad> doodads, 
             Team team, 
@@ -30,7 +32,7 @@ namespace BaconGameJam.Common.Models.Doodads
             Random random, 
             DoodadFactory doodadFactory,
             IEnumerable<Waypoint> waypoints)
-            : base(world, doodads, team, position, rotation, doodadFactory)
+            : base(soundManager, world, doodads, team, position, rotation, doodadFactory)
         {
             this.world = world;
             this.states = new Dictionary<Type, ITankState>();

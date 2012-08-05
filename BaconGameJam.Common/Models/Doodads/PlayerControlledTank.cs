@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
+using BaconGameJam.Common.Models.Sounds;
 using FarseerPhysics.Dynamics;
 using GalaSoft.MvvmLight.Command;
 using Microsoft.Xna.Framework;
@@ -9,19 +10,18 @@ namespace BaconGameJam.Common.Models.Doodads
 {
     public class PlayerControlledTank : Tank
     {
-        private readonly World world;
         private bool isMoving;
 
         public PlayerControlledTank(
+            ISoundManager soundManager,
             DoodadFactory doodadFactory,
             World world,
             Collection<IDoodad> doodads,
             Team team, 
             Vector2 position, 
             float rotation)
-            : base(world, doodads, team, position, rotation, doodadFactory)
+            : base(soundManager, world, doodads, team, position, rotation, doodadFactory)
         {
-            this.world = world;
             this.FireMissileCommand = new RelayCommand<Vector2>(this.FireMissile, this.CanFireMissile);
             this.PointTurretCommand = new RelayCommand<Vector2>(this.PointTurret);
         }

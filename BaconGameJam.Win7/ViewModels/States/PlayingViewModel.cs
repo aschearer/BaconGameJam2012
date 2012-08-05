@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using BaconGameJam.Common.Models.Doodads;
 using BaconGameJam.Common.Models.Levels;
+using BaconGameJam.Common.Models.Sounds;
 using Microsoft.Xna.Framework;
 
 namespace BaconGameJam.Win7.ViewModels.States
@@ -11,6 +12,7 @@ namespace BaconGameJam.Win7.ViewModels.States
         private readonly Level level;
         private readonly ObservableCollection<IDoodad> doodads;
         private readonly IConductorViewModel conductor;
+        private int currentLevel;
 
         public PlayingViewModel(
             LevelFactory levelFactory, 
@@ -18,6 +20,7 @@ namespace BaconGameJam.Win7.ViewModels.States
             ObservableCollection<IDoodad> doodads,
             IConductorViewModel conductor)
         {
+            this.currentLevel = 1;
             this.levelFactory = levelFactory;
             this.level = level;
             this.doodads = doodads;
@@ -31,7 +34,7 @@ namespace BaconGameJam.Win7.ViewModels.States
 
         public void NavigateTo()
         {
-            this.levelFactory.LoadLevel();
+            this.levelFactory.LoadLevel(this.currentLevel);
         }
 
         public void Update(GameTime gameTime)

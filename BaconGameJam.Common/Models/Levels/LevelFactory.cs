@@ -19,7 +19,7 @@ namespace BaconGameJam.Common.Models.Levels
             this.content = content;
         }
 
-        public void LoadLevel()
+        public void LoadLevel(int level)
         {
             var doodads = this.doodads.ToArray();
             foreach (IDoodad doodad in doodads)
@@ -29,7 +29,7 @@ namespace BaconGameJam.Common.Models.Levels
 
             this.doodads.Clear();
 
-            var doodadPlacements = this.content.Load<IEnumerable<DoodadPlacement>>("Levels/Level1");
+            var doodadPlacements = this.content.Load<IEnumerable<DoodadPlacement>>("Levels/Level" + level);
             foreach (DoodadPlacement doodadPlacement in doodadPlacements)
             {
                 this.doodadFactory.CreateDoodad(doodadPlacement);

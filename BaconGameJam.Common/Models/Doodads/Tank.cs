@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Collections.ObjectModel;
+using BaconGameJam.Common.Models.Sounds;
 using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Factories;
@@ -11,6 +12,7 @@ namespace BaconGameJam.Common.Models.Doodads
 {
     public abstract class Tank : IDoodad
     {
+        private readonly ISoundManager soundManager;
         private readonly World world;
         private readonly Body body;
         private readonly Collection<IDoodad> doodads;
@@ -19,6 +21,7 @@ namespace BaconGameJam.Common.Models.Doodads
         private TimeSpan elapsedTime;
 
         protected Tank(
+            ISoundManager soundManager,
             World world, 
             Collection<IDoodad> doodads, 
             Team team, 
@@ -26,6 +29,7 @@ namespace BaconGameJam.Common.Models.Doodads
             float rotation, 
             DoodadFactory doodadFactory)
         {
+            this.soundManager = soundManager;
             this.world = world;
             this.doodadFactory = doodadFactory;
             this.doodads = doodads;
@@ -105,6 +109,7 @@ namespace BaconGameJam.Common.Models.Doodads
 
         public void FireAtTarget(float theta)
         {
+            this.soundManager.PlaySound("FireMissile");
             this.elapsedTime = TimeSpan.Zero;
             this.Heading = theta + MathHelper.PiOver2;
             Vector2 distance = new Vector2((float)Math.Cos(theta), (float)Math.Sin(theta));
