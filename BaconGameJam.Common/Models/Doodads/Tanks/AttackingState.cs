@@ -36,10 +36,12 @@ namespace BaconGameJam.Common.Models.Doodads.Tanks
         public void Update(GameTime gameTime)
         {
             this.elapsedTime += gameTime.ElapsedGameTime;
-            if (this.elapsedTime.TotalSeconds > 0.5)
+            if (this.elapsedTime.TotalSeconds > 0.75 && this.tank.CanFireMissile(this.tank.Target.Position))
             {
                 this.elapsedTime = TimeSpan.Zero;
-                this.tank.FireAtTarget();
+                Vector2 delta = Vector2.Subtract(this.tank.Target.Position, this.tank.Position);
+                float theta = (float)Math.Atan2(delta.Y, delta.X);
+                this.tank.FireAtTarget(theta);
             }
         }
     }

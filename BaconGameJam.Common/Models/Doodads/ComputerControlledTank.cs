@@ -19,7 +19,6 @@ namespace BaconGameJam.Common.Models.Doodads
         private readonly Body sensor;
         private Tuple<float, IDoodad> closestBody;
         private TimeSpan elapsedTime;
-        private DoodadFactory doodadFactory;
 
         public ComputerControlledTank(
             World world, 
@@ -29,10 +28,9 @@ namespace BaconGameJam.Common.Models.Doodads
             float rotation,
             Random random, 
             DoodadFactory doodadFactory)
-            : base(world, doodads, team, position, rotation)
+            : base(world, doodads, team, position, rotation, doodadFactory)
         {
             this.world = world;
-            this.doodadFactory = doodadFactory;
             this.states = new Dictionary<Type, ITankState>();
             this.states.Add(typeof(MovingState), new MovingState(world, this.Body));
             this.states.Add(typeof(AttackingState), new AttackingState(world, this.Body, this));
@@ -57,23 +55,6 @@ namespace BaconGameJam.Common.Models.Doodads
         }
 
         public Tank Target { get; private set; }
-
-
-        public void FireAtTarget()
-        {
-            Vector2 delta = Vector2.Subtract(this.Target.Position, this.Position);
-            float theta = (float)Math.Atan2(delta.Y, delta.X);
-            this.Heading = theta + MathHelper.PiOver2;
-
-            this.doodadFactory.CreateDoodad(
-                new DoodadPlacement()
-                {
-                    DoodadType = DoodadType.Missile,
-                    Position = this.Position,
-                    Rotation = this.Heading - MathHelper.PiOver2,
-                    Team = this.Team
-                });
-        }
 
         protected override void OnUpdate(GameTime gameTime)
         {

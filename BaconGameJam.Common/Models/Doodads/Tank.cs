@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Collections.ObjectModel;
 using FarseerPhysics.Collision.Shapes;
@@ -13,21 +14,26 @@ namespace BaconGameJam.Common.Models.Doodads
         private readonly World world;
         private readonly Body body;
         private Collection<IDoodad> doodads;
+        private DoodadFactory doodadFactory;
+        private List<Missile> activeMissiles;
 
         protected Tank(
             World world, 
             Collection<IDoodad> doodads, 
             Team team, 
             Vector2 position, 
-            float rotation)
+            float rotation, 
+            DoodadFactory doodadFactory)
         {
             this.world = world;
+            this.doodadFactory = doodadFactory;
             this.doodads = doodads;
             this.body = BodyFactory.CreateBody(world, position, this);
             this.body.Rotation = rotation;
             this.body.BodyType = BodyType.Dynamic;
             this.Team = team;
             this.Heading = rotation;
+            this.activeMissiles = new List<Missile>();
 
             var shape = new PolygonShape(0);
             shape.SetAsBox(12 / Constants.PixelsPerMeter, 12 / Constants.PixelsPerMeter);
@@ -70,12 +76,39 @@ namespace BaconGameJam.Common.Models.Doodads
         public void Update(GameTime gameTime)
         {
             this.OnUpdate(gameTime);
+            for (int i = this.activeMissiles.Count - 1; i >= 0; i--)
+            {
+                if (this.activeMissiles[i].IsDead)
+                {
+                    this.activeMissiles.RemoveAt(i);
+                }
+            }
         }
 
         public void RemoveFromGame()
         {
             this.world.RemoveBody(this.body);
             this.doodads.Remove(this);
+        }
+
+        public bool CanFireMissile(Vector2 target)
+        {
+            return this.activeMissiles.Count < Constants.MaxNumberOfMissiles && !this.ContainsPoint(target);
+        }
+
+        public void FireAtTarget(float theta)
+        {
+            this.Heading = theta + MathHelper.PiOver2;
+
+            this.activeMissiles.Add(
+                (Missile)this.doodadFactory.CreateDoodad(
+                    new DoodadPlacement()
+                        {
+                            DoodadType = DoodadType.Missile,
+                            Position = this.Position,
+                            Rotation = this.Heading - MathHelper.PiOver2,
+                            Team = this.Team
+                        }));
         }
 
         protected bool ContainsPoint(Vector2 point)
@@ -85,7 +118,6 @@ namespace BaconGameJam.Common.Models.Doodads
 
         protected virtual void OnUpdate(GameTime gameTime)
         {
-            //this.startPoint = this.Position;
         }
     }
 }

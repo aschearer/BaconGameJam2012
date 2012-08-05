@@ -9,7 +9,6 @@ namespace BaconGameJam.Common.Models.Doodads
 {
     public class PlayerControlledTank : Tank
     {
-        private readonly DoodadFactory doodadFactory;
         private readonly World world;
         private bool isMoving;
 
@@ -20,9 +19,8 @@ namespace BaconGameJam.Common.Models.Doodads
             Team team, 
             Vector2 position, 
             float rotation)
-            : base(world, doodads, team, position, rotation)
+            : base(world, doodads, team, position, rotation, doodadFactory)
         {
-            this.doodadFactory = doodadFactory;
             this.world = world;
             this.FireMissileCommand = new RelayCommand<Vector2>(this.FireMissile, this.CanFireMissile);
         }
@@ -127,21 +125,7 @@ namespace BaconGameJam.Common.Models.Doodads
         {
             Vector2 delta = Vector2.Subtract(target, this.Position);
             float theta = (float)Math.Atan2(delta.Y, delta.X);
-            this.Heading = theta + MathHelper.PiOver2;
-
-            this.doodadFactory.CreateDoodad(
-                new DoodadPlacement()
-                    {
-                        DoodadType = DoodadType.Missile,
-                        Position = this.Position,
-                        Rotation = this.Heading - MathHelper.PiOver2,
-                        Team = this.Team
-                    });
-        }
-
-        private bool CanFireMissile(Vector2 target)
-        {
-            return !this.ContainsPoint(target);
+            this.FireAtTarget(theta);
         }
     }
 }

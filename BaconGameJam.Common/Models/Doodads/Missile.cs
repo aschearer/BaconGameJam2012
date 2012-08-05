@@ -28,17 +28,18 @@ namespace BaconGameJam.Common.Models.Doodads
             fixture.Restitution = 1;
             fixture.Friction = 0;
             fixture.CollisionCategories = PhysicsConstants.MissileCategory;
-            fixture.CollidesWith = PhysicsConstants.EnemyCategory | PhysicsConstants.PlayerCategory | PhysicsConstants.ObstacleCategory;
+            fixture.CollidesWith = PhysicsConstants.EnemyCategory | PhysicsConstants.PlayerCategory |
+                                   PhysicsConstants.ObstacleCategory | PhysicsConstants.MissileCategory;
             fixture.OnCollision += Body_OnCollision;
             obstacleCollisionCtr = 0;
 
-            Vector2 force = new Vector2((float)Math.Cos(rotation), (float)Math.Sin(rotation)) * 600;
+            Vector2 force = new Vector2((float)Math.Cos(rotation), (float)Math.Sin(rotation)) * 400;
             this.body.ApplyForce(force);
         }
 
         bool Body_OnCollision(Fixture fixtureA, Fixture fixtureB, FarseerPhysics.Dynamics.Contacts.Contact contact)
         {
-            if (this.elapsedTime.TotalSeconds < 0.1)
+            if (this.elapsedTime.TotalSeconds < 0.2)
             {
                 return false;
             }
@@ -57,6 +58,9 @@ namespace BaconGameJam.Common.Models.Doodads
                     RemoveFromGame();
                     (fixtureB.Body.UserData as Tank).RemoveFromGame();
                     break;
+                case PhysicsConstants.MissileCategory:
+                    this.RemoveFromGame();
+                    break;
             }
             return true;
         }
@@ -66,6 +70,8 @@ namespace BaconGameJam.Common.Models.Doodads
             get { return this.body.Position; }
         }
 
+        public bool IsDead { get; private set; }
+
         public void Update(GameTime gameTime)
         {
             this.elapsedTime += gameTime.ElapsedGameTime;
@@ -73,6 +79,7 @@ namespace BaconGameJam.Common.Models.Doodads
 
         public void RemoveFromGame()
         {
+            this.IsDead = true;
             this.world.RemoveBody(this.body);
             this.doodads.Remove(this);
         }
