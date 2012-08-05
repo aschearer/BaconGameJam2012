@@ -36,7 +36,7 @@ namespace BaconGameJam.Common.Models.Doodads
             this.activeMissiles = new List<Missile>();
 
             var shape = new PolygonShape(0);
-            shape.SetAsBox(12 / Constants.PixelsPerMeter, 12 / Constants.PixelsPerMeter);
+            shape.SetAsBox(15 / Constants.PixelsPerMeter, 15 / Constants.PixelsPerMeter);
             var fixture = this.body.CreateFixture(shape);
             fixture.CollisionCategories = this.CollisionCategory;
             fixture.CollidesWith = PhysicsConstants.EnemyCategory | PhysicsConstants.ObstacleCategory | PhysicsConstants.MissileCategory;

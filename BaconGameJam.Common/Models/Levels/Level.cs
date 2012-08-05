@@ -21,12 +21,13 @@ namespace BaconGameJam.Common.Models.Levels
 
         public void Update(GameTime gameTime)
         {
-            world.Step(Level.WorldStep);
             var doodads = this.doodads.ToArray();
             foreach (IDoodad doodad in doodads)
             {
                 doodad.Update(gameTime);
             }
+
+            world.Step(Level.WorldStep);
         }
     }
 }

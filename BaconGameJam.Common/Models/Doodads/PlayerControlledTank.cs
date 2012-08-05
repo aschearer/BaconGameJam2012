@@ -34,86 +34,27 @@ namespace BaconGameJam.Common.Models.Doodads
 
         protected override void OnUpdate(GameTime gameTime)
         {
-            // up/down raycast
-            Vector2 rayStart = new Vector2(Position.X, Position.Y);
-            Vector2 rayEnd = rayStart + new Vector2(0, (MovingUp ? -1 : (MovingDown ? 1 : 0)));
+            if (this.MovingUp || this.MovingDown)
+            {
+                float speed = 0.035f;
+                Vector2 direction = new Vector2((float)Math.Cos(this.Rotation + MathHelper.PiOver2), (float)Math.Sin(this.Rotation + MathHelper.PiOver2));
+                direction.Normalize();
+                direction *= this.MovingUp ? -speed : speed;
 
-            this.world.RayCast((fixture, point, normal, fraction) =>
-            {
-                if ((fixture != null) & (fixture.CollisionCategories == PhysicsConstants.ObstacleCategory))
-                {
-                    if (MovingUp) MovingUp = false;
-                    else if (MovingDown) MovingDown = false;
-                    return 1;
-                }
-                return fraction;
-            }, rayStart, rayEnd);
-
-            // left/right raycast
-            rayStart = new Vector2(Position.X, Position.Y);
-            rayEnd = rayStart + new Vector2((MovingLeft ? -1 : (MovingRight ? 1 : 0)), 0);
-
-            this.world.RayCast((fixture, point, normal, fraction) =>
-            {
-                if ((fixture != null) & (fixture.CollisionCategories == PhysicsConstants.ObstacleCategory))
-                {
-                    if (MovingLeft) MovingLeft = false;
-                    else if (MovingRight) MovingRight = false;
-                    return 1;
-                }
-                return fraction;
-            }, rayStart, rayEnd);
-
-            bool wasMoving = true;
-            if (this.MovingUp)
-            {
-                if (this.MovingLeft)
-                {
-                    this.Body.SetTransform(this.Body.Position, (float)((Math.PI * 11) / 6));
-                }
-                else if (this.MovingRight)
-                {
-                    this.Body.SetTransform(this.Body.Position, (float)(Math.PI / 3));
-                }
-                else
-                {
-                    this.Body.SetTransform(this.Body.Position, 0);
-                }
-            }
-            else if (this.MovingDown)
-            {
-                if (this.MovingLeft)
-                {
-                    this.Body.SetTransform(this.Body.Position, (float)((Math.PI * 5) / 4));
-                }
-                else if (this.MovingRight)
-                {
-                    this.Body.SetTransform(this.Body.Position, (float)((Math.PI * 3) / 4));
-                }
-                else
-                {
-                    this.Body.SetTransform(this.Body.Position, (float)Math.PI);
-                }
-            }
-            else
-            {
-                if (this.MovingLeft)
-                {
-                    this.Body.SetTransform(this.Body.Position, (float)((Math.PI * 3) / 2));
-                }
-                else if (this.MovingRight)
-                {
-                    this.Body.SetTransform(this.Body.Position, (float)(Math.PI / 2));
-                }
-                else
-                {
-                    wasMoving = false;
-                }
+                this.Body.Position += direction;
             }
 
-            this.isMoving = wasMoving;
+            if (this.MovingLeft || this.MovingRight)
+            {
+                float torque = MathHelper.PiOver4 / 16;
+                this.Body.Rotation += this.MovingLeft ? -torque : torque;
+            }
 
-            this.Body.SetTransform(new Vector2(this.Body.Position.X + (MovingLeft ? -0.05f : (MovingRight ? 0.05f : 0)), this.Body.Position.Y + (MovingUp ? -0.05f : (MovingDown ? 0.05f : 0))), this.Body.Rotation);
+            this.isMoving = this.MovingLeft | this.MovingRight | this.MovingUp | this.MovingDown;
+            if (this.isMoving)
+            {
+                this.Body.Awake = true;
+            }
         }
 
         protected override Category CollisionCategory
