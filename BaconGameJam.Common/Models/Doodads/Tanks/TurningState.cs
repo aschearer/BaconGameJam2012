@@ -6,6 +6,8 @@ namespace BaconGameJam.Common.Models.Doodads.Tanks
 {
     public class TurningState : ITankState
     {
+        private const float Torque = MathHelper.PiOver4 / 16;
+
         public event EventHandler<StateChangeEventArgs> StateChanged;
 
         private readonly World world;
@@ -35,18 +37,19 @@ namespace BaconGameJam.Common.Models.Doodads.Tanks
 
         public void Update(GameTime gameTime)
         {
-            if (Math.Abs(this.targetTheta - this.body.Rotation) > 0.01f)
+            if (Math.Abs(this.targetTheta - this.body.Rotation) > TurningState.Torque)
             {
                 float sign = Math.Sign(this.targetTheta - this.body.Rotation);
-                this.body.SetTransform(this.body.Position, this.body.Rotation + (sign * MathHelper.PiOver4 / 16));
+                this.body.Rotation = this.body.Rotation + (sign * TurningState.Torque);
 
                 if (Math.Abs(this.targetTheta - this.tank.Heading) > 0.01f)
                 {
-                    this.tank.Heading += (sign * MathHelper.PiOver4 / 8);
+                    this.tank.Heading += (sign * TurningState.Torque * 2);
                 }
             }
             else
             {
+                this.body.Rotation = this.targetTheta;
                 this.StateChanged(this, new StateChangeEventArgs(typeof(MovingState)));
             }
         }
