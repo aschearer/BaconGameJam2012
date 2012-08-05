@@ -100,13 +100,15 @@ namespace BaconGameJam.Common.Models.Doodads
         public void FireAtTarget(float theta)
         {
             this.Heading = theta + MathHelper.PiOver2;
+            Vector2 distance = new Vector2((float)Math.Cos(theta), (float)Math.Sin(theta));
+            distance *= 0.5f;
 
             this.activeMissiles.Add(
                 (Missile)this.doodadFactory.CreateDoodad(
                     new DoodadPlacement()
                         {
                             DoodadType = DoodadType.Missile,
-                            Position = this.Position,
+                            Position = this.Position + distance,
                             Rotation = this.Heading - MathHelper.PiOver2,
                             Team = this.Team
                         }));
