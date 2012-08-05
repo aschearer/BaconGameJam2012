@@ -116,6 +116,7 @@
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\ButtonView.cs" />
     <Compile Include="Views\ConductorView.cs" />
+    <Compile Include="Views\Doodads\PowerUpView.cs" />
     <Compile Include="Views\Doodads\TreadMarkView.cs" />
     <Compile Include="Views\Doodads\DoodadViewFactory.cs" />
     <Compile Include="Views\Doodads\EmptyView.cs" />

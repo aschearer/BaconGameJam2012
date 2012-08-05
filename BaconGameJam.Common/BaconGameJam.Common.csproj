@@ -79,6 +79,7 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Models\Doodads\BlastMark.cs" />
     <Compile Include="Models\Doodads\ComputerControlledTank.cs" />
+    <Compile Include="Models\Doodads\PowerUp.cs" />
     <Compile Include="Models\Doodads\DoodadFactory.cs" />
     <Compile Include="Models\Doodads\DoodadPlacement.cs" />
     <Compile Include="Models\Doodads\DoodadType.cs" />

@@ -11,6 +11,10 @@ namespace BaconGameJam.Common.Models.Doodads
     public class PlayerControlledTank : Tank
     {
         private bool isMoving;
+        const float DEFAULT_SPEED = 0.035f;
+        float speed;
+        bool hasPowerUp;
+        DateTime powerUpTime;
 
         public PlayerControlledTank(
             ISoundManager soundManager,
@@ -24,6 +28,9 @@ namespace BaconGameJam.Common.Models.Doodads
         {
             this.FireMissileCommand = new RelayCommand<Vector2>(this.FireMissile, this.CanFireMissile);
             this.PointTurretCommand = new RelayCommand<Vector2>(this.PointTurret);
+            speed = DEFAULT_SPEED;
+            hasPowerUp = false;
+            powerUpTime = DateTime.Now;
         }
 
         public override bool IsMoving
@@ -41,9 +48,18 @@ namespace BaconGameJam.Common.Models.Doodads
 
         protected override void OnUpdate(GameTime gameTime)
         {
+            if (hasPowerUp)
+            {
+                TimeSpan powerUpTS = DateTime.Now - this.powerUpTime;
+                if (powerUpTS.TotalSeconds >= 5)
+                {
+                    hasPowerUp = false;
+                    speed = DEFAULT_SPEED;
+                }
+            }
+
             if (this.MovingUp || this.MovingDown)
             {
-                float speed = 0.035f;
                 Vector2 direction = new Vector2((float)Math.Cos(this.Rotation + MathHelper.PiOver2), (float)Math.Sin(this.Rotation + MathHelper.PiOver2));
                 direction.Normalize();
                 direction *= this.MovingUp ? -speed : speed;
@@ -82,6 +98,13 @@ namespace BaconGameJam.Common.Models.Doodads
             Vector2 delta = Vector2.Subtract(target, this.Position);
             float theta = (float)Math.Atan2(delta.Y, delta.X);
             this.Heading = theta + MathHelper.PiOver2;
+        }
+
+        public void GivePowerUp()
+        {
+            hasPowerUp = true;
+            powerUpTime = DateTime.Now;
+            speed = 0.07f;
         }
     }
 }

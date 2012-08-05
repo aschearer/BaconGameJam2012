@@ -87,6 +87,14 @@ namespace BaconGameJam.Common.Models.Doodads
                 case DoodadType.TreadMark:
                     doodad = new TreadMark(doodadPlacement.Position, doodadPlacement.Rotation, this.doodads);
                     break;
+                case DoodadType.PowerUp:
+                    doodad = new PowerUp(
+                        this.soundManager,
+                        this.world,
+                        this.doodads,
+                        doodadPlacement.Position,
+                        this);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

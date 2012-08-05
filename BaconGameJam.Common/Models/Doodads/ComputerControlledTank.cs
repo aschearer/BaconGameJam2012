@@ -67,6 +67,8 @@ namespace BaconGameJam.Common.Models.Doodads
 
         protected override void OnRemoveFromGame(World world)
         {
+            //TODO: probably not the best place to create the power up
+            this.doodadFactory.CreateDoodad(new DoodadPlacement() { DoodadType = DoodadType.PowerUp, Position = this.Position });
             world.RemoveBody(this.sensor);
         }
 

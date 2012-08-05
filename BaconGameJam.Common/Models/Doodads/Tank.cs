@@ -16,7 +16,7 @@ namespace BaconGameJam.Common.Models.Doodads
         private readonly World world;
         private readonly Body body;
         private readonly Collection<IDoodad> doodads;
-        private readonly DoodadFactory doodadFactory;
+        protected readonly DoodadFactory doodadFactory;
         private readonly List<Missile> activeMissiles;
         private TimeSpan elapsedTime;
         private TimeSpan firingCooldown;

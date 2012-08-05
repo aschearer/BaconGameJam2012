@@ -9,6 +9,7 @@ namespace BaconGameJam.Common.Models.Doodads
         Pit,
         Waypoint,
         BlastMark,
-        TreadMark
+        TreadMark,
+        PowerUp
     }
 }

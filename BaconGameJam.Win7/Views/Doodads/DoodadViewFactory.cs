@@ -49,6 +49,10 @@ namespace BaconGameJam.Win7.Views.Doodads
             {
                 return new TreadMarkView((TreadMark)doodad);
             }
+            else if (doodad is PowerUp)
+            {
+                return new PowerUpView((PowerUp)doodad);
+            }
 
             throw new ArgumentException("No view found for doodad");
         }
