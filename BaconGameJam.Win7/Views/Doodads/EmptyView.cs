@@ -7,6 +7,11 @@ namespace BaconGameJam.Win7.Views.Doodads
 {
     public class EmptyView : IRetainedControl
     {
+        public int Layer
+        {
+            get { return 0; }
+        }
+
         public void LoadContent(ContentManager content)
         {
         }

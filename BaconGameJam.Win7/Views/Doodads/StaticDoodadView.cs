@@ -19,6 +19,11 @@ namespace BaconGameJam.Win7.Views.Doodads
             this.doodad = doodad;
         }
 
+        public int Layer
+        {
+            get { return 0; }
+        }
+
         public void LoadContent(ContentManager content)
         {
             this.texture = content.Load<Texture2D>("TileSets/ConcreteStormTileSet");

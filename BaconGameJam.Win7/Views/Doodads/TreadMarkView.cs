@@ -18,6 +18,11 @@ namespace BaconGameJam.Win7.Views.Doodads
             this.treadMark = treadMark;
         }
 
+        public int Layer
+        {
+            get { return 1; }
+        }
+
         public void LoadContent(ContentManager content)
         {
             this.texture = content.Load<Texture2D>("Images/InGame/TreadMarks");

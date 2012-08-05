@@ -1,6 +1,5 @@
 using System;
 using System.Collections.ObjectModel;
-using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 
 namespace BaconGameJam.Common.Models.Doodads

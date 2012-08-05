@@ -19,6 +19,11 @@ namespace BaconGameJam.Win7.Views.Doodads
             this.tank = tank;
         }
 
+        public int Layer
+        {
+            get { return 20; }
+        }
+
         public void LoadContent(ContentManager content)
         {
             string textureName = string.Format("Images/InGame/{0}Tank", this.tank.Team);

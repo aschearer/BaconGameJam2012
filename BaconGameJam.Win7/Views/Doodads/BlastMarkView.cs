@@ -23,6 +23,11 @@ namespace BaconGameJam.Win7.Views.Doodads
             this.particles = new ExplosionParticleSystem(random);
         }
 
+        public int Layer
+        {
+            get { return 2; }
+        }
+
         public void LoadContent(ContentManager content)
         {
             this.texture = content.Load<Texture2D>("Images/InGame/Blasts");

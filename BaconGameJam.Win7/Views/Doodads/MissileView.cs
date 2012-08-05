@@ -18,6 +18,11 @@ namespace BaconGameJam.Win7.Views.Doodads
             this.missile = missile;
         }
 
+        public int Layer
+        {
+            get { return 10; }
+        }
+
         public void LoadContent(ContentManager content)
         {
             this.texture = content.Load<Texture2D>("Images/InGame/Missile");

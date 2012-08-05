@@ -37,9 +37,13 @@ namespace BaconGameJam.Win7.Views.Levels
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            foreach (IRetainedControl doodadView in this.doodadViews)
+            var layers = this.doodadViews.GroupBy(view => view.Layer).OrderBy(group => group.Key);
+            foreach (var layer in layers)
             {
-                doodadView.Draw(gameTime, spriteBatch);
+                foreach (var view in layer)
+                {
+                    view.Draw(gameTime, spriteBatch);
+                }
             }
         }
 
