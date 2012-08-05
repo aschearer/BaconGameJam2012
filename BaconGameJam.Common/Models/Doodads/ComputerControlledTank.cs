@@ -13,8 +13,12 @@ namespace BaconGameJam.Common.Models.Doodads
     public class ComputerControlledTank : Tank
     {
         private readonly Dictionary<Type, ITankState> states;
+
+        private readonly World world;
         private ITankState currentState;
-        private Body SensorBody;
+        private readonly Body sensor;
+        private Tuple<float, IDoodad> closestBody;
+        private TimeSpan elapsedTime;
 
         public ComputerControlledTank(
             World world, 
@@ -25,6 +29,7 @@ namespace BaconGameJam.Common.Models.Doodads
             Random random)
             : base(world, doodads, team, position, rotation)
         {
+            this.world = world;
             this.states = new Dictionary<Type, ITankState>();
             this.states.Add(typeof(MovingState), new MovingState(world, this.Body));
             this.states.Add(typeof(AttackingState), new AttackingState(world, this.Body, this));
@@ -33,26 +38,14 @@ namespace BaconGameJam.Common.Models.Doodads
             this.currentState.StateChanged += this.OnStateChanged;
             this.currentState.NavigateTo();
 
-            //SensorBody = BodyFactory.CreateBody(world, this.Position);
-            //SensorBody.CollisionCategories = Constants.EnemyCategory;
-            //SensorBody.CollidesWith = Constants.PlayerCategory;
-            //SensorBody.BodyType = BodyType.Dynamic;
+            this.sensor = BodyFactory.CreateBody(world, this.Position, this);
 
-            //var shape = new CircleShape(4, 0.0000001f);
-            //Fixture f = SensorBody.CreateFixture(shape);
-            //f.IsSensor = true;
-            //f.CollisionCategories = Constants.EnemyCategory;
-            //SensorBody.CollisionCategories = PhysicsConstants.EnemyCategory;
-            //SensorBody.CollidesWith = PhysicsConstants.PlayerCategory;
-            //SensorBody.BodyType = BodyType.Dynamic;
-
-            //var shape = new CircleShape(4, 0.0000001f);
-            //Fixture f = SensorBody.CreateFixture(shape);
-            //f.IsSensor = true;
-            //f.CollisionCategories = PhysicsConstants.EnemyCategory;
-            //f.CollidesWith = PhysicsConstants.PlayerCategory;
-
-            //f.CollidesWith = Constants.PlayerCategory;
+            var shape = new CircleShape(4, 0);
+            Fixture sensorFixture = this.sensor.CreateFixture(shape);
+            sensorFixture.Friction = 1f;
+            sensorFixture.IsSensor = true;
+            sensorFixture.CollisionCategories = PhysicsConstants.EnemyCategory;
+            sensorFixture.CollidesWith = PhysicsConstants.PlayerCategory | PhysicsConstants.ObstacleCategory;
         }
 
         public override bool IsMoving
@@ -62,30 +55,83 @@ namespace BaconGameJam.Common.Models.Doodads
 
         protected override void OnUpdate(GameTime gameTime)
         {
-            //this.SensorBody.SetTransform(this.Position, this.Rotation);
+            this.sensor.SetTransform(this.Position, this.Rotation);
 
-            //ContactEdge edge = this.SensorBody.ContactList;
-            //while (edge != null)
-            //{
-            //    System.Diagnostics.Debug.WriteLine(DateTime.Now.ToString() + " " + edge.Contact.FixtureA.CollisionCategories);
-            //    if (edge.Contact.IsTouching())
-            //    {
-            //        Fixture f = edge.Contact.FixtureA.Body == this.SensorBody
-            //                                  ? edge.Contact.FixtureB
-            //                                  : edge.Contact.FixtureA;
-            //        System.Diagnostics.Debug.WriteLine(DateTime.Now.ToString() + " " + f.CollisionCategories);
-            //    }
+            if (this.closestBody != null && this.closestBody.Item2 is PlayerControlledTank)
+            {
+                this.ChangeState(this.states[typeof(AttackingState)]);
+                return;
+            }
 
-            //    edge = edge.Next;
-            //}
+            this.elapsedTime += gameTime.ElapsedGameTime;
+            ContactEdge edge = this.sensor.ContactList;
+            while (edge != null)
+            {
+                if (edge.Contact.IsTouching() && 
+                    (edge.Contact.FixtureA.Body.UserData is PlayerControlledTank || edge.Contact.FixtureB.UserData is PlayerControlledTank))
+                {
+                    Fixture enemy = edge.Contact.FixtureA.Body.UserData is PlayerControlledTank
+                                        ? edge.Contact.FixtureA
+                                        : edge.Contact.FixtureB;
+
+                    if (this.elapsedTime.TotalSeconds > 0.1)
+                    {
+                        this.elapsedTime = TimeSpan.Zero;
+                        this.closestBody = null;
+                        this.TryToTargetEnemny(((Tank)enemy.Body.UserData));
+                    }
+
+                    break;
+                }
+
+                edge = edge.Next;
+            }
 
             this.currentState.Update(gameTime);
         }
 
+        private void TryToTargetEnemny(Tank tank)
+        {
+            Vector2 delta = tank.Position - this.Position;
+            delta.Normalize();
+            delta *= 1;
+
+            this.world.RayCast(this.OnProbeReturned, this.Position, tank.Position + delta);
+        }
+
+        private float OnProbeReturned(Fixture fixture, Vector2 point, Vector2 normal, float fraction)
+        {
+            if (this.closestBody == null)
+            {
+                // getting started
+                this.closestBody = new Tuple<float, IDoodad>(fraction, (IDoodad)fixture.Body.UserData);
+                return 1;
+            }
+            else if (this.closestBody.Item2 is PlayerControlledTank && this.closestBody.Item1 > fraction)
+            {
+                // there's a body in between us and the player
+                this.closestBody = null;
+                return 0;
+            }
+            else if (this.closestBody.Item1 > fraction)
+            {
+                // this body is closer to us, but we're not finished yet
+                this.closestBody = new Tuple<float, IDoodad>(fraction, (IDoodad)fixture.Body.UserData);
+                return 1;
+            }
+
+            return fraction;
+        }
+
         private void OnStateChanged(object sender, StateChangeEventArgs e)
         {
+            this.ChangeState(this.states[e.TargetState]);
+        }
+
+        private void ChangeState(ITankState nextState)
+        {
             this.currentState.StateChanged -= this.OnStateChanged;
-            this.currentState = this.states[e.TargetState];
+            this.currentState = nextState;
             this.currentState.StateChanged += this.OnStateChanged;
             this.currentState.NavigateTo();
         }

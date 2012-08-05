@@ -25,7 +25,7 @@ namespace BaconGameJam.Common.Models.Doodads
             this.doodads = doodads;
             this.body = BodyFactory.CreateBody(world, position, this);
             this.body.Rotation = rotation;
-            this.body.BodyType = BodyType.Kinematic;
+            this.body.BodyType = BodyType.Dynamic;
             this.Team = team;
             this.Heading = rotation;
 
@@ -34,7 +34,6 @@ namespace BaconGameJam.Common.Models.Doodads
             var fixture = this.body.CreateFixture(shape);
             fixture.CollisionCategories = this.CollisionCategory;
             fixture.CollidesWith = PhysicsConstants.EnemyCategory | PhysicsConstants.ObstacleCategory | PhysicsConstants.MissileCategory;
-
         }
 
         public abstract bool IsMoving { get; }
