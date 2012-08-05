@@ -2,6 +2,7 @@ using BaconGameJam.Common;
 using BaconGameJam.Win7.ViewModels.States;
 using BaconGameJam.Win7.Views.Farseer;
 using BaconGameJam.Win7.Views.Levels;
+using BaconGameJam.Win7.Views.Sounds;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -15,6 +16,7 @@ namespace BaconGameJam.Win7.Views.States
         private readonly PlayingViewModel viewModel;
         private readonly LevelView levelView;
         private readonly DebugViewXNA debugView;
+        private readonly SoundManagerView soundManagerView;
         private bool isContentLoaded;
 
         public PlayingView(
@@ -22,9 +24,11 @@ namespace BaconGameJam.Win7.Views.States
             SpriteBatch spriteBatch,
             PlayingViewModel viewModel,
             LevelView levelView,
-            DebugViewXNA debugView)
+            DebugViewXNA debugView, 
+            SoundManagerView soundManagerView)
         {
             this.content = content;
+            this.soundManagerView = soundManagerView;
             this.spriteBatch = spriteBatch;
             this.viewModel = viewModel;
             this.levelView = levelView;
@@ -82,6 +86,7 @@ namespace BaconGameJam.Win7.Views.States
 
             this.isContentLoaded = true;
 
+            this.soundManagerView.LoadContent(this.content);
             this.levelView.LoadContent(this.content);
             this.debugView.LoadContent(this.spriteBatch.GraphicsDevice, this.content);
         }

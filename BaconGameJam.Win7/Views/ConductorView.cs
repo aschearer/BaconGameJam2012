@@ -12,7 +12,9 @@ namespace BaconGameJam.Win7.Views
         private readonly IEnumerable<IScreenView> views;
         private readonly Stack<IScreenView> activeViews;
 
-        public ConductorView(IConductorViewModel viewModel, IEnumerable<IScreenView> views)
+        public ConductorView(
+            IConductorViewModel viewModel, 
+            IEnumerable<IScreenView> views)
         {
             this.viewModel = viewModel;
             this.views = views;

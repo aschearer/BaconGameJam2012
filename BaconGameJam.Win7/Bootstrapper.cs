@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using BaconGameJam.Common.Models.Doodads;
 using BaconGameJam.Common.Models.Levels;
+using BaconGameJam.Common.Models.Sessions;
+using BaconGameJam.Common.Models.Sounds;
 using BaconGameJam.Win7.ViewModels;
 using BaconGameJam.Win7.ViewModels.States;
 using BaconGameJam.Win7.Views;
@@ -10,6 +12,7 @@ using BaconGameJam.Win7.Views.Doodads;
 using BaconGameJam.Win7.Views.Farseer;
 using BaconGameJam.Win7.Views.Input;
 using BaconGameJam.Win7.Views.Levels;
+using BaconGameJam.Win7.Views.Sounds;
 using BaconGameJam.Win7.Views.States;
 using FarseerPhysics.Dynamics;
 using GalaSoft.MvvmLight.Ioc;
@@ -39,6 +42,8 @@ namespace BaconGameJam.Win7
             SimpleIoc.Default.Register<DoodadFactory>();
             SimpleIoc.Default.Register<Level>();
             SimpleIoc.Default.Register<LevelFactory>();
+            SimpleIoc.Default.Register<GameSettings>();
+            SimpleIoc.Default.Register<ISoundManager, SoundManager>();
 
             // View Models
             SimpleIoc.Default.Register<IConductorViewModel, ConductorViewModel>();
@@ -56,6 +61,7 @@ namespace BaconGameJam.Win7
             SimpleIoc.Default.Register<LevelView>();
             SimpleIoc.Default.Register<DoodadViewFactory>();
             SimpleIoc.Default.Register<DebugViewXNA>();
+            SimpleIoc.Default.Register<SoundManagerView>();
 
             List<IScreenView> screenViews = new List<IScreenView>();
             screenViews.Add(this.GetInstance<PlayingView>());

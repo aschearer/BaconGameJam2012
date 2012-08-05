@@ -97,6 +97,11 @@
     <Compile Include="Models\Levels\Level.cs" />
     <Compile Include="Models\Levels\LevelFactory.cs" />
     <Compile Include="Models\Doodads\Wall.cs" />
+    <Compile Include="Models\Sessions\GameSettings.cs" />
+    <Compile Include="Models\Sounds\ISoundManager.cs" />
+    <Compile Include="Models\Sounds\SoundEventArgs.cs" />
+    <Compile Include="Models\Sounds\SoundManager.cs" />
+    <Compile Include="Models\ViewModelBase.cs" />
     <Compile Include="PhysicsConstants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
