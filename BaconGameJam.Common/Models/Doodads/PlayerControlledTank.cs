@@ -10,10 +10,10 @@ namespace BaconGameJam.Common.Models.Doodads
 {
     public class PlayerControlledTank : Tank
     {
+        private readonly Random random;
         private bool isMoving;
         const float DEFAULT_SPEED = 0.035f;
         float speed;
-        bool hasPowerUp;
         DateTime powerUpTime;
 
         public PlayerControlledTank(
@@ -21,15 +21,16 @@ namespace BaconGameJam.Common.Models.Doodads
             DoodadFactory doodadFactory,
             World world,
             Collection<IDoodad> doodads,
-            Team team, 
+            Team team,
+            Random random,
             Vector2 position, 
             float rotation)
             : base(soundManager, world, doodads, team, position, rotation, doodadFactory)
         {
+            this.random = random;
             this.FireMissileCommand = new RelayCommand<Vector2>(this.FireMissile, this.CanFireMissile);
             this.PointTurretCommand = new RelayCommand<Vector2>(this.PointTurret);
             speed = DEFAULT_SPEED;
-            hasPowerUp = false;
             powerUpTime = DateTime.Now;
         }
 
@@ -48,13 +49,25 @@ namespace BaconGameJam.Common.Models.Doodads
 
         protected override void OnUpdate(GameTime gameTime)
         {
-            if (hasPowerUp)
+            if (this.powerup != PowerUpType.None)
             {
                 TimeSpan powerUpTS = DateTime.Now - this.powerUpTime;
-                if (powerUpTS.TotalSeconds >= 5)
+                switch (this.powerup)
                 {
-                    hasPowerUp = false;
-                    speed = DEFAULT_SPEED;
+                    case PowerUpType.Speed:
+                        if (powerUpTS.TotalSeconds >= 5)
+                        {
+                            this.powerup = PowerUpType.None;
+                            speed = DEFAULT_SPEED;
+                        }
+                        break;
+                    case PowerUpType.UnlimitedAmmo:
+                        if (powerUpTS.TotalSeconds >= 5)
+                        {
+                            this.powerup = PowerUpType.None;
+                            
+                        }
+                        break;
                 }
             }
 
@@ -102,9 +115,18 @@ namespace BaconGameJam.Common.Models.Doodads
 
         public void GivePowerUp()
         {
-            hasPowerUp = true;
+            //TODO: tell player which power up they got
             powerUpTime = DateTime.Now;
-            speed = 0.07f;
+            switch (this.random.Next(2))
+            {
+                case 0:
+                    this.powerup = PowerUpType.Speed;
+                    speed = 0.07f;
+                    break;
+                case 1:
+                    this.powerup = PowerUpType.UnlimitedAmmo;
+                    break;
+            }
         }
     }
 }

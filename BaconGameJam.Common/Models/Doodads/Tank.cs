@@ -21,6 +21,7 @@ namespace BaconGameJam.Common.Models.Doodads
         private TimeSpan elapsedTime;
         private TimeSpan firingCooldown;
         private TimeSpan movingTimer;
+        protected PowerUpType powerup;
 
         protected Tank(
             ISoundManager soundManager,
@@ -41,6 +42,7 @@ namespace BaconGameJam.Common.Models.Doodads
             this.Team = team;
             this.Heading = rotation;
             this.activeMissiles = new List<Missile>();
+            this.powerup = PowerUpType.None;
 
             var shape = new PolygonShape(0);
             shape.SetAsBox(15 / Constants.PixelsPerMeter, 15 / Constants.PixelsPerMeter);
@@ -157,7 +159,7 @@ namespace BaconGameJam.Common.Models.Doodads
 
         public bool CanFireMissile(Vector2 target)
         {
-            return this.activeMissiles.Count < Constants.MaxNumberOfMissiles && 
+            return ((this.activeMissiles.Count < Constants.MaxNumberOfMissiles) || (powerup == PowerUpType.UnlimitedAmmo)) && 
                 this.elapsedTime.TotalSeconds > 0.3 &&
                 !this.ContainsPoint(target);
         }

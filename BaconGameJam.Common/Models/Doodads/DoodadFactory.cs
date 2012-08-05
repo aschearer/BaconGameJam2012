@@ -38,8 +38,9 @@ namespace BaconGameJam.Common.Models.Doodads
                             this.soundManager,
                             this, 
                             this.world, 
-                            this.doodads, 
+                            this.doodads,
                             doodadPlacement.Team, 
+                            this.random,
                             doodadPlacement.Position, 
                             doodadPlacement.Rotation);
                     }

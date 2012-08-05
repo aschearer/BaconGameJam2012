@@ -10,6 +10,9 @@ Content\Images\InGame\Dust.xnb
 Content\Images\InGame\Spark.xnb
 Content\Images\InGame\Cloud.xnb
 Content\Images\InGame\TreadMarks.xnb
+Content\Images\LevelComplete\NextLevelButton.xnb
+Content\Images\LevelComplete\ShareGameButton.xnb
+Content\Images\GameOver\RestartLevelButton.xnb
 Content\SpriteFont1.xnb
 Content\Levels\Level1.xnb
 Content\Levels\Level2.xnb
@@ -28,7 +31,4 @@ Content\Sounds\Robot_Death_Powerdown.xnb
 Content\ConcreteStormTileSet.xnb
 Content\TanksTileSet.xnb
 Content\WaypointTileSet.xnb
-Content\Images\LevelComplete\NextLevelButton.xnb
-Content\Images\LevelComplete\ShareGameButton.xnb
-Content\Images\GameOver\RestartLevelButton.xnb
 Content\Sounds\Chimera-Derivation-3.wma
