@@ -1,12 +1,11 @@
-using BaconGameJam.Common.Models.Doodads;
 using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
 
-namespace BaconGameJam.Common.Models.Levels
+namespace BaconGameJam.Common.Models.Doodads
 {
-    public class Wall : IDoodad
+    public class Wall : IStaticDoodad
     {
         private readonly Body body;
         private readonly World world;
@@ -19,7 +18,7 @@ namespace BaconGameJam.Common.Models.Levels
             this.body.Rotation = rotation;
 
             var shape = new PolygonShape(0);
-            shape.SetAsBox(20 / Constants.PixelsPerMeter, 20 / Constants.PixelsPerMeter);
+            shape.SetAsBox(32 / Constants.PixelsPerMeter, 32 / Constants.PixelsPerMeter);
             var fixture = this.body.CreateFixture(shape);
             fixture.CollisionCategories = PhysicsConstants.ObstacleCategory;
 

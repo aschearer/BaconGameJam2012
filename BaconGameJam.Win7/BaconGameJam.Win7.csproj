@@ -114,7 +114,7 @@
     <Compile Include="Views\Doodads\DoodadViewFactory.cs" />
     <Compile Include="Views\Doodads\MissileView.cs" />
     <Compile Include="Views\Doodads\PlayerControlledTankView.cs" />
-    <Compile Include="Views\Doodads\WallView.cs" />
+    <Compile Include="Views\Doodads\StaticDoodadView.cs" />
     <Compile Include="Views\Farseer\DebugView.cs" />
     <Compile Include="Views\Farseer\DebugViewXNA.cs" />
     <Compile Include="Views\Farseer\PrimitiveBatch.cs" />

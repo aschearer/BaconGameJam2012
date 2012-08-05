@@ -61,20 +61,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Levels\Level1.tmx">
-      <Name>Level1</Name>
-      <Importer>TmxImporter</Importer>
-      <Processor>LevelProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="TileSets\CompoundTileSet.png">
-      <Name>CompoundTileSet</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Images\InGame\Missile.png">
       <Name>Missile</Name>
       <Importer>TextureImporter</Importer>
@@ -84,6 +70,27 @@
   <ItemGroup>
     <Compile Include="Images\InGame\Pixel.png">
       <Name>Pixel</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Levels\TestLevel.tmx">
+      <Name>TestLevel</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>LevelProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="TileSets\ConcreteStormTileSet.png">
+      <Name>ConcreteStormTileSet</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\InGame\Tanks.png">
+      <Name>Tanks</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

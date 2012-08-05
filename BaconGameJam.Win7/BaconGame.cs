@@ -1,3 +1,4 @@
+using BaconGameJam.Common;
 using BaconGameJam.Win7.ViewModels;
 using BaconGameJam.Win7.ViewModels.States;
 using BaconGameJam.Win7.Views;
@@ -22,8 +23,8 @@ namespace BaconGameJam.Win7
         public BaconGame()
         {
             this.graphics = new GraphicsDeviceManager(this);
-            this.graphics.PreferredBackBufferWidth = 800;
-            this.graphics.PreferredBackBufferHeight = 480;
+            this.graphics.PreferredBackBufferWidth = Constants.ScreenWidth;
+            this.graphics.PreferredBackBufferHeight = Constants.ScreenHeight;
             this.Content.RootDirectory = "Content";
             this.IsMouseVisible = true;
         }
@@ -96,7 +97,7 @@ namespace BaconGameJam.Win7
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            this.GraphicsDevice.Clear(Color.White);
+            this.GraphicsDevice.Clear(Color.Black);
 
             this.conductorView.Draw(gameTime);
 

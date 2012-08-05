@@ -18,9 +18,9 @@ namespace BaconGameJam.Win7.Views.Doodads
 
         public IRetainedControl CreateViewFor(IDoodad doodad)
         {
-            if (doodad is Wall)
+            if (doodad is Wall || doodad is TileDoodad)
             {
-                return new WallView((Wall)doodad);
+                return new StaticDoodadView((IStaticDoodad)doodad);
             }
             else if (doodad is PlayerControlledTank)
             {

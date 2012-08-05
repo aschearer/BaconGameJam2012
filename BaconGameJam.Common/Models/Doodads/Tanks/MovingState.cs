@@ -31,7 +31,7 @@ namespace BaconGameJam.Common.Models.Doodads.Tanks
         {
             float theta = this.body.Rotation - MathHelper.PiOver2;
             Vector2 direction = new Vector2((float)Math.Cos(theta), (float)Math.Sin(theta));
-            this.body.Position += direction * 0.02f;
+            this.body.Position += direction * 0.04f;
 
             Vector2 target = this.body.Position + direction * 2;
 

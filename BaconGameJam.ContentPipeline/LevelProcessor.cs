@@ -25,11 +25,15 @@ namespace BaconGameJam.ContentPipeline
             List<DoodadPlacement> doodadPlacements = new List<DoodadPlacement>();
             foreach (LayerContent layer in input.Layers)
             {
-                if (layer is TileLayerContent)
+                if (layer is TileLayerContent && layer.Name == "main")
                 {
-                    this.ProcessTileLayer((TileLayerContent)layer, input.TileSets, doodadPlacements);
+                    this.ProcessMainLayer((TileLayerContent)layer, input.TileSets, doodadPlacements);
                 }
-                else if (layer is MapObjectLayerContent)
+                else if (layer is TileLayerContent && layer.Name == "shadows")
+                {
+                    this.ProcessShadowLayer((TileLayerContent)layer, input.TileSets, doodadPlacements);
+                }
+                else if (layer is MapObjectLayerContent && layer.Name == "tanks")
                 {
                     this.ProcessObjectLayer((MapObjectLayerContent)layer, input.TileSets, doodadPlacements);
                 }
@@ -51,7 +55,6 @@ namespace BaconGameJam.ContentPipeline
                     continue;
                 }
 
-
                 string value = tile.Properties["Type"];
                 DoodadType tileType;
                 if (Enum.TryParse(value, true, out tileType))
@@ -60,8 +63,8 @@ namespace BaconGameJam.ContentPipeline
                     placement.DoodadType = tileType;
 
                     placement.Position = new Vector2(
-                        mapObject.Bounds.Center.X + tile.Source.Width / 2f,
-                        mapObject.Bounds.Center.Y - tile.Source.Height / 2f) / Constants.PixelsPerMeter;
+                        2 * mapObject.Bounds.Center.X + tile.Source.Width,
+                        2 * mapObject.Bounds.Center.Y - tile.Source.Height) / Constants.PixelsPerMeter;
                     Team team;
                     if (!Enum.TryParse(tile.Properties["Team"], true, out team))
                     {
@@ -72,14 +75,10 @@ namespace BaconGameJam.ContentPipeline
 
                     doodadPlacements.Add(placement);
                 }
-                else
-                {
-                    throw new InvalidEnumArgumentException("Type");
-                }
             }
         }
 
-        private void ProcessTileLayer(
+        private void ProcessMainLayer(
             TileLayerContent layer,
             IEnumerable<TileSetContent> tileSets,
             List<DoodadPlacement> doodadPlacements)
@@ -95,24 +94,56 @@ namespace BaconGameJam.ContentPipeline
                     TiledHelpers.DecodeTileID(tileID, out tileIndex, out spriteEffects);
 
                     Tile tileDef = this.GetTile(tileIndex, tileSets);
-                    if (!tileDef.Properties.ContainsKey("Type"))
+
+                    DoodadType doodadType = DoodadType.Wall;
+                    if (tileDef.Properties.ContainsKey("Empty"))
+                    {
+                        doodadType = DoodadType.Tile;
+                    }
+
+                    DoodadPlacement placement = new DoodadPlacement();
+                    placement.DoodadType = doodadType;
+                    placement.Position = new Vector2(
+                                                column * tileDef.Source.Width * 2 + (tileDef.Source.Width),
+                                                row * tileDef.Source.Height * 2 + (tileDef.Source.Height)) / 30f;
+                    placement.Source = tileDef.Source;
+
+                    doodadPlacements.Add(placement);
+                }
+            }
+        }
+
+        private void ProcessShadowLayer(
+            TileLayerContent layer,
+            IEnumerable<TileSetContent> tileSets,
+            List<DoodadPlacement> doodadPlacements)
+        {
+
+            for (int column = 0; column < layer.Width; column++)
+            {
+                for (int row = 0; row < layer.Height; row++)
+                {
+                    uint tileID = layer.Data[column + row * layer.Width];
+                    int tileIndex;
+                    SpriteEffects spriteEffects;
+                    TiledHelpers.DecodeTileID(tileID, out tileIndex, out spriteEffects);
+
+                    Tile tileDef = this.GetTile(tileIndex, tileSets);
+                    if (tileDef == null)
                     {
                         continue;
                     }
 
-                    string value = tileDef.Properties["Type"];
-                    DoodadType tileType;
-                    if (Enum.TryParse(value, true, out tileType))
-                    {
-                        DoodadPlacement placement = new DoodadPlacement();
-                        placement.DoodadType = tileType;
-                        placement.Position = new Vector2(
-                                                 column * tileDef.Source.Width + (tileDef.Source.Width / 2f),
-                                                 row * tileDef.Source.Height + (tileDef.Source.Height / 2f)) / 30f;
-                        placement.Source = tileDef.Source;
+                    DoodadType doodadType = DoodadType.Tile;
 
-                        doodadPlacements.Add(placement);
-                    }
+                    DoodadPlacement placement = new DoodadPlacement();
+                    placement.DoodadType = doodadType;
+                    placement.Position = new Vector2(
+                                                column * tileDef.Source.Width * 2 + (tileDef.Source.Width),
+                                                row * tileDef.Source.Height * 2 + (tileDef.Source.Height)) / 30f;
+                    placement.Source = tileDef.Source;
+
+                    doodadPlacements.Add(placement);
                 }
             }
         }

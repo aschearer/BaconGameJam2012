@@ -1,9 +1,10 @@
 Content\Images\InGame\RedTank.xnb
 Content\Images\InGame\GreenTank.xnb
 Content\Images\InGame\BrownTank.xnb
-Content\TileSets\CompoundTileSet.xnb
 Content\Images\InGame\Missile.xnb
 Content\Images\InGame\Pixel.xnb
-Content\Levels\Level1.xnb
-Content\CompoundTileSet.xnb
+Content\TileSets\ConcreteStormTileSet.xnb
+Content\Images\InGame\Tanks.xnb
+Content\Levels\TestLevel.xnb
+Content\ConcreteStormTileSet.xnb
 Content\TanksTileSet.xnb

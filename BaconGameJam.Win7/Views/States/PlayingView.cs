@@ -61,7 +61,12 @@ namespace BaconGameJam.Win7.Views.States
 
         public void Draw(GameTime gameTime)
         {
-            this.spriteBatch.Begin();
+            this.spriteBatch.Begin(
+                SpriteSortMode.Deferred,
+                null,
+                SamplerState.PointClamp,
+                null,
+                null);
             this.levelView.Draw(gameTime, spriteBatch);
             foreach (IRetainedControl doodadView in this.doodadViews)
             {
@@ -73,8 +78,8 @@ namespace BaconGameJam.Win7.Views.States
             if (Constants.Debug)
             {
                 var matrix = Matrix.CreateOrthographicOffCenter(0f,
-                                            800 / Constants.PixelsPerMeter,
-                                            480 / Constants.PixelsPerMeter,
+                                            Constants.ScreenWidth / Constants.PixelsPerMeter,
+                                            Constants.ScreenHeight / Constants.PixelsPerMeter,
                                             0f,
                                             0f,
                                             1f);

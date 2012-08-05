@@ -29,10 +29,9 @@ namespace BaconGameJam.Win7.Views.Doodads
 
         public void LoadContent(ContentManager content)
         {
-            string textureName = string.Format("Images/InGame/{0}Tank", this.tank.Team);
-            this.texture = content.Load<Texture2D>(textureName);
-            this.origin = new Vector2(25, 25);
-            this.source = new Rectangle(0, 0, 50, 50);
+            this.texture = content.Load<Texture2D>("Images/InGame/Tanks");
+            this.origin = new Vector2(16, 16);
+            this.source = new Rectangle(0, 0, 32, 32);
             this.turretView.LoadContent(content);
             this.OnLoad(content);
         }
@@ -43,7 +42,8 @@ namespace BaconGameJam.Win7.Views.Doodads
 
             this.movementTween.IsPaused = !this.tank.IsMoving;
             this.movementTween.Update(gameTime);
-            this.source.X = (int)(50 * this.movementTween.Value);
+            this.source.X = (int)(32 * this.movementTween.Value);
+            this.source.Y = ((int)this.tank.Team + 1) * 32;
 
             spriteBatch.Draw(
                 this.texture,
@@ -52,7 +52,7 @@ namespace BaconGameJam.Win7.Views.Doodads
                 Color.White,
                 this.tank.Rotation,
                 this.origin,
-                1,
+                2,
                 SpriteEffects.None,
                 0);
 

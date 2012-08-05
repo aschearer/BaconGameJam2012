@@ -23,6 +23,9 @@ namespace BaconGameJam.Common.Models.Doodads
             IDoodad doodad;
             switch (doodadPlacement.DoodadType)
             {
+                case DoodadType.Tile:
+                    doodad = new TileDoodad(doodadPlacement.Position, doodadPlacement.Rotation, doodadPlacement.Source);
+                    break;
                 case DoodadType.Tank:
                     if (doodadPlacement.Team == Team.Green)
                     {

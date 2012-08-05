@@ -1,5 +1,6 @@
 using System;
 using BaconGameJam.Common;
+using BaconGameJam.Common.Models.Doodads;
 using BaconGameJam.Common.Models.Levels;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -7,33 +8,33 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace BaconGameJam.Win7.Views.Doodads
 {
-    public class WallView : IRetainedControl
+    public class StaticDoodadView : IRetainedControl
     {
-        private readonly Wall wall;
+        private readonly IStaticDoodad doodad;
         private Texture2D texture;
         private Vector2 origin;
 
-        public WallView(Wall wall)
+        public StaticDoodadView(IStaticDoodad doodad)
         {
-            this.wall = wall;
+            this.doodad = doodad;
         }
 
         public void LoadContent(ContentManager content)
         {
-            this.texture = content.Load<Texture2D>("TileSets/CompoundTileSet");
-            this.origin = new Vector2(20, 20);
+            this.texture = content.Load<Texture2D>("TileSets/ConcreteStormTileSet");
+            this.origin = new Vector2(16, 16);
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(
                 this.texture,
-                wall.Position * Constants.PixelsPerMeter,
-                wall.Source,
+                this.doodad.Position * Constants.PixelsPerMeter,
+                this.doodad.Source,
                 Color.White,
-                wall.Rotation,
+                this.doodad.Rotation,
                 this.origin,
-                1,
+                2,
                 SpriteEffects.None,
                 0);
         }

@@ -1,10 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="16" height="12" tilewidth="32" tileheight="32">
  <tileset firstgid="1" name="ConcreteStorm" tilewidth="32" tileheight="32">
-	 <image source="TileSets/ConcreteStormTileSet.png" width="512" height="512"/>
+  <image source="TileSets/ConcreteStormTileSet.png" width="512" height="512"/>
+  <tile id="5">
+   <properties>
+    <property name="Pit" value=""/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="Pit" value=""/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="Pit" value=""/>
+   </properties>
+  </tile>
+  <tile id="21">
+   <properties>
+    <property name="Pit" value=""/>
+   </properties>
+  </tile>
+  <tile id="37">
+   <properties>
+    <property name="Pit" value=""/>
+   </properties>
+  </tile>
+  <tile id="53">
+   <properties>
+    <property name="Pit" value=""/>
+   </properties>
+  </tile>
+  <tile id="68">
+   <properties>
+    <property name="Empty" value=""/>
+   </properties>
+  </tile>
+  <tile id="69">
+   <properties>
+    <property name="Empty" value=""/>
+   </properties>
+  </tile>
+  <tile id="84">
+   <properties>
+    <property name="Empty" value=""/>
+   </properties>
+  </tile>
+  <tile id="85">
+   <properties>
+    <property name="Empty" value=""/>
+   </properties>
+  </tile>
  </tileset>
  <tileset firstgid="257" name="Tanks" tilewidth="32" tileheight="32">
-	 <image source="TileSets/TanksTileSet.png" width="128" height="32"/>
+  <image source="TileSets/TanksTileSet.png" width="128" height="32"/>
+  <tile id="0">
+   <properties>
+    <property name="Team" value="Red"/>
+    <property name="Type" value="Tank"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="Team" value="Green"/>
+    <property name="Type" value="Tank"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="Team" value="Red"/>
+    <property name="Type" value="Tank"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="main" width="16" height="12">
   <data encoding="base64" compression="zlib">
