@@ -43,7 +43,7 @@ namespace BaconGameJam.Win7.Views.Doodads
             }
             else if (doodad is BlastMark)
             {
-                return new BlastMarkView((BlastMark)doodad);
+                return new BlastMarkView((BlastMark)doodad, this.random);
             }
 
             throw new ArgumentException("No view found for doodad");
