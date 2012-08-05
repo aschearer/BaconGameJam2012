@@ -32,7 +32,7 @@
     <InstallUrl>http://spottedzebra.blob.core.windows.net/bacongamejam/</InstallUrl>
     <ProductName>Bacon Game Jam 2012 Entry</ProductName>
     <PublisherName>Alex Schearer</PublisherName>
-    <ApplicationRevision>5</ApplicationRevision>
+    <ApplicationRevision>6</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -111,6 +111,8 @@
     <Compile Include="ViewModels\States\GameOverViewModel.cs" />
     <Compile Include="ViewModels\States\LevelCompleteViewModel.cs" />
     <Compile Include="ViewModels\States\PlayingViewModel.cs" />
+    <Compile Include="ViewModels\Transitions\ITransition.cs" />
+    <Compile Include="ViewModels\Transitions\SimpleTransitionViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\ButtonView.cs" />
     <Compile Include="Views\ConductorView.cs" />
@@ -148,6 +150,7 @@
     <Compile Include="Views\States\PlayingView.cs" />
     <Compile Include="Views\Doodads\TankView.cs" />
     <Compile Include="Views\Doodads\TurretView.cs" />
+    <Compile Include="Views\Transitions\SimpleTransitionView.cs" />
     <Compile Include="Views\Tweens\Easings\DiscreteEasing.cs" />
     <Compile Include="Views\Tweens\Easings\EasingFunction.cs" />
     <Compile Include="Views\Tweens\Easings\IEasing.cs" />

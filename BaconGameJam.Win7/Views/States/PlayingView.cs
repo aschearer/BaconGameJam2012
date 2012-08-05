@@ -1,5 +1,6 @@
 using BaconGameJam.Common;
 using BaconGameJam.Win7.ViewModels.States;
+using BaconGameJam.Win7.ViewModels.Transitions;
 using BaconGameJam.Win7.Views.Farseer;
 using BaconGameJam.Win7.Views.Levels;
 using BaconGameJam.Win7.Views.Sounds;

@@ -75,13 +75,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Levels\TestLevel.tmx">
-      <Name>TestLevel</Name>
-      <Importer>TmxImporter</Importer>
-      <Processor>LevelProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="TileSets\ConcreteStormTileSet.png">
       <Name>ConcreteStormTileSet</Name>
       <Importer>TextureImporter</Importer>
@@ -119,11 +112,6 @@
   <ItemGroup>
     <Compile Include="Levels\Level2.tmx">
       <Name>Level2</Name>
-      <Importer>TmxImporter</Importer>
-      <Processor>LevelProcessor</Processor>
-    </Compile>
-    <Compile Include="Levels\Level3.tmx">
-      <Name>Level3</Name>
       <Importer>TmxImporter</Importer>
       <Processor>LevelProcessor</Processor>
     </Compile>
@@ -220,6 +208,13 @@
   <ItemGroup>
     <Compile Include="Images\InGame\TreadMarks.png">
       <Name>TreadMarks</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\LevelComplete\Background.png">
+      <Name>Background</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

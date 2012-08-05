@@ -84,22 +84,22 @@
  </tileset>
  <layer name="waypoints" width="16" height="12">
   <data encoding="base64" compression="zlib">
-   eJxjYKAcsDJCMK3UDwWA7h9kPj65wQrwuZ8Wdg1U+gEAfRoAVQ==
+   eJxjYBgcgJURO5tY+VEwsGCoxh8AS1gAMQ==
   </data>
  </layer>
  <layer name="main" width="16" height="12">
   <data encoding="base64" compression="zlib">
-   eJwTYmBgUIRiRyB2grIDoWyQWBAWeRAWAmIlIHaD4kCoWhi/EIiL8MiD9Boh8dFxIhAn4ZE3groBlzy6fegY3f1uUH+BaDYgZodiDjQ5Yt1PCBNyvxAR8ujuF0Mz3wiHHC73q+GxD10Om/vN8OhHl0N3Pyx9EcuHuR+WHmHxTSwfpBcAWvstfg==
+   eJydkdsNgzAMRSMxQaFdAMQCUCYozQKQ/JMNYP+P3ki2dGWh8vg4skl0bF3ycc69bzKCBL43WcB20QnAS7+CVnp/0i9lRgTNH78CT+FFu2upQfxkZmuf7x5ypjsi+XEnf238AgzkZ6+Tyvn9jt/TOw20X3frDs7fHfxHdtVP5Nhqieab85+dweT8E73TVWbwAzx8LrM=
   </data>
  </layer>
  <objectgroup name="tanks" width="16" height="12">
-  <object gid="257" x="447" y="65">
+  <object gid="257" x="307" y="323">
    <properties>
     <property name="WaypointColor" value="Green"/>
    </properties>
   </object>
-  <object gid="258" x="65" y="289"/>
-  <object gid="257" x="447" y="353">
+  <object gid="258" x="57" y="223"/>
+  <object gid="257" x="306" y="95">
    <properties>
     <property name="WaypointColor" value="Green"/>
    </properties>
@@ -107,7 +107,7 @@
  </objectgroup>
  <layer name="shadows" width="16" height="12">
   <data encoding="base64" compression="zlib">
-   eJxjYKAcJANxCgX8YiidChUvQTOfWHlcgFT5Zjz2NTNgAmT9qVjcR0iOkPuw2UmKfnLlcYU3qeYTArjCn1g+JQAA6GkSOQ==
+   eJxjYKAcJANxChkYBooptJ9U/c1k6EfWg66+GIc6ZDFkNfj0Y3NLMZn6Uxkg4VyCJJ4K5RPSD9MLw+h6sOnHZjYxgNL4pwQAANUuFQE=
   </data>
  </layer>
 </map>
