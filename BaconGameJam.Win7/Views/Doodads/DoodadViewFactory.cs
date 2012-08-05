@@ -18,7 +18,7 @@ namespace BaconGameJam.Win7.Views.Doodads
 
         public IRetainedControl CreateViewFor(IDoodad doodad)
         {
-            if (doodad is Wall || doodad is TileDoodad)
+            if (doodad is Wall || doodad is TileDoodad || doodad is Pit)
             {
                 return new StaticDoodadView((IStaticDoodad)doodad);
             }

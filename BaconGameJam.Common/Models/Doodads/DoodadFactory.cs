@@ -43,6 +43,13 @@ namespace BaconGameJam.Common.Models.Doodads
                 case DoodadType.Missile:
                     doodad = new Missile(this.world, this.doodads, doodadPlacement.Team, doodadPlacement.Position, doodadPlacement.Rotation);
                     break;
+                case DoodadType.Pit:
+                    doodad = new Pit(
+                        this.world,
+                        doodadPlacement.Position,
+                        doodadPlacement.Rotation,
+                        doodadPlacement.Source);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

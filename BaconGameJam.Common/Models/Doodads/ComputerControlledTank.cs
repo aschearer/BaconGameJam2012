@@ -41,7 +41,7 @@ namespace BaconGameJam.Common.Models.Doodads
 
             this.sensor = BodyFactory.CreateBody(world, this.Position, this);
 
-            var shape = new CircleShape(4, 0);
+            var shape = new CircleShape(5, 0);
             Fixture sensorFixture = this.sensor.CreateFixture(shape);
             sensorFixture.Friction = 1f;
             sensorFixture.IsSensor = true;
@@ -109,6 +109,11 @@ namespace BaconGameJam.Common.Models.Doodads
             if (this.closestBody == null)
             {
                 // getting started
+                if (fixture.Body.UserData is Pit)
+                {
+                    return 1;
+                }
+
                 this.closestBody = new Tuple<float, IDoodad>(fraction, (IDoodad)fixture.Body.UserData);
                 return 1;
             }

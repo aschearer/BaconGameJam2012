@@ -100,6 +100,10 @@ namespace BaconGameJam.ContentPipeline
                     {
                         doodadType = DoodadType.Tile;
                     }
+                    else if (tileDef.Properties.ContainsKey("Pit"))
+                    {
+                        doodadType = DoodadType.Pit;
+                    }
 
                     DoodadPlacement placement = new DoodadPlacement();
                     placement.DoodadType = doodadType;

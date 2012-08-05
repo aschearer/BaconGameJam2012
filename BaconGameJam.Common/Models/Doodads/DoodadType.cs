@@ -5,6 +5,7 @@ namespace BaconGameJam.Common.Models.Doodads
         Tile,
         Tank,
         Wall,
-        Missile
+        Missile,
+        Pit,
     }
 }

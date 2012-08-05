@@ -8,5 +8,6 @@ namespace BaconGameJam.Common
         public const Category EnemyCategory = Category.Cat2;
         public const Category ObstacleCategory = Category.Cat3;
         public const Category MissileCategory = Category.Cat4;
+        public const Category PitCategory = Category.Cat5;
     }
 }
