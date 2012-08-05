@@ -23,7 +23,7 @@ namespace BaconGameJam.Common.Models.Doodads
             this.body.BodyType = BodyType.Dynamic;
             this.body.FixedRotation = true;
 
-            CircleShape shape = new CircleShape(3 / Constants.PixelsPerMeter, 0);
+            CircleShape shape = new CircleShape(5 / Constants.PixelsPerMeter, 0);
             Fixture fixture = body.CreateFixture(shape);
             fixture.Restitution = 1;
             fixture.Friction = 0;
