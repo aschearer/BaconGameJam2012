@@ -134,6 +134,7 @@
     <Compile Include="BaconGame.cs" />
     <Compile Include="Views\Levels\LevelView.cs" />
     <Compile Include="Views\Sounds\SoundManagerView.cs" />
+    <Compile Include="Views\States\BlastMarkView.cs" />
     <Compile Include="Views\States\GameOverView.cs" />
     <Compile Include="Views\States\PlayingView.cs" />
     <Compile Include="Views\Doodads\TankView.cs" />

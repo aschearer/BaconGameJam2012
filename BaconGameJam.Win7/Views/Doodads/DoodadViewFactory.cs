@@ -2,6 +2,7 @@ using System;
 using BaconGameJam.Common.Models.Doodads;
 using BaconGameJam.Common.Models.Levels;
 using BaconGameJam.Win7.Views.Input;
+using BaconGameJam.Win7.Views.States;
 
 namespace BaconGameJam.Win7.Views.Doodads
 {
@@ -37,6 +38,10 @@ namespace BaconGameJam.Win7.Views.Doodads
             else if (doodad is Waypoint)
             {
                 return new EmptyView();
+            }
+            else if (doodad is BlastMark)
+            {
+                return new BlastMarkView((BlastMark)doodad);
             }
 
             throw new ArgumentException("No view found for doodad");

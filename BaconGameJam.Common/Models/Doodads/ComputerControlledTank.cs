@@ -16,6 +16,7 @@ namespace BaconGameJam.Common.Models.Doodads
         private readonly Dictionary<Type, ITankState> states;
 
         private readonly World world;
+        private readonly Random random;
         private ITankState currentState;
         private ITankState interruptedState;
         private readonly Body sensor;
@@ -35,6 +36,7 @@ namespace BaconGameJam.Common.Models.Doodads
             : base(soundManager, world, doodads, team, position, rotation, doodadFactory)
         {
             this.world = world;
+            this.random = random;
             this.states = new Dictionary<Type, ITankState>();
             this.states.Add(typeof(MovingState), new MovingState(world, this.Body, this, waypoints, random));
             this.states.Add(typeof(AttackingState), new AttackingState(world, this.Body, this));
@@ -45,11 +47,11 @@ namespace BaconGameJam.Common.Models.Doodads
 
             this.sensor = BodyFactory.CreateBody(world, this.Position);
 
-            var shape = new CircleShape(8, 0);
+            var shape = new CircleShape(6, 0);
             Fixture sensorFixture = this.sensor.CreateFixture(shape);
             sensorFixture.Friction = 1f;
             sensorFixture.IsSensor = true;
-            sensorFixture.CollisionCategories = PhysicsConstants.EnemyCategory;
+            sensorFixture.CollisionCategories = PhysicsConstants.SensorCategory;
             sensorFixture.CollidesWith = PhysicsConstants.PlayerCategory | PhysicsConstants.ObstacleCategory |
                                          PhysicsConstants.MissileCategory;
         }
@@ -178,6 +180,8 @@ namespace BaconGameJam.Common.Models.Doodads
                 {
                     Vector2 missileDelta = Vector2.Subtract(missile.Position, this.Position);
                     float theta = (float)Math.Atan2(missileDelta.Y, missileDelta.X);
+                    float noise = MathHelper.PiOver4 / 4;
+                    theta += (float)(noise - this.random.NextDouble() * 2 * noise);
                     this.FireAtTarget(theta);
                 }
             }

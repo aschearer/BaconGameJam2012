@@ -44,7 +44,7 @@ namespace BaconGameJam.Common.Models.Doodads
             shape.SetAsBox(15 / Constants.PixelsPerMeter, 15 / Constants.PixelsPerMeter);
             var fixture = this.body.CreateFixture(shape);
             fixture.CollisionCategories = this.CollisionCategory;
-            fixture.CollidesWith = PhysicsConstants.ObstacleCategory |
+            fixture.CollidesWith = PhysicsConstants.ObstacleCategory | PhysicsConstants.SensorCategory |
                                    PhysicsConstants.MissileCategory | PhysicsConstants.PitCategory;
         }
 
@@ -77,6 +77,20 @@ namespace BaconGameJam.Common.Models.Doodads
         protected virtual Category CollisionCategory
         {
             get { return PhysicsConstants.EnemyCategory; }
+        }
+
+        public void Destroy()
+        {
+            this.doodadFactory.CreateDoodad(new DoodadPlacement() { DoodadType = DoodadType.BlastMark, Position = this.Position });
+
+            if (this is ComputerControlledTank)
+            {
+                this.soundManager.PlaySound("TankDestroyed");
+            }
+            else
+            {
+                this.soundManager.PlaySound("PlayerTankDestroyed");
+            }
         }
 
         public void Update(GameTime gameTime)

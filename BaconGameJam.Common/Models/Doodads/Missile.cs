@@ -17,10 +17,19 @@ namespace BaconGameJam.Common.Models.Doodads
         private readonly Collection<IDoodad> doodads;
         private int obstacleCollisionCtr;
         private TimeSpan elapsedTime;
+        private DoodadFactory doodadFactory;
 
-        public Missile(ISoundManager soundManager, World world, Collection<IDoodad> doodads, Team team, Vector2 position, float rotation)
+        public Missile(
+            ISoundManager soundManager, 
+            World world, 
+            Collection<IDoodad> doodads, 
+            Team team, 
+            Vector2 position, 
+            float rotation, 
+            DoodadFactory doodadFactory)
         {
             this.soundManager = soundManager;
+            this.doodadFactory = doodadFactory;
             this.world = world;
             this.doodads = doodads;
             this.body = BodyFactory.CreateBody(world, position, this);
@@ -33,7 +42,8 @@ namespace BaconGameJam.Common.Models.Doodads
             fixture.Friction = 0;
             fixture.CollisionCategories = PhysicsConstants.MissileCategory;
             fixture.CollidesWith = PhysicsConstants.EnemyCategory | PhysicsConstants.PlayerCategory |
-                                   PhysicsConstants.ObstacleCategory | PhysicsConstants.MissileCategory;
+                                   PhysicsConstants.ObstacleCategory | PhysicsConstants.MissileCategory |
+                                   PhysicsConstants.SensorCategory;
             obstacleCollisionCtr = 0;
 
             Vector2 force = new Vector2((float)Math.Cos(rotation), (float)Math.Sin(rotation)) * 3;
@@ -105,28 +115,31 @@ namespace BaconGameJam.Common.Models.Doodads
                     if (obstacleCollisionCtr >= 2)
                     {
                         RemoveFromGame();
+                        this.LeaveBlastMark();
                     }
                     break;
                 case PhysicsConstants.EnemyCategory:
                 case PhysicsConstants.PlayerCategory:
+                    this.LeaveBlastMark();
                     RemoveFromGame();
                     this.soundManager.PlaySound("MissileBounce");
-                    if (fixture.CollisionCategories == PhysicsConstants.EnemyCategory)
-                    {
-                        this.soundManager.PlaySound("TankDestroyed");
-                    }
-                    else
-                    {
-                        this.soundManager.PlaySound("PlayerTankDestroyed");
-                    }
+                    Tank tank = (Tank)fixture.Body.UserData;
+                    tank.Destroy();
 
                     (fixture.Body.UserData as Tank).RemoveFromGame();
                     break;
                 case PhysicsConstants.MissileCategory:
                     this.soundManager.PlaySound("MissileBounce");
                     this.RemoveFromGame();
+                    this.LeaveBlastMark();
                     break;
             }
+        }
+
+        private void LeaveBlastMark()
+        {
+            var mark = (BlastMark)this.doodadFactory.CreateDoodad(new DoodadPlacement() { DoodadType = DoodadType.BlastMark, Position = this.Position });
+            mark.IsSmall = true;
         }
     }
 }

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using BaconGameJam.Common.Models.Levels;
 using BaconGameJam.Common.Models.Sounds;
 using FarseerPhysics.Dynamics;
 
@@ -69,7 +68,8 @@ namespace BaconGameJam.Common.Models.Doodads
                         this.doodads,
                         doodadPlacement.Team,
                         doodadPlacement.Position,
-                        doodadPlacement.Rotation);
+                        doodadPlacement.Rotation,
+                        this);
                     break;
                 case DoodadType.Pit:
                     doodad = new Pit(
@@ -80,6 +80,9 @@ namespace BaconGameJam.Common.Models.Doodads
                     break;
                 case DoodadType.Waypoint:
                     doodad = new Waypoint(doodadPlacement.Position, doodadPlacement.WaypointColor, this.waypoints);
+                    break;
+                case DoodadType.BlastMark:
+                    doodad = new BlastMark(doodadPlacement.Position, this.random);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

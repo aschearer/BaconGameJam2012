@@ -58,7 +58,7 @@ namespace BaconGameJam.Win7.Views.Sounds
 
             this.backgroundMusic = content.Load<Song>("Sounds/Chimera-Derivation-3");
             MediaPlayer.IsRepeating = true;
-            MediaPlayer.Volume = 0.5f;
+            MediaPlayer.Volume = 0.25f;
         }
 
         private void OnSoundPlayed(object sender, SoundEventArgs e)
