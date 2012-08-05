@@ -90,6 +90,8 @@ namespace BaconGameJam.Common.Models.Doodads
         {
             this.world.RemoveBody(this.body);
             this.doodads.Remove(this);
+            this.OnRemoveFromGame(this.world);
+            this.activeMissiles.Clear();
         }
 
         public bool CanFireMissile(Vector2 target)
@@ -113,6 +115,8 @@ namespace BaconGameJam.Common.Models.Doodads
                             Team = this.Team
                         }));
         }
+
+        protected abstract void OnRemoveFromGame(World world);
 
         protected bool ContainsPoint(Vector2 point)
         {

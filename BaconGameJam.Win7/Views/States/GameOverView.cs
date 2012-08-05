@@ -1,12 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
-using BaconGameJam.Common;
-using BaconGameJam.Common.Models.Doodads;
 using BaconGameJam.Win7.ViewModels.States;
-using BaconGameJam.Win7.Views.Doodads;
 using BaconGameJam.Win7.Views.Farseer;
+using BaconGameJam.Win7.Views.Input;
 using BaconGameJam.Win7.Views.Levels;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -20,36 +15,36 @@ namespace BaconGameJam.Win7.Views.States
         private readonly GameOverViewModel viewModel;
         private readonly SpriteBatch spriteBatch;
         private readonly LevelView levelView;
-        private readonly DebugViewXNA debugView;
+        private readonly IInputManager input;
         private bool isContentLoaded;
 
         Texture2D dummyTexture;
         Rectangle dummyRectangle;
-        SpriteFont Font1;
+        SpriteFont font1;
 
         public GameOverView(
             ContentManager content, 
             GameOverViewModel viewModel,
             SpriteBatch spriteBatch,
             LevelView levelView,
-            DebugViewXNA debugView)
+            IInputManager input)
         {
             this.content = content;
             this.viewModel = viewModel;
             this.spriteBatch = spriteBatch;
             this.levelView = levelView;
-
-            this.debugView = debugView;
+            this.input = input;
         }
 
         public void NavigateTo()
         {
-            this.viewModel.NavigateTo();
             this.LoadContent();
+            this.input.Click += this.OnClick;
         }
 
         public void NavigateFrom()
         {
+            this.input.Click -= this.OnClick;
         }
 
         public void Update(GameTime gameTime)
@@ -62,7 +57,7 @@ namespace BaconGameJam.Win7.Views.States
             spriteBatch.Begin();
             this.levelView.Draw(gameTime, spriteBatch);
             spriteBatch.Draw(dummyTexture, dummyRectangle, Color.Black * 0.5f);
-            spriteBatch.DrawString(Font1, "Game Over", new Vector2(150, 100), Color.White);
+            spriteBatch.DrawString(this.font1, "Game Over", new Vector2(150, 100), Color.White);
             spriteBatch.End();
         }
 
@@ -75,12 +70,16 @@ namespace BaconGameJam.Win7.Views.States
 
             this.isContentLoaded = true;
 
-            this.Font1 = content.Load<SpriteFont>("SpriteFont1");
+            this.font1 = content.Load<SpriteFont>("SpriteFont1");
             this.levelView.LoadContent(content);
 
             this.dummyRectangle = new Rectangle(0, 0, 800, 600);
             this.dummyTexture = content.Load<Texture2D>("Images/InGame/Pixel");
         }
 
+        private void OnClick(object sender, InputEventArgs e)
+        {
+            this.viewModel.NewGameCommand.Execute(null);
+        }
     }
 }

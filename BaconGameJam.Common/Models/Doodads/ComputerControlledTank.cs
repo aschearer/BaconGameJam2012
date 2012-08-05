@@ -56,6 +56,11 @@ namespace BaconGameJam.Common.Models.Doodads
 
         public Tank Target { get; private set; }
 
+        protected override void OnRemoveFromGame(World world)
+        {
+            world.RemoveBody(this.sensor);
+        }
+
         protected override void OnUpdate(GameTime gameTime)
         {
             this.sensor.SetTransform(this.Position, this.Rotation);
@@ -70,7 +75,18 @@ namespace BaconGameJam.Common.Models.Doodads
                 return;
             }
 
+            if (this.currentState is AttackingState &&
+                this.closestBody != null &&
+                !(this.closestBody.Item2 is PlayerControlledTank))
+            {
+                this.Target = null;
+                this.closestBody = null;
+                this.ChangeState(this.states[typeof(MovingState)]);
+            }
+
             this.elapsedTime += gameTime.ElapsedGameTime;
+
+            bool isEnemyInRange = false;
             ContactEdge edge = this.sensor.ContactList;
             while (edge != null)
             {
@@ -81,6 +97,7 @@ namespace BaconGameJam.Common.Models.Doodads
                                         ? edge.Contact.FixtureA
                                         : edge.Contact.FixtureB;
 
+                    isEnemyInRange = true;
                     if (this.elapsedTime.TotalSeconds > 0.1)
                     {
                         this.elapsedTime = TimeSpan.Zero;
@@ -92,6 +109,13 @@ namespace BaconGameJam.Common.Models.Doodads
                 }
 
                 edge = edge.Next;
+            }
+
+            if (!isEnemyInRange && this.currentState is AttackingState)
+            {
+                this.Target = null;
+                this.closestBody = null;
+                this.ChangeState(this.states[typeof(MovingState)]);
             }
 
             this.currentState.Update(gameTime);

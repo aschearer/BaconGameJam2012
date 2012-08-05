@@ -27,6 +27,8 @@ namespace BaconGameJam.Common.Models.Levels
                 doodad.RemoveFromGame();
             }
 
+            this.doodads.Clear();
+
             var doodadPlacements = this.content.Load<IEnumerable<DoodadPlacement>>("Levels/TestLevel");
             foreach (DoodadPlacement doodadPlacement in doodadPlacements)
             {

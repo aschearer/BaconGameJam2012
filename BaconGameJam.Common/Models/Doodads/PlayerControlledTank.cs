@@ -32,6 +32,10 @@ namespace BaconGameJam.Common.Models.Doodads
 
         public ICommand FireMissileCommand { get; private set; }
 
+        protected override void OnRemoveFromGame(World world)
+        {
+        }
+
         protected override void OnUpdate(GameTime gameTime)
         {
             if (this.MovingUp || this.MovingDown)

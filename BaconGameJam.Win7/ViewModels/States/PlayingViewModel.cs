@@ -11,7 +11,6 @@ namespace BaconGameJam.Win7.ViewModels.States
         private readonly Level level;
         private readonly ObservableCollection<IDoodad> doodads;
         private readonly IConductorViewModel conductor;
-        private bool GameOver;
 
         public PlayingViewModel(
             LevelFactory levelFactory, 
@@ -23,7 +22,6 @@ namespace BaconGameJam.Win7.ViewModels.States
             this.level = level;
             this.doodads = doodads;
             this.conductor = conductor;
-            this.GameOver = false;
         }
 
         public ObservableCollection<IDoodad> Tanks
@@ -33,20 +31,15 @@ namespace BaconGameJam.Win7.ViewModels.States
 
         public void NavigateTo()
         {
-            this.GameOver = false;
             this.levelFactory.LoadLevel();
         }
 
         public void Update(GameTime gameTime)
         {
             this.level.Update(gameTime);
-            if (this.level.GameOver)
+            if (this.level.LevelCleared || this.level.LevelLost)
             {
-                if (!this.GameOver)
-                {
-                    this.GameOver = true;
-                    this.conductor.Push(typeof(GameOverViewModel));
-                }
+                this.conductor.Push(typeof(GameOverViewModel));
             }
         }
     }
