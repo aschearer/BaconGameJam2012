@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Linq;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using BaconGameJam.Common.Models.Doodads;
@@ -21,7 +22,8 @@ namespace BaconGameJam.Common.Models.Levels
         public void Update(GameTime gameTime)
         {
             world.Step(Level.WorldStep);
-            foreach (IDoodad doodad in this.doodads)
+            var doodads = this.doodads.ToArray();
+            foreach (IDoodad doodad in doodads)
             {
                 doodad.Update(gameTime);
             }

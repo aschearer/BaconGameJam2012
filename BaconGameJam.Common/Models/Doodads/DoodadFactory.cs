@@ -33,7 +33,7 @@ namespace BaconGameJam.Common.Models.Doodads
                     }
                     else
                     {
-                        doodad = new ComputerControlledTank(this.world, this.doodads, doodadPlacement.Team, doodadPlacement.Position, doodadPlacement.Rotation, this.random);
+                        doodad = new ComputerControlledTank(this.world, this.doodads, doodadPlacement.Team, doodadPlacement.Position, doodadPlacement.Rotation, this.random, this);
                     }
 
                     break;

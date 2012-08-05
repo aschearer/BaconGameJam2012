@@ -19,6 +19,7 @@ namespace BaconGameJam.Common.Models.Doodads
         private readonly Body sensor;
         private Tuple<float, IDoodad> closestBody;
         private TimeSpan elapsedTime;
+        private DoodadFactory doodadFactory;
 
         public ComputerControlledTank(
             World world, 
@@ -26,10 +27,12 @@ namespace BaconGameJam.Common.Models.Doodads
             Team team, 
             Vector2 position, 
             float rotation,
-            Random random)
+            Random random, 
+            DoodadFactory doodadFactory)
             : base(world, doodads, team, position, rotation)
         {
             this.world = world;
+            this.doodadFactory = doodadFactory;
             this.states = new Dictionary<Type, ITankState>();
             this.states.Add(typeof(MovingState), new MovingState(world, this.Body));
             this.states.Add(typeof(AttackingState), new AttackingState(world, this.Body, this));
@@ -53,12 +56,33 @@ namespace BaconGameJam.Common.Models.Doodads
             get { return this.currentState.IsMoving; }
         }
 
+        public Tank Target { get; private set; }
+
+
+        public void FireAtTarget()
+        {
+            Vector2 delta = Vector2.Subtract(this.Target.Position, this.Position);
+            float theta = (float)Math.Atan2(delta.Y, delta.X);
+            this.Heading = theta + MathHelper.PiOver2;
+
+            this.doodadFactory.CreateDoodad(
+                new DoodadPlacement()
+                {
+                    DoodadType = DoodadType.Missile,
+                    Position = this.Position,
+                    Rotation = this.Heading - MathHelper.PiOver2,
+                    Team = this.Team
+                });
+        }
+
         protected override void OnUpdate(GameTime gameTime)
         {
             this.sensor.SetTransform(this.Position, this.Rotation);
 
             if (this.closestBody != null && this.closestBody.Item2 is PlayerControlledTank)
             {
+                this.Target = (Tank)this.closestBody.Item2;
+                this.closestBody = null;
                 this.ChangeState(this.states[typeof(AttackingState)]);
                 return;
             }

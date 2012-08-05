@@ -10,9 +10,13 @@ namespace BaconGameJam.Common.Models.Doodads.Tanks
 
         private readonly World world;
         private readonly Body body;
-        private readonly Tank tank;
+        private readonly ComputerControlledTank tank;
+        private TimeSpan elapsedTime;
 
-        public AttackingState(World world, Body body, Tank tank)
+        public AttackingState(
+            World world, 
+            Body body, 
+            ComputerControlledTank tank)
         {
             this.world = world;
             this.body = body;
@@ -31,7 +35,12 @@ namespace BaconGameJam.Common.Models.Doodads.Tanks
 
         public void Update(GameTime gameTime)
         {
-            
+            this.elapsedTime += gameTime.ElapsedGameTime;
+            if (this.elapsedTime.TotalSeconds > 0.5)
+            {
+                this.elapsedTime = TimeSpan.Zero;
+                this.tank.FireAtTarget();
+            }
         }
     }
 }
