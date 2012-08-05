@@ -93,11 +93,15 @@
   </data>
  </layer>
  <objectgroup name="tanks" width="16" height="12">
-  <object gid="257" x="447" y="65"/>
+  <object gid="257" x="447" y="65">
+   <properties>
+    <property name="WaypointColor" value="Green"/>
+   </properties>
+  </object>
   <object gid="258" x="65" y="289"/>
   <object gid="257" x="447" y="353">
    <properties>
-    <property name="color" value="green"/>
+    <property name="WaypointColor" value="Green"/>
    </properties>
   </object>
  </objectgroup>

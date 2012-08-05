@@ -109,8 +109,10 @@
     <Compile Include="ViewModels\IConductorViewModel.cs" />
     <Compile Include="ViewModels\NavigationEventArgs.cs" />
     <Compile Include="ViewModels\States\GameOverViewModel.cs" />
+    <Compile Include="ViewModels\States\LevelCompleteViewModel.cs" />
     <Compile Include="ViewModels\States\PlayingViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\ButtonView.cs" />
     <Compile Include="Views\ConductorView.cs" />
     <Compile Include="Views\Doodads\TreadMarkView.cs" />
     <Compile Include="Views\Doodads\DoodadViewFactory.cs" />
@@ -142,6 +144,7 @@
     <Compile Include="Views\Sounds\SoundManagerView.cs" />
     <Compile Include="Views\Doodads\BlastMarkView.cs" />
     <Compile Include="Views\States\GameOverView.cs" />
+    <Compile Include="Views\States\LevelCompleteView.cs" />
     <Compile Include="Views\States\PlayingView.cs" />
     <Compile Include="Views\Doodads\TankView.cs" />
     <Compile Include="Views\Doodads\TurretView.cs" />

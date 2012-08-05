@@ -34,13 +34,17 @@ namespace BaconGameJam.Win7.ViewModels.States
 
         public void NavigateTo()
         {
-            this.levelFactory.LoadLevel(this.currentLevel);
+            this.levelFactory.LoadLevel();
         }
 
         public void Update(GameTime gameTime)
         {
             this.level.Update(gameTime);
-            if (this.level.LevelCleared || this.level.LevelLost)
+            if (this.level.LevelCleared)
+            {
+                this.conductor.Push(typeof(LevelCompleteViewModel));
+            }
+            else if (this.level.LevelLost)
             {
                 this.conductor.Push(typeof(GameOverViewModel));
             }

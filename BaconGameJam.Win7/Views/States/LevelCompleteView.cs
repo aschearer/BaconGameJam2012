@@ -8,31 +8,27 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace BaconGameJam.Win7.Views.States
 {
-    public class GameOverView : IScreenView
+    public class LevelCompleteView : IScreenView
     {
         private readonly ContentManager content;
-        private readonly GameOverViewModel viewModel;
+        private readonly LevelCompleteViewModel viewModel;
         private readonly SpriteBatch spriteBatch;
         private readonly LevelView levelView;
         private readonly IInputManager input;
         private bool isContentLoaded;
 
-        Texture2D dummyTexture;
-        Rectangle dummyRectangle;
-        SpriteFont font1;
-
-        public GameOverView(
+        public LevelCompleteView(
             ContentManager content, 
-            GameOverViewModel viewModel,
-            SpriteBatch spriteBatch,
-            LevelView levelView,
+            SpriteBatch spriteBatch, 
+            LevelCompleteViewModel viewModel, 
+            LevelView levelView, 
             IInputManager input)
         {
             this.content = content;
+            this.input = input;
+            this.levelView = levelView;
             this.viewModel = viewModel;
             this.spriteBatch = spriteBatch;
-            this.levelView = levelView;
-            this.input = input;
         }
 
         public void NavigateTo()
@@ -53,11 +49,9 @@ namespace BaconGameJam.Win7.Views.States
 
         public void Draw(GameTime gameTime)
         {
-            spriteBatch.Begin();
+            this.spriteBatch.Begin();
             this.levelView.Draw(gameTime, spriteBatch);
-            spriteBatch.Draw(dummyTexture, dummyRectangle, Color.Black * 0.5f);
-            spriteBatch.DrawString(this.font1, "Game Over", new Vector2(150, 100), Color.White);
-            spriteBatch.End();
+            this.spriteBatch.End();
         }
 
         private void LoadContent()
@@ -68,17 +62,12 @@ namespace BaconGameJam.Win7.Views.States
             }
 
             this.isContentLoaded = true;
-
-            this.font1 = content.Load<SpriteFont>("SpriteFont1");
-            this.levelView.LoadContent(content);
-
-            this.dummyRectangle = new Rectangle(0, 0, 800, 600);
-            this.dummyTexture = content.Load<Texture2D>("Images/InGame/Pixel");
+            this.levelView.LoadContent(this.content);
         }
 
         private void OnClick(object sender, InputEventArgs e)
         {
-            this.viewModel.NewGameCommand.Execute(null);
+            this.viewModel.NextLevelCommand.Execute(null);
         }
     }
 }

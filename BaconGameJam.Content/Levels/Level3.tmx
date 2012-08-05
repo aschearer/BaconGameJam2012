@@ -95,23 +95,23 @@
  <objectgroup name="tanks" width="16" height="12">
   <object gid="257" x="417" y="97">
    <properties>
-    <property name="Color" value="green"/>
+    <property name="WaypointColor" value="green"/>
    </properties>
   </object>
   <object gid="258" x="240" y="211"/>
   <object gid="257" x="65" y="97">
    <properties>
-    <property name="Color" value="green"/>
+    <property name="WaypointColor" value="green"/>
    </properties>
   </object>
   <object gid="257" x="64" y="320">
    <properties>
-    <property name="Color" value="green"/>
+    <property name="WaypointColor" value="green"/>
    </properties>
   </object>
   <object gid="257" x="417" y="322">
    <properties>
-    <property name="Color" value="green"/>
+    <property name="WaypointColor" value="green"/>
    </properties>
   </object>
  </objectgroup>
