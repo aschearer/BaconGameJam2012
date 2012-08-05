@@ -16,10 +16,14 @@ namespace BaconGameJam.Common.Models.Doodads
         private readonly Body body;
         private readonly Collection<IDoodad> doodads;
         private DoodadFactory doodadFactory;
+        public PowerUpType powerUp;
+
+        private TimeSpan timer;
 
         public PowerUp(
             ISoundManager soundManager, 
-            World world, 
+            World world,
+            Random random, 
             Collection<IDoodad> doodads, 
             Vector2 position, 
             DoodadFactory doodadFactory)
@@ -31,6 +35,21 @@ namespace BaconGameJam.Common.Models.Doodads
             this.body = BodyFactory.CreateBody(world, position, this);
             this.body.BodyType = BodyType.Dynamic;
             this.body.FixedRotation = true;
+
+            PowerUpType powerUpType = PowerUpType.None;
+            switch (random.Next(3))
+            {
+                case 0:
+                    powerUpType = PowerUpType.Speed;
+                    break;
+                case 1:
+                    powerUpType = PowerUpType.UnlimitedAmmo;
+                    break;
+                case 2:
+                    powerUpType = PowerUpType.ExtraBounce;
+                    break;
+            }
+            this.powerUp = powerUpType;
 
             CircleShape shape = new CircleShape(5 / Constants.PixelsPerMeter, 0.1f);
             Fixture fixture = body.CreateFixture(shape);
@@ -68,6 +87,13 @@ namespace BaconGameJam.Common.Models.Doodads
 
                 edge = edge.Next;
             }
+
+            this.timer += gameTime.ElapsedGameTime;
+            if (this.timer.TotalSeconds > 15)
+            {
+                this.RemoveFromGame();
+            }
+
         }
 
         public void RemoveFromGame()
@@ -87,7 +113,7 @@ namespace BaconGameJam.Common.Models.Doodads
             {
                 //this.soundManager.PlaySound("PowerUp");
                 PlayerControlledTank tank = (PlayerControlledTank)fixture.Body.UserData;
-                tank.GivePowerUp();
+                tank.GivePowerUp(this.powerUp);
                 this.RemoveFromGame();
             }
         }

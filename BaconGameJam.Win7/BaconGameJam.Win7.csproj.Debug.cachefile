@@ -14,6 +14,10 @@ Content\Images\LevelComplete\NextLevelButton.xnb
 Content\Images\LevelComplete\ShareGameButton.xnb
 Content\Images\GameOver\RestartLevelButton.xnb
 Content\Images\InGame\Waypoint.xnb
+Content\Images\InGame\Powerup.xnb
+Content\Images\InGame\PowerUpa.xnb
+Content\Images\InGame\PowerUpb.xnb
+Content\Images\InGame\PowerUps.xnb
 Content\SpriteFont1.xnb
 Content\Levels\Level1.xnb
 Content\Levels\Level2.xnb

@@ -12,10 +12,12 @@ namespace BaconGameJam.Win7.Views.Doodads
         private readonly PowerUp powerup;
         private Texture2D texture;
         private Vector2 origin;
+        private PowerUpType powerUpType;
 
         public PowerUpView(PowerUp powerup)
         {
             this.powerup = powerup;
+            this.powerUpType = this.powerup.powerUp;
         }
 
         public int Layer
@@ -25,7 +27,14 @@ namespace BaconGameJam.Win7.Views.Doodads
 
         public void LoadContent(ContentManager content)
         {
-            this.texture = content.Load<Texture2D>("Images/InGame/Dust");
+            if (this.powerUpType == PowerUpType.Speed)
+                this.texture = content.Load<Texture2D>("Images/InGame/PowerUps");
+            else if (this.powerUpType == PowerUpType.UnlimitedAmmo)
+                this.texture = content.Load<Texture2D>("Images/InGame/PowerUpa");
+            else if (this.powerUpType == PowerUpType.ExtraBounce)
+                this.texture = content.Load<Texture2D>("Images/InGame/PowerUpb");
+            else
+                this.texture = content.Load<Texture2D>("Images/InGame/Powerup");
             this.origin = new Vector2(this.texture.Width / 2f, this.texture.Height / 2f);
         }
 

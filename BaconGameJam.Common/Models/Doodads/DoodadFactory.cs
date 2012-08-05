@@ -93,6 +93,7 @@ namespace BaconGameJam.Common.Models.Doodads
                     doodad = new PowerUp(
                         this.soundManager,
                         this.world,
+                        this.random, 
                         this.doodads,
                         doodadPlacement.Position,
                         this);

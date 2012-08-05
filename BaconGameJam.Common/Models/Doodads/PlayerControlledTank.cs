@@ -113,23 +113,13 @@ namespace BaconGameJam.Common.Models.Doodads
             this.Heading = theta + MathHelper.PiOver2;
         }
 
-        public void GivePowerUp()
+        public void GivePowerUp(PowerUpType powerup)
         {
             //TODO: tell player which power up they got
             powerUpTime = DateTime.Now;
-            switch (this.random.Next(3))
-            {
-                case 0:
-                    this.powerup = PowerUpType.Speed;
-                    speed = 0.07f;
-                    break;
-                case 1:
-                    this.powerup = PowerUpType.UnlimitedAmmo;
-                    break;
-                case 2:
-                    this.powerup = PowerUpType.ExtraBounce;
-                    break;
-            }
+            this.powerup = powerup;
+            if (this.powerup == PowerUpType.Speed)
+                speed = 0.07f;
         }
     }
 }
