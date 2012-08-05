@@ -32,7 +32,7 @@
     <InstallUrl>http://spottedzebra.blob.core.windows.net/bacongamejam/</InstallUrl>
     <ProductName>Bacon Game Jam 2012 Entry</ProductName>
     <PublisherName>Alex Schearer</PublisherName>
-    <ApplicationRevision>6</ApplicationRevision>
+    <ApplicationRevision>7</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
