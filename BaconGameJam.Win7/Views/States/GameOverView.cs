@@ -60,7 +60,8 @@ namespace BaconGameJam.Win7.Views.States
         public void Draw(GameTime gameTime)
         {
             spriteBatch.Begin();
-            spriteBatch.Draw(dummyTexture, dummyRectangle, Color.Black);
+            this.levelView.Draw(gameTime, spriteBatch);
+            spriteBatch.Draw(dummyTexture, dummyRectangle, Color.Black * 0.5f);
             spriteBatch.DrawString(Font1, "Game Over", new Vector2(150, 100), Color.White);
             spriteBatch.End();
         }
@@ -74,15 +75,11 @@ namespace BaconGameJam.Win7.Views.States
 
             this.isContentLoaded = true;
 
-            Font1 = content.Load<SpriteFont>("SpriteFont1");
+            this.Font1 = content.Load<SpriteFont>("SpriteFont1");
+            this.levelView.LoadContent(content);
 
-            dummyRectangle = new Rectangle(0, 0, 800, 600);
-            dummyTexture = new Texture2D(this.spriteBatch.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
-            Color[] c = new Color[1];
-            c[0] = Color.FromNonPremultiplied(255, 255, 255, 100);
-            dummyTexture.SetData<Color>(c);
-            //dummyTexture.SetData(new Color[] { new Color(0, 0, 0, 100) });
-
+            this.dummyRectangle = new Rectangle(0, 0, 800, 600);
+            this.dummyTexture = content.Load<Texture2D>("Images/InGame/Pixel");
         }
 
     }
