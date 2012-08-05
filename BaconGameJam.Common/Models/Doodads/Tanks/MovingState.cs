@@ -17,6 +17,7 @@ namespace BaconGameJam.Common.Models.Doodads.Tanks
         private TimeSpan elapsedTime;
         private Waypoint targetWaypoint;
         private Waypoint currentWaypoint;
+        private Waypoint previousWaypoint;
         private readonly Random random;
 
         public MovingState(
@@ -63,12 +64,13 @@ namespace BaconGameJam.Common.Models.Doodads.Tanks
             }
             else
             {
+                this.previousWaypoint = this.currentWaypoint;
                 this.currentWaypoint = this.targetWaypoint;
                 this.targetWaypoint = this.GetRandomNeighbor();
 
                 Vector2 delta = Vector2.Subtract(this.targetWaypoint.Position, this.body.Position);
                 float theta = (float)Math.Atan2(delta.Y, delta.X);
-                this.tank.TargetRotation = theta + MathHelper.PiOver2;
+                this.tank.TargetRotation = (theta + MathHelper.PiOver2 + MathHelper.TwoPi) % MathHelper.TwoPi;
 
                 this.StateChanged(this, new StateChangeEventArgs(typeof(TurningState)));
             }
@@ -93,8 +95,8 @@ namespace BaconGameJam.Common.Models.Doodads.Tanks
         {
             List<Waypoint> neighbors = new List<Waypoint>();
             var row = this.waypoints.Where(select).OrderBy(order);
-            var precending = row.TakeWhile(waypoint => !waypoint.Equals(this.currentWaypoint));
-            var following = row.Reverse().TakeWhile(waypoint => !waypoint.Equals(this.currentWaypoint));
+            var precending = row.TakeWhile(waypoint => !waypoint.Equals(this.currentWaypoint) && !waypoint.Equals(this.previousWaypoint));
+            var following = row.Reverse().TakeWhile(waypoint => !waypoint.Equals(this.currentWaypoint) && !waypoint.Equals(this.previousWaypoint));
             if (precending.Any())
             {
                 neighbors.Add(precending.Last());
