@@ -24,5 +24,8 @@ namespace BaconGameJam.Common.Models.Doodads
 
         [DataMember]
         public string WaypointColor { get; set; }
+
+        [DataMember]
+        public int NumberOfBounces { get; set; }
     }
 }

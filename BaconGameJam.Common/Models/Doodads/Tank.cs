@@ -184,7 +184,8 @@ namespace BaconGameJam.Common.Models.Doodads
                             DoodadType = DoodadType.Missile,
                             Position = this.Position + distance,
                             Rotation = this.Heading - MathHelper.PiOver2,
-                            Team = this.Team
+                            Team = this.Team,
+                            NumberOfBounces = this.powerup == PowerUpType.ExtraBounce ? 3 : 2
                         }));
         }
 

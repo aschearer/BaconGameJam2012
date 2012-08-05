@@ -4,6 +4,7 @@ namespace BaconGameJam.Common.Models.Doodads
     {
         None,
         Speed,
-        UnlimitedAmmo
+        UnlimitedAmmo,
+        ExtraBounce
     }
 }

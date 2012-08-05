@@ -18,11 +18,13 @@ namespace BaconGameJam.Common.Models.Doodads
         private int obstacleCollisionCtr;
         private TimeSpan elapsedTime;
         private DoodadFactory doodadFactory;
+        private int numberOfBounces;
 
         public Missile(
             ISoundManager soundManager, 
             World world, 
             Collection<IDoodad> doodads, 
+            int numberOfBounces,
             Team team, 
             Vector2 position, 
             float rotation, 
@@ -32,6 +34,7 @@ namespace BaconGameJam.Common.Models.Doodads
             this.doodadFactory = doodadFactory;
             this.world = world;
             this.doodads = doodads;
+            this.numberOfBounces = numberOfBounces;
             this.body = BodyFactory.CreateBody(world, position, this);
             this.body.BodyType = BodyType.Dynamic;
             this.body.FixedRotation = true;
@@ -112,7 +115,7 @@ namespace BaconGameJam.Common.Models.Doodads
                 case PhysicsConstants.ObstacleCategory:
                     obstacleCollisionCtr++;
                     this.soundManager.PlaySound("MissileBounce");
-                    if (obstacleCollisionCtr >= 2)
+                    if (obstacleCollisionCtr >= this.numberOfBounces)
                     {
                         RemoveFromGame();
                         this.LeaveBlastMark();

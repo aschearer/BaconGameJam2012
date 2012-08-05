@@ -117,7 +117,7 @@ namespace BaconGameJam.Common.Models.Doodads
         {
             //TODO: tell player which power up they got
             powerUpTime = DateTime.Now;
-            switch (this.random.Next(2))
+            switch (this.random.Next(3))
             {
                 case 0:
                     this.powerup = PowerUpType.Speed;
@@ -125,6 +125,9 @@ namespace BaconGameJam.Common.Models.Doodads
                     break;
                 case 1:
                     this.powerup = PowerUpType.UnlimitedAmmo;
+                    break;
+                case 2:
+                    this.powerup = PowerUpType.ExtraBounce;
                     break;
             }
         }
