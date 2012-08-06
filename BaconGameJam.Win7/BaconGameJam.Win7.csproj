@@ -16,8 +16,9 @@
     <XnaProfile>Reach</XnaProfile>
     <XnaCrossPlatformGroupID>0358d160-0133-46bd-a000-447df75af4f8</XnaCrossPlatformGroupID>
     <XnaOutputType>Game</XnaOutputType>
-    <ApplicationIcon>Game.ico</ApplicationIcon>
-    <Thumbnail>GameThumbnail.png</Thumbnail>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
+    <Thumbnail>
+    </Thumbnail>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <PublishUrl>C:\Users\aschearer\Documents\GitHub\BaconGameJam2012.Publish\</PublishUrl>
     <Install>true</Install>
@@ -74,6 +75,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>BaconGameJam.Win7.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FarseerPhysicsXNA">
@@ -167,10 +171,9 @@
     <Compile Include="Views\Tweens\TweenFactory.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="favicon.ico" />
     <Content Include="Game.ico" />
-    <Content Include="GameThumbnail.png">
-      <XnaPlatformSpecific>true</XnaPlatformSpecific>
-    </Content>
+    <Content Include="GameThumbnail.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
