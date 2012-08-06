@@ -25,7 +25,7 @@ namespace BaconGameJam.Win7.Views.Doodads
 
         public void LoadContent(ContentManager content)
         {
-            this.texture = content.Load<Texture2D>("Images/InGame/Missile");
+            this.texture = content.Load<Texture2D>("Images/InGame/Plasma");
             this.origin = new Vector2(this.texture.Width / 2f, this.texture.Height / 2f);
         }
 

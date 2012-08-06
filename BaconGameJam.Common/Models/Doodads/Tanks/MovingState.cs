@@ -54,12 +54,12 @@ namespace BaconGameJam.Common.Models.Doodads.Tanks
         {
             float speed = 0.04f;
             Vector2 distanceToTarget = this.targetWaypoint.Position - this.body.Position;
+
             if (distanceToTarget.Length() > speed)
             {
-                float theta = this.body.Rotation - MathHelper.PiOver2;
-                Vector2 direction = new Vector2((float)Math.Cos(theta), (float)Math.Sin(theta));
-                direction.Normalize();
-                this.body.Position += direction * speed;
+                Vector2 delta = Vector2.Subtract(this.targetWaypoint.Position, this.body.Position);
+                delta.Normalize();
+                this.body.Position += delta * speed;
                 this.body.Awake = true;
             }
             else

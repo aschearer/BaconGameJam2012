@@ -115,7 +115,10 @@ namespace BaconGameJam.Common.Models.Doodads
 
         public void GivePowerUp(PowerUpType powerup)
         {
-            //TODO: tell player which power up they got
+            // reset any settings that might have been affected by previous power ups
+            speed = DEFAULT_SPEED;
+
+            // set time that new power up was aquired
             powerUpTime = DateTime.Now;
             this.powerup = powerup;
             if (this.powerup == PowerUpType.Speed)
