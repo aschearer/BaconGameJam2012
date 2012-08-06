@@ -160,7 +160,7 @@
  </layer>
  <layer name="main" width="16" height="12">
   <data encoding="base64" compression="zlib">
-   eJyNkMENgkAQReGsXgFpALUBe9jtAPvaEgxYgVoBUhV/k5nkZxwCh5cM7LyZvzuURTGCF4gOD6ceyHmDJ/iCsJPsfMSZwA/MG7v5HzucZe9+m1+z6Pxe8PZHc2fOcgDHDU7Gqc3ddC/Xa7my2628WTJ1pLnam927vAnPCOSoH8x5FLcu/98n0IxE37ZP8zfgDFpnh625V/NfwBXc6Nyjld5KerO7AJO3Q5A=
+   eJyNkMsNwjAQRJMz4UpIGuDTAD3YHUBfKQEFCkBABUBVjKVdaTTYwocnbeJ9u2PPbdNcwBXcKpnJuYMzeIJQSXIe5rzAG3xAFE6Ff+xwltr9mt+z+Pyjkdsf5c6cZQG6PyzF6eVuvpfrUq7kbgpvNkkdaa73Jvdgb8IzAjnuBzmP5vbt7/sEmjHRt/Z5/jUYwJjZoTX3ev4t2IE9necYrXdlvcn9AkXHR54=
   </data>
  </layer>
  <objectgroup name="tanks" width="16" height="12">
@@ -208,7 +208,7 @@
  </objectgroup>
  <layer name="shadows" width="16" height="12">
   <data encoding="base64" compression="zlib">
-   eJxjYECACkYGisCofvL0ZQD1ZQJxJZH6s6DqKbV3sOhHBh1UNIsYAAA6egbt
+   eJxjYKAeyGBkYMgkAuMCFXjkiAFDVT8s3CqJ1J+FFo5D1d/YQAcVzSIGAABylgoe
   </data>
  </layer>
 </map>
