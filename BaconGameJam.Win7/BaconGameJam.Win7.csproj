@@ -31,9 +31,11 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>http://spottedzebra.blob.core.windows.net/bacongamejam/</InstallUrl>
-    <ProductName>Bacon Game Jam 2012 Entry</ProductName>
-    <PublisherName>Alex Schearer</PublisherName>
-    <ApplicationRevision>8</ApplicationRevision>
+    <SupportUrl>http://bacongamejam.org/jams/bacongamejam-02/soldier-238/</SupportUrl>
+    <ErrorReportUrl>http://bacongamejam.org/jams/bacongamejam-02/soldier-238/</ErrorReportUrl>
+    <ProductName>Soldier 238</ProductName>
+    <PublisherName>Soldier 238 Team</PublisherName>
+    <ApplicationRevision>9</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
