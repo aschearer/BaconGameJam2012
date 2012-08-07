@@ -23,6 +23,22 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace BaconGameJam.Win7
 {
+    /// <summary>
+    /// This class is responsible for building the object graph for the entire application.
+    /// </summary>
+    /// <remarks>
+    /// The Bootstrapper knows how to build instances of whatever class you register. When
+    /// you ask for an instance of a given class it will look through the registered classes
+    /// for its dependencies and attempt to instantiate them. Thus, asking for the top-level
+    /// class (ConductorView in this case) will instantiate all the classes necessary
+    /// </remarks>
+    /// <remarks>
+    /// When you add a new class you shoul register it with the bootstrapper below. As much
+    /// as possible one class should not instantiate a second class. Instead, when a dependency
+    /// is required you should pass it through as a constructor. As tempting as it may be
+    /// resist referencing the Bootstrapper, ServiceLocator, or SimpleIoC in classes other than
+    /// BaconGame. This will make it easier ot test and extend your application.
+    /// </remarks>
     public class Bootstrapper
     {
         public Bootstrapper(ContentManager content, SpriteBatch spriteBatch)

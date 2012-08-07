@@ -1,4 +1,3 @@
-using System;
 using BaconGameJam.Win7.ViewModels.States;
 using BaconGameJam.Win7.Views.Input;
 using BaconGameJam.Win7.Views.Levels;
@@ -8,18 +7,24 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace BaconGameJam.Win7.Views.States
 {
+    /// <summary>
+    /// Draws the screen when the player has beaten or been defeated a level.
+    /// </summary>
+    /// <remarks>
+    /// Draws the level and an overlay on top of it. Updates the view model
+    /// in order to drive any logic it contains. Sets up buttons to forward
+    /// input through commands ot the model/viewmodel layer.
+    /// </remarks>
     public class LevelCompleteView : IScreenView
     {
         private readonly ContentManager content;
         private readonly LevelCompleteViewModel viewModel;
         private readonly SpriteBatch spriteBatch;
         private readonly LevelView levelView;
-        private readonly IInputManager input;
+        private readonly ButtonView nextLevelButton;
         private bool isContentLoaded;
         private Rectangle overlayBounds;
         private Texture2D overlay;
-        private ButtonView nextLevelButton;
-
 
         public LevelCompleteView(
             ContentManager content, 
@@ -29,7 +34,6 @@ namespace BaconGameJam.Win7.Views.States
             IInputManager input)
         {
             this.content = content;
-            this.input = input;
             this.levelView = levelView;
             this.viewModel = viewModel;
             this.spriteBatch = spriteBatch;

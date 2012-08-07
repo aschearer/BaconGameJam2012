@@ -9,12 +9,20 @@ using InputEventArgs = BaconGameJam.Win7.Views.Input.InputEventArgs;
 
 namespace BaconGameJam.Win7.Views
 {
+    /// <summary>
+    /// A simple button which can be clicked.
+    /// </summary>
+    /// <remarks>
+    /// The button will animate in response to being clicked. When clicked
+    /// the provided Command is executed. In order to build more complex
+    /// buttons simply extend this class and override as necessary.
+    /// </remarks>
     public class ButtonView
     {
         private readonly IInputManager inputManager;
 
         private readonly ITween scaleTween;
-        protected readonly string textureName;
+        private readonly string textureName;
         private readonly Vector2 position;
         private Rectangle bounds;
         private Texture2D texture;

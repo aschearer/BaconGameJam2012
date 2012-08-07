@@ -12,11 +12,15 @@ using Microsoft.Xna.Framework.Input;
 namespace BaconGameJam.Win7
 {
     /// <summary>
-    /// This is the main type for your game
+    /// The starting point for the game. To get the game running this game:
+    ///   1. Creates the Bootstrapper -- a factory to build the game's object graph
+    ///   2. Acquires an instance of the ConductorView -- the top level view in the game
+    ///   3. Manage cross cutting concerns such as input and sound
     /// </summary>
+    /// <remarks>
     public class BaconGame : Game
     {
-        private GraphicsDeviceManager graphics;
+        private readonly GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private ConductorView conductorView;
         private MouseInputManager inputManager;

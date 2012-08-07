@@ -134,7 +134,6 @@
     <Compile Include="Views\Farseer\DebugView.cs" />
     <Compile Include="Views\Farseer\DebugViewXNA.cs" />
     <Compile Include="Views\Farseer\PrimitiveBatch.cs" />
-    <Compile Include="Views\IControl.cs" />
     <Compile Include="Views\Input\IKeyboardInputManager.cs" />
     <Compile Include="Views\Input\KeyboardInputManager.cs" />
     <Compile Include="Views\Input\KeyboardEventArgs.cs" />

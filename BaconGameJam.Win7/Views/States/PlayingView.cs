@@ -1,6 +1,5 @@
 using BaconGameJam.Common;
 using BaconGameJam.Win7.ViewModels.States;
-using BaconGameJam.Win7.ViewModels.Transitions;
 using BaconGameJam.Win7.Views.Farseer;
 using BaconGameJam.Win7.Views.Levels;
 using BaconGameJam.Win7.Views.Sounds;
@@ -10,6 +9,13 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace BaconGameJam.Win7.Views.States
 {
+    /// <summary>
+    /// Draws the screen for the PlayingViewModel.
+    /// </summary>
+    /// <remarks>
+    /// Composes the various game elements in order to draw the game activity.
+    /// Also updates the PlayingViewModel in order to drive the game logic forward.
+    /// </remarks>
     public class PlayingView : IScreenView
     {
         private readonly ContentManager content;

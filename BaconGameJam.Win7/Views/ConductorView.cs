@@ -6,6 +6,22 @@ using Microsoft.Xna.Framework;
 
 namespace BaconGameJam.Win7.Views
 {
+    /// <summary>
+    /// Responsible for managing the various visual game states. Drives the 
+    /// game's logic through it's Draw and Update methods.
+    /// </summary>
+    /// <remarks>
+    /// This class organizes the visual states in the game. Each state is mutually 
+    /// exclusive, so you cannot be in both the "Playing" state and the "Game Over"
+    /// state. (To change this simply change how the list of active views are drawn
+    /// and updated.)
+    /// </remarks>
+    /// <remarks>
+    /// This class builds it's list of active views by listening for navigation
+    /// events from the ConductorViewModel. Whenever the view model changes state
+    /// the ConductorView tries to find the corresponding view and add it to the
+    /// stack of active views.
+    /// </remarks>
     class ConductorView
     {
         private readonly IConductorViewModel viewModel;
